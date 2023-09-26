@@ -1,0 +1,89 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}<title></title>{% endblock %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,400;1,600;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link href='https://unpkg.com/css.gg@2.0.0/icons/css/heart.css' rel='stylesheet'>
+</head>
+<body>
+    <header>
+        <div class="upper-header">
+            <ul class="header-ul">
+            <li class="upper-li"><span class="material-symbols-outlined">
+                captive_portal
+                </span>
+                <a href="#" class="upper-header-link">укажите регион доставки</a></li>
+            <div class="header-ul-right">
+                <li><a href="#" class="upper-header-link">подлинные товары</a></li>
+                <li><a href="#" class="upper-header-link">доставка с примеркой</a></li>
+                <li><a href="#"class="upper-header-link">платите когда хотите</a></li>
+            </div>
+            </ul>
+        </div>
+        <div class="center-header">
+            <div class="center-header-ul-left center-header">
+                <li><a href="#" class="center-header-link">Дрейнирам</a></li>
+                <li><a href="#" class="center-header-link">Дед инсайдам</a></li>
+                <li><a href="#" class="center-header-link">Е-герлам</a></li>
+             </div>
+            <div class="center-header-ul-center center-header">
+                <li><a href="#" class="center-header-link">Cringe</a></li>
+            </div>
+            <div class="center-header-ul-right center-header">
+                <li><a href="#" class="center-header-link">Войти</a></li>
+                <li><a href="#" class="center-header-link">Корзина</a></li>
+            </div>
+        </div>
+        <div class="lower-header">
+            <div class="lower-header-ul-left lower-header">
+                <li><a href="#"class="lower-header-link">Новинки</a></li>
+                <li><a href="#"class="lower-header-link">Одежда</a></li>
+                <li><a href="#"class="lower-header-link">Сумки</a></li>
+                <li><a href="#"class="lower-header-link">Скидки</a></li>
+                <li><a href="#"class="lower-header-link">Обувь</a></li>
+                <li><a href="#"class="lower-header-link">Аксессуары</a></li>
+                <li><a href="#"class="lower-header-link">Бренды</a></li>
+            </div>
+         <div class="lower-header-ul-right lower-header">
+                <li><a href="#" class="lower-header-link">Поиск</a></li>
+            </div>
+        </div>
+    </header>
+    {% block content %}
+    {% endblock %}
+    <div class="Wapper-end">
+        <div class="Wapper-text">
+        <h3>Скидка 10% за подписку
+        за новинки и акции
+        </h3>
+        </div>
+            <div class="Wapper-text">
+                <h3>Помощь</h3>
+                <h3>Статус заказа по номеру</h3>
+                <h3>Мои заказы</h3>
+                <h3>Условия доставки</h3>
+                <h3>Возраст</h3>
+                <h3>Как оформить заказ</h3>
+                <h3>Как выбрать размер</h3>
+                <h3>Центр поддержки</h3>
+                <h3>Cringe</h3>
+            </div>
+            <div class="Wapper-text">
+            <h3>О нас</h3>
+            <h3>Публичная оферта</h3>
+            <h3>Вакансии</h3>
+        </div>
+    </div>
+
+
+</body>
+</html>
