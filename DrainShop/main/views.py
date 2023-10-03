@@ -8,3 +8,6 @@ def index(request):
 
 def order(requests):
     return render(requests, 'main/order.html')
+
+def payment(request):
+    return render(request, 'main/payment.html')
