@@ -363,7 +363,21 @@ h5{
 
 .border{
   width: 100%;
-  height: 100px;
+  height: 400px;
   background-color: black;
   
+  
+}
+.border-text{
+  color:white;
+}
+.border-img{
+  width: 100px;
+  padding: 200px;
+  transform: rotate(-7deg);
+}
+.payment-link{
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
 }
