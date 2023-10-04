@@ -38,45 +38,10 @@
 </div>
 
 <div class="swapper">
+    {% for cat in cats %}
     <div class="swapper-text">
-        <img src="img/hudii.jpg" alt="Худи " class="swapper-img">
-        <h6>Худи</h6>
-    </div>
-    <div class="swapper-text">
-        <img src="img/Djersi.jpg" alt="Джерси" class="swapper-img">
-        <h6>Джерси</h6>
-    </div>
-    <div class="swapper-text">
-        <img src="img/longsleave.jpg" alt="Лонгсливы" class="swapper-img">
-        <h6>Лонгслив</h6>
-    </div>
-    <div class="swapper-text">
-        <img src="img/footboll.jpg" alt="Футболки" class="swapper-img">
-        <h6>Футболки</h6>
-    </div>
-    <div class="swapper-text">
-        <img src="img/shtani1.png" alt="Штаны" class="swapper-img">
-        <h6>Штаны</h6>
-    </div>
-    <div class="swapper-text">
-        <img src="img/ybkawebp.webp" alt="Юбки" class="swapper-img">
-        <h6>Юбки</h6>
-    </div>
-    <div class="swapper-text">
-        <img src="img/cedi.jpg" alt="Кеды" class="swapper-img">
-        <h6>Кеды</h6>
-    </div>
-    <div class="swapper-text">
-        <img src="img/remen.jpeg" alt="Ремни" class="swapper-img">
-        <h6>Ремни</h6>
-    </div>
-    <div class="swapper-text">
-        <img src="img/nike.jpg" alt="Кроссвоки" class="swapper-img">
-        <h6>Кроссовки</h6>
-    </div>
-    <div class="swapper-text">
-        <img src="img/carhart.webp" alt="Сумки" class="swapper-img">
-        <h6>Сумки</h6>
+        <img src="{{ cat.image.url }}" alt="Худи " class="swapper-img">
+        <h6>{{ cat.name }}</h6>
     </div>
 </div>
 
