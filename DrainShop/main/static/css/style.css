@@ -20,7 +20,7 @@ font-size: 1488px;
   align-items: center;
   padding: 0 8%;
   display: flex;
-  font-family: 'Montserrat', sans-serif;
+   
 }
 .upper-header-link {
 color: white;
@@ -287,6 +287,7 @@ h5{
   justify-content: start;
   flex-wrap: wrap;
 }
+
 .Wapper-end{
   width: 100%;
   height: 300px;
@@ -298,7 +299,6 @@ h5{
   align-items: start;
   padding: 0 8%;
   display: flex;
-  font-family: 'Montserrat', sans-serif;
 }
 .Wapper-text{
   display: flex;
@@ -313,7 +313,6 @@ h5{
   flex-direction: column;
 }
 .Box{
-  font-family: 'Montserrat', sans-serif;
   flex-direction: column;
   box-sizing: border-box;
   box-shadow: inset 0px 0px 6px 0px rgba(0, 0, 0, 0.505);
@@ -325,32 +324,20 @@ h5{
   align-items:start;
   margin-left:1000px;
   margin-top:-250px;
-  
 }
 .Box-text1{
-  font-family: 'Montserrat', sans-serif;
   flex-direction: column;
   margin-left:30px;
-  
-  
-  
 }
 .Box-text2{
-  font-family: 'Montserrat', sans-serif;
+   
   flex-direction: column;
   margin-left:5px;
   margin-top: 20px;
-  
-  
 }
 .Box-text3{
-  font-family: 'Montserrat', sans-serif;
   margin-left:5px;
   margin-top: 20px;
-
-
-  
-  
 }
 
 .Box-Prices{
@@ -358,7 +345,6 @@ h5{
   justify-content:flex-start;
   align-items: start;
   flex-direction: row;
-  font-family: 'Montserrat', sans-serif;
 }
 
 .border{
@@ -380,7 +366,7 @@ h5{
   width: 300px;
   height: 150px;
   margin-left: 50px;
-  font-family: 'Montserrat', sans-serif;
+   
   
 }
 .pselection{
@@ -390,9 +376,8 @@ h5{
   
 }
 .pselection-text{
-  font-family: 'Montserrat', sans-serif;
+   
   flex-direction: column;
-  
 
 }
 .material-symbols-outlined{
