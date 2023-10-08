@@ -5,7 +5,11 @@ from .models import Category
 
 
 def index(request):
-    return render(request, 'main/index.html')
+    cats = Category.objects.all()
+    context = {
+        'cats':cats
+    }
+    return render(request, 'main/index.html', context=context)
 
 
 def order(requests):
