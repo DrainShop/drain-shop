@@ -49,94 +49,19 @@
 
 <div class="desktop">
     <h3>Популярное</h3>
-
+    {% for item in items %}
     <div class="desktop-items">
         <div class="Pants-girl">
             <i class="gg-heart"></i>
-            <img src="img/Djersi.jpg" alt="Джерси" class="Djersi-img">
+            <img src="{{ item.image.url }}" alt="Джерси" class="Djersi-img">
 
             <div class="h2-text">
-                <h2>12990 ₸</h2>
+                <h2>{{ item.price }}₸</h2>
                 <h2>Cringe</h2>
-                <h2>Jersey cerber</h2>
+                <h2>{{ item.name }}</h2>
             </div>
         </div>
-        <div class="Pants-girl">
-            <i class="gg-heart"></i>
-            <img src="img/pants girl.jpg" alt="Штаны" class="Pants-girl-img">
-
-            <div class="h2-text">
-                <h2>13499 ₸</h2>
-                <h2>Cringe</h2>
-                <h2>Pants girls</h2>
-            </div>
-
-        </div>
-        <div class="Pants-girl">
-            <i class="gg-heart"></i>
-            <img src="img/biglongsleeve.jpg" alt="Лонг слив" class="Pants-girl-img">
-
-            <div class="h2-text">
-                <h2>11590 ₸</h2>
-                <h2>Cringe</h2>
-                <h2>biglongsleeve</h2>
-            </div>
-
-        </div>
-        <div class="Pants-girl">
-            <i class="gg-heart"></i>
-            <img src="img/biglongsleeve2.jpg" alt="Лонг слив" class="Pants-girl-img">
-
-            <div class="h2-text">
-                <h2>11590 ₸</h2>
-                <h2>Cringe</h2>
-                <h2>biglongsleeve</h2>
-            </div>
-
-        </div>
-        <div class="Pants-girl">
-            <i class="gg-heart"></i>
-            <img src="img/T-shirts.jpg" alt="футболка" class="Pants-girl-img">
-
-            <div class="h2-text">
-                <h2>8890 ₸</h2>
-                <h2>Cringe</h2>
-                <h2>T-shirts</h2>
-            </div>
-
-        </div>
-        <div class="Pants-girl">
-            <i class="gg-heart"></i>
-            <img src="img/shtani.jpg" alt="Штаны" class="Pants-girl-img">
-
-            <div class="h2-text">
-                <h2>13499 ₸</h2>
-                <h2>Cringe</h2>
-                <h2>Pants boy</h2>
-            </div>
-
-        </div>
-        <div class="Pants-girl">
-            <i class="gg-heart"></i>
-            <img src="img/nike2.jpg" alt="Кроссовки" class="Pants-girl-img">
-
-            <div class="h2-text">
-                <h2>21490 ₸</h2>
-                <h2>Cringe</h2>
-                <h2>Sneakers girl</h2>
-            </div>
-
-        </div>
-        <div class="Pants-girl">
-            <i class="gg-heart"></i>
-            <img src="img/Cap.jpg" alt="Штаны" class="Pants-girl-img">
-
-            <div class="h2-text">
-                <h2>6789 ₸</h2>
-                <h2>Cringe</h2>
-                <h2>Cap</h2>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
 

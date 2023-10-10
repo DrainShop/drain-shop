@@ -1,15 +1,18 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import CategoryForm
-from .models import Category
+from .models import Category, Item
 
 
 def index(request):
     cats = Category.objects.all()
+    items = Item.objects.all()
     context = {
-        'cats':cats
+        'cats':cats,
+        'items': items
     }
     return render(request, 'main/index.html', context=context)
+
 
 
 def order(requests):
