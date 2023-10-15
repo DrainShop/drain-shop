@@ -27,7 +27,9 @@
 <header>
     <div class="upper-header">
         <ul class="header-ul">
-            <li class="upper-li"><span class="material-symbols-outlined"> </span>
+            <li class="upper-li"><span class="material-symbols-outlined">
+                captive_portal
+                </span>
                 <a href="#" class="upper-header-link">укажите регион доставки</a></li>
             <div class="header-ul-right">
                 <li><a href="#" class="upper-header-link">подлинные товары</a></li>
@@ -36,53 +38,58 @@
             </div>
         </ul>
     </div>
-    <div class="center-header">
-        <div class="center-header-ul-left center-header">
-            <li><a href="#" class="center-header-link">Дрейнирам</a></li>
-            <li><a href="#" class="center-header-link">Дед инсайдам</a></li>
-            <li><a href="#" class="center-header-link">Е-герлам</a></li>
+
+    <div class="center-header cont">
+        <div class="center-header-ul-left">
+            <a href="#" class="center-header-link">Дрейнирам</a>
+            <a href="#" class="center-header-link">Дед инсайдам</a>
+            <a href="#" class="center-header-link">Е-герлам</a>
         </div>
-        <div class="center-header-ul-center center-header">
-            <li><a href="{% url 'home' %}" class="center-header-link">Cringe</a></li>
+        <div class="center-header-ul-center">
+            <a href="{% url 'home' %}" class="center-header-link brand">Cringe</a>
         </div>
-        <div class="center-header-ul-right center-header">
-            <li><a href="#" class="center-header-link">Войти</a></li>
-            <li><a href="{% url 'order' %}" class="center-header-link">Корзина</a></li>
+        <div class="center-header-ul-right">
+            <a href="#" class="center-header-link">Войти</a>
+            <a href="{% url 'order' %}" class="center-header-link">Корзина</a>
         </div>
     </div>
-    <div class="lower-header">
-        <div class="lower-header-ul-left lower-header">
-            <li><a href="#" class="lower-header-link">Новинки</a></li>
-            <li><a href="#" class="lower-header-link">Одежда</a></li>
-            <li><a href="#" class="lower-header-link">Сумки</a></li>
-            <li><a href="#" class="lower-header-link">Скидки</a></li>
-            <li><a href="#" class="lower-header-link">Обувь</a></li>
-            <li><a href="#" class="lower-header-link">Аксессуары</a></li>
-            <li><a href="#" class="lower-header-link">Бренды</a></li>
+    <div class="lower-header cont">
+        <div class="lower-header-ul-left">
+            <a href="#" class="lower-header-link">Новинки</a>
+            <a href="#" class="lower-header-link">Одежда</a>
+            <a href="#" class="lower-header-link">Сумки</a>
+            <a href="#" class="lower-header-link">Скидки</a>
+            <a href="#" class="lower-header-link">Обувь</a>
+            <a href="#" class="lower-header-link">Аксессуары</a>
+            <a href="#" class="lower-header-link">Бренды</a>
         </div>
-        <div class="lower-header-ul-right lower-header">
-            <li><a href="#" class="lower-header-link">Поиск</a></li>
+        <div class="lower-header-ul-right">
+            <a href="#" class="lower-header-link">Поиск</a>
         </div>
     </div>
 </header>
+<div class="cont">
+    
 {% block content %}
 {% endblock %}
-<div class="Wapper-end">
+</div>
+
+<div class="Wapper-end cont">
     <div class="Wapper-text">
         <h3>Скидка 10% за подписку
             за новинки и акции
         </h3>
     </div>
     <div class="Wapper-text">
-        <h3>Помощь</h3>
-        <h3>Статус заказа по номеру</h3>
-        <h3>Мои заказы</h3>
-        <h3>Условия доставки</h3>
-        <h3>Возраст</h3>
-        <h3>Как оформить заказ</h3>
-        <h3>Как выбрать размер</h3>
-        <h3>Центр поддержки</h3>
-        <h3>Cringe</h3>
+        <p>Помощь</p>
+        <p>Статус заказа по номеру</p>
+        <p>Мои заказы</p>
+        <p>Условия доставки</p>
+        <p>Возраст</p>
+        <p>Как оформить заказ</p>
+        <p>Как выбрать размер</p>
+        <p>Центр поддержки</p>
+        <p>Cringe</p>
     </div>
     <div class="Wapper-text">
         <h3>О нас</h3>
