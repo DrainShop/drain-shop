@@ -20,12 +20,19 @@
 .upper-header-link, .upper-header-link:visited,  .upper-header-link:active{
 color: white;
 }
+.upper-header-link{
+  margin-right: 15px;
+}
 
 .header-ul{
   display: flex;
   justify-content:space-between;
   width: 100%;
   align-items:center;
+}
+.upper-header-ul-right{
+  display:flex;
+  
 }
 
 .upper-header-right>a{
@@ -46,8 +53,8 @@ align-items: center;
 .brand{
   font-size: 45px;
 }
-
 .center-header-link{
+margin-right: 15px;
 color: black;
 }
 .center-header-link:visited {
@@ -58,6 +65,12 @@ color: black;
 }
 .center-header-link:visited {
 color: black;
+}
+.center-header-link:hover{
+  margin-right: 15px;
+  background-color: black;
+  color: white;
+
 }
 
 .center-header-ul-left{
@@ -164,11 +177,12 @@ h5{
   background-color: black;
   justify-content: center;
   align-items: center;
+  padding:5px;
 }
 .swapper-img{
-  width: 150px;
-  height: 150px;
-  border-radius: 60%;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
   margin-left: 5px;
   margin-right: 5px;
 }
@@ -193,23 +207,24 @@ h5{
   width: 150px;
   height: 150px;
 }
-.gg-heart,
-.gg-heart::after {
- border: 2px solid;
- border-top-left-radius: 100px;
- border-top-right-radius: 100px;
- margin-left:100px;
- width: 10px;
- height: 8px;
- border-bottom: 0
 
-}
-
-.heart{
-  width: 20px;
-  height: 15px;
+.heart {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  right: 0;
+  
   
 }
+.heart :hover{
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  right: 0;
+  color: red;
+  
+}
+
 
 .Pants-girl-img{
   width: 150px;
@@ -220,6 +235,7 @@ h5{
   border: 1px solid black;
   padding: 2px;
   margin: 12px;
+  position: relative;
 }
 
 .desktop-items{
@@ -329,4 +345,9 @@ h5{
 .Icons-card{
 width: 45px;
 height: 45px;
+}
+.Icons-header{
+  margin: -1px;
+  width: 15px;
+  height: 15px;
 }
