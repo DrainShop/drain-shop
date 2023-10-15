@@ -8,7 +8,7 @@
 - Активировать виртуальное окружение ```venv/Scripts/activate```
 - Установить зависимости ```pip install -r requirements.txt```
 - Выбрать папку с проектом ```cd DrainShop```
-- Запустить сервер ```py -m manage runserver```
+- Запустить сервер ````py -m manage runserver``
 
 ---
 
