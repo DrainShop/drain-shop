@@ -8,10 +8,24 @@ def index(request):
     cats = Category.objects.all()
     items = Item.objects.all()
     context = {
-        'cats':cats,
+        'cats': cats,
         'items': items
     }
     return render(request, 'main/index.html', context=context)
+
+def show_item(request, item_id):
+    item = Item.objects.get(id=item_id)
+    context = {
+        "item": item
+    }
+    return render(request, 'item.html', context=context)
+
+def item_info(request):
+    items = Item.objects.all()
+    context = {
+        "items": items
+    }
+    return render(request, "item.html", context=context)
 
 
 
