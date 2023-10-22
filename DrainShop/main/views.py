@@ -13,19 +13,42 @@ def index(request):
     }
     return render(request, 'main/index.html', context=context)
 
+
+
+
+
 def show_item(request, item_id):
     item = Item.objects.get(id=item_id)
     context = {
         "item": item
     }
-    return render(request, 'item.html', context=context)
+    return render(request, 'main/item.html', context=context)
 
 def item_info(request):
     items = Item.objects.all()
     context = {
         "items": items
     }
-    return render(request, "item.html", context=context)
+    return render(request, "main/item.html", context=context)
+
+
+
+
+
+def show_category(request, category_id):
+    cat = Category.objects.get(id=category_id)
+    context = {
+        "cat": cat
+    }
+    return render(request, 'main/category.html', context=context)
+
+def category_info(request):
+    cats = Category.objects.all()
+    context = {
+        "cats": cats
+    }
+    return render(request, "main/category.html", context=context)
+
 
 
 
@@ -35,15 +58,3 @@ def order(requests):
 def payment(request):
     return render(request, 'main/payment.html')
 
-# def add_category(request):
-#     if request.method == "POST":
-#         form = CategoryForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             form.save()
-#     else:
-#         form = CategoryForm()
-#     return render(request, 'main/add_category.html', {'form': form})
-#
-# def show_categories(request):
-#     cats = Category.objects.all()
-#     return render(request, 'main/add_category.html', context={'cats': cats})
