@@ -351,3 +351,40 @@ height: 45px;
   width: 15px;
   height: 15px;
 }
+
+.text-input{
+  padding: 4px;
+  border: 2px solid white;
+  border-bottom: 2px solid black;
+  width: 150px;
+}
+.text-input:focus{
+  outline: none;
+}
+.form-item{
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+
+.radio-input{
+  margin: 2px;
+  width: 100px;
+  height: 20px;
+  border: 2px solid black;
+  border-radius: 20px;
+}
+.i{
+  margin-top: 3.5px;
+}
+.i:focus{
+  color: black;
+}
+
+.i:checked{
+  background-color: black;
+}
+.text-delivery1{
+  background-color:rgb(248, 181, 181);
+  
+}

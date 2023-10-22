@@ -1,0 +1,41 @@
+{% extends 'main/base.html' %}
+
+{% block title %}<title>Способ Доставки | DrainShop Cringe</title>{% endblock %}
+
+{% block content %}
+<h1 class="text-delivery1">Обратите внимание: для получения товаров почтой имя и фамилия должны совпадать с данными</h1>
+
+<form action="">
+    <div class="form-item">
+        <label for="city">Населенный пункт</label>
+        <input class="text-input" type="text" name="city">
+    </div>
+    <div>
+        <div class="radio-input">
+            <input class="i" type="radio" name="courier" id="1" value="courier">
+            <label for="courier">Курьер</label>
+        </div>
+        
+        <div class="radio-input">
+            <input class="i" type="radio" name="post" id="2" value="post">
+            <label for="post">Почта</label>
+        </div>
+    </div>
+    <div class="form-item">
+        <input class="text-input" type="text" name="city" placeholder="Улица">
+        <input class="text-input" type="text" name="city" placeholder="Дом">
+        <input class="text-input" type="text" name="city" placeholder="Квартира">
+    </div>
+
+</form>
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
