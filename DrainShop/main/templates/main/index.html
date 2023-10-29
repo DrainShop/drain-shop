@@ -41,7 +41,7 @@
     {% for cat in cats %}
     <div class="swapper-text">
         <a href="{% url 'cat' cat.id %}"><img src="{{ cat.image.url }}" alt="Худи " class="swapper-img"></a>
-        <h6><a href="{% url 'cat' cat.id %}"> {{ cat.name }} </a></h6>
+        <h6><a href="{% url 'cat' cat.id %}" class="text-swapper"> {{ cat.name }} </a></h6>
     </div>
     {% endfor %}
 </div>
@@ -62,7 +62,7 @@
             <div class="h2-text">
                 <h2>{{ item.price }}₸</h2>
                 <h2>Cringe</h2>
-                <h2><a href="{% url 'item' item.id %}"> {{ item.name }} </a></h2>
+                <a class="item-link"    href="{% url 'item' item.id %}"> {{ item.name }} </a>
             </div>
         </div>
         {% endfor %}

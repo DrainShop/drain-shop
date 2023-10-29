@@ -30,7 +30,8 @@ def item_info(request):
         "items": items
     }
     return render(request, "main/item.html", context=context)
-
+def delivery(request):
+    return render(request, "main/delivery.html")
 
 
 
