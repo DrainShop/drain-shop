@@ -7,6 +7,19 @@
 <body>
     {{ item.name }}
     {{ item.price }}
-    {{ item.image.url }}
+    <img src="{{ item.image.url }}" alt="" width="150">
+
+    <hr>
+    {% for comments in comment %}
+        {{ comment.name }}
+        {{ comment.text }}
+        <hr>
+
+    <p>Оставь коммент включи коллокольчик подпишись</p>
+    <form method="POST" action="{% url 'item' item.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="send">
+    </form>
 </body>
 </html>
