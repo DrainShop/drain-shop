@@ -21,8 +21,10 @@ def show_item(request, item_id):
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
-            comment = Comment(name="qqq", text="bbb", item_id=item_id)
+            comment = Comment(name=request.POST["name"], text=request.POST["text"], item_id=item_id)
             comment.save()
+        else:
+            print("no POST")
 
 
     item = Item.objects.get(id=item_id)
@@ -41,9 +43,6 @@ def item_info(request):
         "items": items
     }
     return render(request, "main/item.html", context=context)
-def delivery(request):
-    return render(request, "main/delivery.html")
-
 
 
 
@@ -69,4 +68,7 @@ def order(requests):
 
 def payment(request):
     return render(request, 'main/payment.html')
+
+def delivery(request):
+    return render(request, "main/delivery.html")
 

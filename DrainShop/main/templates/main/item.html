@@ -10,13 +10,14 @@
     <img src="{{ item.image.url }}" alt="" width="150">
 
     <hr>
-    {% for comments in comment %}
+    {% for comment in comments %}
         {{ comment.name }}
         {{ comment.text }}
         <hr>
+    {% endfor %}
 
     <p>Оставь коммент включи коллокольчик подпишись</p>
-    <form method="POST" action="{% url 'item' item.id %}">
+    <form method="post" action="{% url 'item' item.id %}">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="send">

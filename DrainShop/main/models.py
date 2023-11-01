@@ -8,6 +8,8 @@ class Item(models.Model):
      name = models.CharField(max_length=120)
      price = models.FloatField()
      image = models.ImageField(upload_to='images/categories/')
+     category = models.ForeignKey(to=Category, on_delete=models.CASCADE, default=1)
+
 
 class Comment(models.Model):
      name = models.CharField(max_length=120)
