@@ -313,14 +313,15 @@ h5{
   width: 750px;
   height: 450px;
   margin-top:-55px;
-  margin-left:  650px;;
+  margin-left:  600px;;
   transform: rotate(7deg);
+  float: right;
+  
 }
 .border-text{
-  width: 300px;
-  height: 150px;
-  margin-left: 50px;
-   
+  width: 250px;
+  height: 100px;
+  
   
 }
 .pselection{
@@ -345,6 +346,8 @@ h5{
 .Icons-card{
 width: 45px;
 height: 45px;
+margin-bottom: -6px;
+
 }
 .Icons-header{
   margin: -1px;
@@ -398,6 +401,7 @@ height: 45px;
     border: 2px solid white;
     border-bottom: 2px solid black;
     width: 150px;
+    
   }
 .text-input:focus{
     outline: none;
@@ -438,7 +442,7 @@ height: 45px;
 .radio-input1{
     margin: 2px;
     width: 220px;
-    height: 35px;
+    height: 40px;
     border: 2px solid black;
     
 }
@@ -452,4 +456,25 @@ height: 45px;
     height: 30px;
     border: 2px solid black;
     
+}
+.text-delivery{
+  line-height:1;
+  margin: 15px;
+  font-weight: bold;
+}
+.icons-Basket2{
+  width: 15px;
+}
+.icons-delivery{
+  width: 25px;
+ margin-bottom: -4px;
+  
+}
+.radio-input3{
+  margin: 2px;
+  width: 100px;
+  height: 22px;
+  border: 2px solid black;
+  border-radius: 20px;
+  
 }

@@ -3,34 +3,48 @@
 {% block title %}<title>Способ Доставки | DrainShop Cringe</title>{% endblock %}
 
 {% block content %}
-<h1 class="text-delivery" style="font-size: 20px;">В корзину</h1>
-    <h1 class="text-delivery">Оформление заказа</h1>
+<div class="text-dekivery2">
+    <h1 class="text-delivery" style="font-size: 20px;"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icons-Basket2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+      </svg>
+      В корзину</h1>
+    <h1 class="text-delivery">Оформление заказа <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icons-delivery">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zm-7.518-.267A8.25 8.25 0 1120.25 10.5M8.288 14.212A5.25 5.25 0 1117.25 10.5" />
+      </svg>
+      </h1>
     <h1 class="text-delivery1" style="font-size: 10px;">Обратите внимание: для получения товаров почтой имя и фамилия должны совпадать с данными</h1>
+</div>
 
 <form action="">
     <div class="form-item">
-        <label for="city">Населенный пункт</label>
+        <label for="city">*Населенный пункт</label>
         <input class="text-input" type="text" name="city">
     </div>
     <div>
-        <h1 class="text-delivery">Способ доставки</h1>
-        <div class="radio-input">
+        <h1 class="text-delivery">Способ доставки <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icons-delivery">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7.875 14.25l1.214 1.942a2.25 2.25 0 001.908 1.058h2.006c.776 0 1.497-.4 1.908-1.058l1.214-1.942M2.41 9h4.636a2.25 2.25 0 011.872 1.002l.164.246a2.25 2.25 0 001.872 1.002h2.092a2.25 2.25 0 001.872-1.002l.164-.246A2.25 2.25 0 0116.954 9h4.636M2.41 9a2.25 2.25 0 00-.16.832V12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 12V9.832c0-.287-.055-.57-.16-.832M2.41 9a2.25 2.25 0 01.382-.632l3.285-3.832a2.25 2.25 0 011.708-.786h8.43c.657 0 1.281.287 1.709.786l3.284 3.832c.163.19.291.404.382.632M4.5 20.25h15A2.25 2.25 0 0021.75 18v-2.625c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125V18a2.25 2.25 0 002.25 2.25z" />
+          </svg>
+          </h1>
+        <div class="radio-input3">
             <input class="i" type="radio" name="courier" id="1" value="courier">
             <label for="courier">Курьер</label>
         </div>
         
-        <div class="radio-input">
+        <div class="radio-input3">
             <input class="i" type="radio" name="post" id="2" value="post">
             <label for="post">Почта</label>
         </div>
     </div>
     <div class="form-item">
-        <input class="text-input" type="text" name="city" placeholder="Улица">
-        <input class="text-input" type="text" name="city" placeholder="Дом">
-        <input class="text-input" type="text" name="city" placeholder="Квартира">
+        <input class="text-input" type="text" name="city" placeholder="*Улица">
+        <input class="text-input" type="text" name="city" placeholder="*Дом">
+        <input class="text-input" type="text" name="city" placeholder="*Квартира">
     </div>
     <div>
-    <h1 class="text-delivery">Способ оплаты</h1>
+    <h1 class="text-delivery">Способ оплаты <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icons-delivery">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
+      </svg>
+      </h1>
         <div class="radio-input1">
             <input class="i" type="radio" name="courier" id="3" value="Payment">
             <label for="Payment">Оплата при получении <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icons">
@@ -47,7 +61,11 @@
         </div>
     </div>
    <div>
-   <h1 class="text-delivery">Дата доставки  </h1>
+   <h1 class="text-delivery">Дата доставки <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="icons-delivery">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+  </svg>
+  
+   </h1>
         <div class="radio-input2">
             <input class="i" type="radio" name="post" id="5" value="Payment">
             <label for="Payment">23 Октября</label>
@@ -59,7 +77,7 @@
     </div>
     <h1>время доставки</h1>
     <div class="form-item">
-        <input class="text-input" type="text" name="city" placeholder="Улица">
+        <input class="text-input" type="text" name="city" placeholder="*Улица">
         
     </div>
 
