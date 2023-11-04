@@ -1,10 +1,25 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>серьезный проект</title>
+    {% block title %}<title>Items in {{ category.name }}</title>{% endblock %}
 </head>
+{% block content %}
 <body>
-    {{ cat.name }}
+    <h1>Items in {{ category.name }}</h1>
+    <ul>
+        {% for item in items %}
+            <li>
+                <img src="{{ item.image.url }}" alt="{{ item.name }}" width="300">
+                <h2>{{ item.name }}</h2>
+                <p>Price: ${{ item.price }}</p>
+            </li>
+        {% endfor %}
+    </ul>
 </body>
 </html>
+{% endblock %}
+
+

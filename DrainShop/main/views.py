@@ -47,9 +47,11 @@ def item_info(request):
 
 
 def show_category(request, category_id):
-    cat = Category.objects.get(id=category_id)
+    category = Category.objects.get(id=category_id)
+    items = Item.objects.filter(category=category)
     context = {
-        "cat": cat
+        'category': category,
+        'items': items
     }
     return render(request, 'main/category.html', context=context)
 
@@ -59,6 +61,7 @@ def category_info(request):
         "cats": cats
     }
     return render(request, "main/category.html", context=context)
+
 
 
 
