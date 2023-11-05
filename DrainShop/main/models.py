@@ -8,6 +8,8 @@ class Item(models.Model):
      name = models.CharField(max_length=120)
      price = models.FloatField()
      image = models.ImageField(upload_to='images/categories/')
+     is_sale = models.BooleanField(default=False)
+     discount = models.IntegerField(default=0)
      category = models.ForeignKey(to=Category, on_delete=models.CASCADE, default=1)
 
 

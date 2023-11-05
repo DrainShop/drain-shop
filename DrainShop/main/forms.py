@@ -8,7 +8,7 @@ class CategoryForm(forms.ModelForm):
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ['name', 'price', 'image']
+        fields = ['name', 'price', 'image', 'is_sale', 'discount']
 
 class CommentForm(forms.ModelForm):
     class Meta:

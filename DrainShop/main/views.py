@@ -14,9 +14,6 @@ def index(request):
     return render(request, 'main/index.html', context=context)
 
 
-
-
-
 def show_item(request, item_id):
     if request.method == "POST":
         form = CommentForm(request.POST)
@@ -28,7 +25,7 @@ def show_item(request, item_id):
 
 
     item = Item.objects.get(id=item_id)
-    comments = Comment.objects.filter(item_id=item_id)
+    comments = Comment.objects.filter(item=item)
     context = {
         "item": item,
         "comments": comments,
@@ -55,6 +52,9 @@ def show_category(request, category_id):
     }
     return render(request, 'main/category.html', context=context)
 
+
+
+
 def category_info(request):
     cats = Category.objects.all()
     context = {
@@ -63,6 +63,12 @@ def category_info(request):
     return render(request, "main/category.html", context=context)
 
 
+def discount_items(request):
+    discount = Item.objects.filter(is_sale=True)
+    context = {
+        'discount': discount
+    }
+    return render(request, 'main/discount.html', context=context)
 
 
 

@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% block title %}<title>Скидки | DrainShop Cringe</title>{% endblock %}
+</head>
+{% block content %}
+<body>
+
+    {% for item in discount %}
+    <li>
+        <img src="{{ item.image.url }}" alt="{{ item.name }}" width="300">
+        <h2>{{ item.name }}</h2>
+    </li>
+    {% endfor %}
+</body>
+</html>
+{% endblock %}
