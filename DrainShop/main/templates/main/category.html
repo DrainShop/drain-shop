@@ -4,17 +4,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    {% block title %}<title>Items in {{ category.name }}</title>{% endblock %}
+    {% block title %}<title>Категория | {{ category.name }}</title>{% endblock %}
 </head>
 {% block content %}
 <body>
-    <h1> бля тяжело {{ category.name }}</h1>
+    <h1>{{ category.name }}</h1>
     <ul>
         {% for item in items %}
             <li>
                 <img src="{{ item.image.url }}" alt="{{ item.name }}" width="300">
-                <h2>{{ item.name }}</h2>
-                <p>Price: ${{ item.price }}</p>
+                <h2>Название: {{ item.name }}</h2>
+                <p>Цена: {{ item.price }}₸</p>
             </li>
         {% endfor %}
     </ul>

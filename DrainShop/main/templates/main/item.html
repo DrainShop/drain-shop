@@ -1,18 +1,23 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Шмотка | {{ item.name }}</title>
 </head>
+{% block content %}
 <body>
     {{ item.name }}
     {{ item.price }}
-    <img src="{{ item.image.url }}" alt="" width="150">
+    <img src="{{ item.image.url }}" alt="" width="300">
 
     <hr>
     {% for comment in comments %}
-        {{ comment.name }}
-        {{ comment.text }}
+        <p style="color:mediumvioletred">{{ comment.name }} </p>
+        <p>{{ comment.text }}</p>
         <hr>
     {% endfor %}
 
@@ -24,3 +29,4 @@
     </form>
 </body>
 </html>
+{% endblock %}

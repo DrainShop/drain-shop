@@ -65,6 +65,10 @@ def category_info(request):
 
 def discount_items(request):
     discount = Item.objects.filter(is_sale=True)
+
+    for item in discount:
+        item.discounted_price = item.price - (item.price * item.discount / 100)
+
     context = {
         'discount': discount
     }
