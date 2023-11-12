@@ -14,3 +14,16 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['name', 'text']
+
+        widgets = {
+            'name': forms.TextInput(attrs={
+                'class': 'form-item',
+                'placeholder': 'Ваше имя'
+            }
+            ),
+            'text': forms.TextInput(attrs={
+                'class': 'form-item',
+                'placeholder': 'Ваш комментарий'
+            }
+            )
+        }
