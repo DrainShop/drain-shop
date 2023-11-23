@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import CategoryForm, CommentForm
-from .models import Category, Item, Comment
+from .models import Category, Item, Comment, Order, OrderItem
 
 
 def index(request):
@@ -42,7 +42,6 @@ def item_info(request):
     return render(request, "main/item.html", context=context)
 
 
-
 def show_category(request, category_id):
     category = Category.objects.get(id=category_id)
     items = Item.objects.filter(category=category)
@@ -51,8 +50,6 @@ def show_category(request, category_id):
         'items': items
     }
     return render(request, 'main/category.html', context=context)
-
-
 
 
 def category_info(request):
@@ -73,6 +70,13 @@ def discount_items(request):
         'discount': discount
     }
     return render(request, 'main/discount.html', context=context)
+
+
+
+
+
+
+
 
 
 

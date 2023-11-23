@@ -1,4 +1,5 @@
 from django.db import models
+from users.models import CustomUser
 
 class Category(models.Model):
      name = models.CharField(max_length=120)
@@ -17,6 +18,31 @@ class Comment(models.Model):
      name = models.CharField(max_length=120)
      text = models.TextField()
      item = models.ForeignKey(to=Item, on_delete=models.CASCADE)
+
+class Order(models.Model):
+    user = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(to=Order, on_delete=models.CASCADE)
+    item = models.ForeignKey(to=Item, on_delete=models.CASCADE)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
