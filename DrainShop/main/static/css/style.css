@@ -497,3 +497,114 @@ margin-bottom: -6px;
   width: 70%;;
   
 }
+
+.register-main{
+  width: 600px;
+  height:80vh;
+  background: white;
+
+}
+.register{
+  display: flex;
+  flex-flow: column;
+  gap: 5rem;
+
+}
+
+.register-input{
+  position: relative;
+  width: 23rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.register-input input{
+  position: relative;
+  width: 100%;
+  margin: 1rem;
+  padding: 0.3rem;
+  border: none;
+  outline: none;
+  background: none;
+  color: white;
+  font-size: 1.7rem;
+  z-index: 2;
+}
+.register-input span{
+  position:absolute ;
+  left: -0.5rem;
+  top: 0;
+  padding: 2rem 1rem 1rem;
+  font-size:1.8rem ;
+  letter-spacing: 0.3rem;
+  color: black;
+  transition: 0.5s;
+
+}
+.register-input input:focus ~ span , .register-input input:valid ~ span{
+  color: black;
+  transform: translateX(-0.5rem)
+  translateY(-4rem);
+  font-size: 1.4rem;
+  letter-spacing: normal;
+}
+.register-input i{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0.2rem;
+  background:black;
+  border-radius: 5rem;
+  transition: 0.5s;
+  z-index: 1;
+}
+.register-input input:focus ~ i , .register-input input:valid ~ i{
+  height: 4.5rem;
+}
+.checkbox{
+  background: white;
+}
+.register-button{
+ text-align: center;
+ background: black;
+ color: white;
+  
+}
+.register-button:hover{
+  background:white;
+  color: black;
+  transition: 700ms;
+}
+.group{
+  width: 100%;
+  height: 100vh;
+}
+
+.main-reg{
+  width: 100%;
+  height: 100vh;
+  background:black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  
+}
+.register-img{
+  width:100%;
+  margin-top: -50px;
+  
+}
+.register-heading{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+}
+.register-main1{
+  width: 600px;
+  height:100vh;
+  background: white;
+
+}
