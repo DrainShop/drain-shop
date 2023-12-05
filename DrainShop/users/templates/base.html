@@ -1,15 +1,51 @@
 <!-- templates/base.html -->
+{% load static %}
 
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
+      <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reset.css' %}">
   <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
 </head>
 <body>
-  <main>
-    {% block content %}
-    {% endblock %}
-  </main>
+  <div class="main-reg">
+    <div class="register-main1">
+      <img class="register-img" src="{% static 'img/Group 6.svg' %}" alt="">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </div>
 </body>
 </html>
+
+<style>
+  *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body{
+    background-color: black;
+  }
+  .register-main {
+    width: 600px;
+    height:80vh;
+    background: white;
+  }
+  .main-reg{
+    width: 100%;
+    height: 100vh;
+    background:black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow:hidden;
+}
+.register-img{
+    width:100%;
+    margin-top: -50px;
+    
+}
+</style>
