@@ -71,14 +71,15 @@ def discount_items(request):
     }
     return render(request, 'main/discount.html', context=context)
 
+
 def order_item(request, item_id):
     user_order_list = Order.objects.filter(user=request.user)
     if not user_order_list:
-        new_order = Order(user=request.user, created_at=now)
+        new_order = Order(user=request.user)
         new_order.save()
         user_order_list = new_order
 
-    user_order = user_order_list[0]
+    user_order = user_order_list
     user_item = Item.objects.get(id=item_id)
 
 
@@ -86,23 +87,18 @@ def order_item(request, item_id):
     new_order_item.save()
 
 
-
     return redirect('order')
 
 
-
-
-
-
-
 def order(requests):
-    order = Order.objets.get(user=requests.user)
-    items = OrderItem.objets.filter(order=order)
+    order = Order.objects.get(user__id=requests.user.id)
+    items = OrderItem.objects.filter(order=order)
     context = {
         'items': items
     }
 
     return render(requests, 'main/order.html', context=context)
+
 
 def payment(request):
     return render(request, 'main/payment.html')
