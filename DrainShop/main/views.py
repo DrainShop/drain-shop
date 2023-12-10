@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import CategoryForm, CommentForm
 from .models import Category, Item, Comment, Order, OrderItem
@@ -71,8 +71,23 @@ def discount_items(request):
     }
     return render(request, 'main/discount.html', context=context)
 
+def order_item(request, item_id):
+    user_order_list = Order.objects.filter(user=request.user)
+    if not user_order_list:
+        new_order = Order(user=request.user, created_at=now)
+        new_order.save()
+        user_order_list = new_order
+
+    user_order = user_order_list[0]
+    user_item = Item.objects.get(id=item_id)
 
 
+    new_order_item = OrderItem(order=user_order, item=user_item)
+    new_order_item.save()
+
+
+
+    return redirect('order')
 
 
 
@@ -81,7 +96,13 @@ def discount_items(request):
 
 
 def order(requests):
-    return render(requests, 'main/order.html')
+    order = Order.objets.get(user=requests.user)
+    items = OrderItem.objets.filter(order=order)
+    context = {
+        'items': items
+    }
+
+    return render(requests, 'main/order.html', context=context)
 
 def payment(request):
     return render(request, 'main/payment.html')

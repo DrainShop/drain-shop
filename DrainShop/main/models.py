@@ -23,6 +23,9 @@ class Order(models.Model):
     user = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"{self.username}, {self.username}"
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(to=Order, on_delete=models.CASCADE)
