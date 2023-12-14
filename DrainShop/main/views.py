@@ -73,19 +73,16 @@ def discount_items(request):
 
 
 def order_item(request, item_id):
-    user_order_list = Order.objects.filter(user=request.user)
-    if not user_order_list:
-        new_order = Order(user=request.user)
-        new_order.save()
-        user_order_list = new_order
+    try:
+        user_order = Order.objects.get(user=request.user)
+    except Order.DoesNotExist:
+        user_order = Order(user=request.user)
+        user_order.save()
 
-    user_order = user_order_list
     user_item = Item.objects.get(id=item_id)
-
 
     new_order_item = OrderItem(order=user_order, item=user_item)
     new_order_item.save()
-
 
     return redirect('order')
 
