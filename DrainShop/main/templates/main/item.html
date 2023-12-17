@@ -61,6 +61,18 @@
         {{ form.as_p }}
         <input type="submit" value="send">
     </form>
+
+
+    <h2>Related Items</h2>
+    <ul>
+        {% for rand_item in random_items %}
+            <li><img src="{{ rand_item.image.url }}" alt="{{ rand_item.name }}" class="Djdsaersi-img" width="300" height="300"></li>
+            <li>{{ rand_item.name }}</li>
+            <li>{{ rand_item.price }}</li>
+        {% endfor %}
+    </ul>
+
+
 </body>
 </html>
 {% endblock %}
