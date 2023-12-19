@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import CategoryForm, CommentForm
 from .models import Category, Item, Comment, Order, OrderItem
+import random
 
 
 def index(request):
@@ -23,12 +24,16 @@ def show_item(request, item_id):
         else:
             print("no POST")
 
-
     item = Item.objects.get(id=item_id)
     comments = Comment.objects.filter(item=item)
+
+    all_items = Item.objects.filter(category=item.category)
+    random_items = random.sample(list(all_items), 3)
+
     context = {
         "item": item,
         "comments": comments,
+        "random_items": random_items,
         "form": CommentForm,
     }
     return render(request, 'main/item.html', context=context)
@@ -88,6 +93,7 @@ def order_item(request, item_id):
 
 
 def order(requests):
+
     order = Order.objects.get(user__id=requests.user.id)
     items = OrderItem.objects.filter(order=order)
     context = {
