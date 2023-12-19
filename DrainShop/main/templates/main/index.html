@@ -6,16 +6,19 @@
 
 <div class="wapper">
     <div class="boy">
-        <img class="img-boy" src="img/boy.jpg" alt="dead-inside">
-        <div class="boy-text">
-            <h4>
-                Премиум новинки
-            </h4>
-            <h5>
-                Осень-Зима 2023
-            </h5>
-        </div>
+        <a href="{% url 'new_item' %}">
+            <img class="img-boy" src="img/boy.jpg" alt="dead-inside">
+            <div class="boy-text">
+                <h4>
+                    <a href="{% url 'new_item' %}">Премиум новинки</a>
+                </h4>
+                <h5>
+                    <a href="{% url 'new_item' %}">Осень-Зима 2023</a>
+                </h5>
+            </div>
+        </a>
     </div>
+</div>
 
 
     <div class="cross">

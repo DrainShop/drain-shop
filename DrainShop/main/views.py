@@ -103,6 +103,18 @@ def order(requests):
     return render(requests, 'main/order.html', context=context)
 
 
+
+def new_item(request, item_id):
+
+    new_item = Item.objects.filter().order_by('-item_id')[:5]
+
+    context = {
+        "new_item": new_item
+    }
+
+    return render(request, 'main/new_item.html', context=context)
+
+
 def payment(request):
     return render(request, 'main/payment.html')
 
