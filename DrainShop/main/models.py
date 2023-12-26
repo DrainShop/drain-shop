@@ -14,6 +14,14 @@ class Item(models.Model):
      category = models.ForeignKey(to=Category, on_delete=models.CASCADE, default=1)
 
 
+     def __str__(self):
+         return self.name
+
+# class ItemSizes(models.Model):
+#     item = models.
+#     name = models.
+#     description =
+
 class Comment(models.Model):
      name = models.CharField(max_length=120)
      text = models.TextField()

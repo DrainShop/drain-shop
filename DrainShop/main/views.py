@@ -6,12 +6,23 @@ import random
 
 
 def index(request):
+
+    all_cat = Category.objects.all()
+    random_cats = random.sample(list(all_cat), 1)
+
+    all_disks = Item.objects.filter(is_sale=True)
+    random_disk = random.sample(list(all_disks), 1)
+
     cats = Category.objects.all()
     items = Item.objects.all()
+
     context = {
         'cats': cats,
-        'items': items
+        'items': items,
+        "disk": random_disk[0],
+        "rand_item": random_cats[0],
     }
+
     return render(request, 'main/index.html', context=context)
 
 
@@ -103,14 +114,7 @@ def order(requests):
 
     return render(requests, 'main/order.html', context=context)
 
-def new_item_visual(request):
 
-
-    context = {
-
-    }
-
-    return render(request, 'main/index.html', context=context)
 
 def new_item(request):
 
@@ -123,27 +127,8 @@ def new_item(request):
     return render(request, 'main/new_item.html', context=context)
 
 
-def random_cat(request):
 
-    all_cat = Category.objects.all()
-    random_cats = random.sample(list(all_cat), 1)
 
-    context = {
-        "random_cats": random_cats
-    }
-
-    return render(request, 'main/index.html', context=context)
-
-def random_disk(request):
-
-    all_disks = Item.objects.get(is_sale=False)
-    random_disk = random.sample(list(all_disks), 1)
-
-    context = {
-        "random_disk": random_disk
-    }
-
-    return render(request, 'main/index.html', context=context)
 
 
 def payment(request):
