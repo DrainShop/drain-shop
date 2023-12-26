@@ -1,4 +1,5 @@
 {% extends 'main/base.html' %}
+{% load static %}
 
 {% block title %}<title>Главная | DrainShop Cringe</title>{% endblock %}
 
@@ -6,7 +7,7 @@
 
 <div class="wapper">
     <div class="boy">
-        <img class="img-boy" src="img/boy.jpg" alt="dead-inside">
+        <img class="img-boy" src="{% static 'img/boy.jpg' %}" alt="dead-inside">
         <div class="boy-text">
             <h4>
                 Премиум новинки

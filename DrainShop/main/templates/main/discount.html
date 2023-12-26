@@ -10,15 +10,17 @@
 {% block content %}
 <body>
     <h1>Ес че скидки для долбаебов </h1>
+    <div class="container-discount">
     {% for item in discount %}
-    <li>
+    <div class="item-discount">
         <img src="{{ item.image.url }}" alt="{{ item.name }}" width="300">
         <h2>Название:   {{ item.name }}</h2>
         <p>Цена:   {{ item.price}}₸</p>
         <p>Скидка:   {{ item.discount }}%</p>
         <p style="color:red">Итоговая цена:   {{ item.discounted_price }}₸</p>
-    </li>
+    </div>
     {% endfor %}
+    </div>
 </body>
 </html>
 {% endblock %}

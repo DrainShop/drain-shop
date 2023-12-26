@@ -238,9 +238,15 @@ h5{
   position: relative;
 }
 
+
 .desktop-items{
   display: flex;
   justify-content: start;
+  flex-wrap: wrap;
+}
+.desktop-items1{
+  display: flex;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
@@ -704,4 +710,10 @@ margin-bottom: -6px;
 .item-container{
   width: 300px;
   
+}
+.container-discount{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
