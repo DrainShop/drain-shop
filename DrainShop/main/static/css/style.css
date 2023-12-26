@@ -140,11 +140,12 @@ header{
 .wapper{
   display: flex;
 
-}
-.img-boy{
+.img-boy {
   width: 600px;
   height: 400px;
+  margin-top: 10px;
 }
+
 .img-cross{
   width: 500px;
   height: 300px;

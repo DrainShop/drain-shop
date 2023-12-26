@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>фафывафы</title>
-</head>
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}<title>Новинки | DrainShop Cringe</title>{% endblock %}
+{% block content %}
 <body>
-    <р>йцвафвфафыафыаыф</р>
+    <h1>New Items</h1>
+
+        <ul>
+            {% for item in new_items %}
+                <li>
+                    <strong>Name:</strong> {{ item.name }}<br>
+                    <strong>Price:</strong> ${{ item.price }}<br>
+                    <img src="{{ item.image.url }}" alt="{{ item.name }} image" width="100"><br>
+                </li>
+            {% endfor %}
+        </ul>
 </body>
 </html>
+{% endblock %}
