@@ -28,7 +28,8 @@ def show_item(request, item_id):
     comments = Comment.objects.filter(item=item)
 
     all_items = Item.objects.filter(category=item.category)
-    random_items = random.sample(list(all_items), 3)
+    num_items_to_sample = max(1, min(3, len(all_items)))
+    random_items = random.sample(list(all_items), num_items_to_sample)
 
     context = {
         "item": item,
@@ -102,10 +103,51 @@ def order(requests):
 
     return render(requests, 'main/order.html', context=context)
 
+def new_item_visual(request):
+
+
+    context = {
+
+    }
+
+    return render(request, 'main/index.html', context=context)
+
+def new_item(request):
+
+    new_items = Item.objects.all().order_by('-id')[:10]
+
+    context = {
+        "new_items": new_items
+    }
+
+    return render(request, 'main/new_item.html', context=context)
+
+
+def random_cat(request):
+
+    all_cat = Category.objects.all()
+    random_cats = random.sample(list(all_cat), 1)
+
+    context = {
+        "random_cats": random_cats
+    }
+
+    return render(request, 'main/index.html', context=context)
+
+def random_disk(request):
+
+    all_disks = Item.objects.get(is_sale=False)
+    random_disk = random.sample(list(all_disks), 1)
+
+    context = {
+        "random_disk": random_disk
+    }
+
+    return render(request, 'main/index.html', context=context)
+
 
 def payment(request):
     return render(request, 'main/payment.html')
 
 def delivery(request):
     return render(request, "main/delivery.html")
-

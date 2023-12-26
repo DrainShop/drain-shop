@@ -5,8 +5,9 @@
 
 {% block content %}
 
-<div class="wapper">
+<div class="wrapper">
     <div class="boy">
+<<<<<<< HEAD
         <img class="img-boy" src="{% static 'img/boy.jpg' %}" alt="dead-inside">
         <div class="boy-text">
             <h4>
@@ -16,27 +17,42 @@
                 Осень-Зима 2023
             </h5>
         </div>
+=======
+        <a href="{% url 'new_item' %}">
+            <img class="img-boy" src="{% static 'img/hardcode.png' %}" alt="dead-inside">
+            <div class="boy-text">
+                <h4>
+                    <a href="{% url 'new_item' %}">Премиум новинки</a>
+                </h4>
+                <h5>
+                    <a href="{% url 'new_item' %}">Летний сезон</a>
+                </h5>
+            </div>
+        </a>
+>>>>>>> 4ca657bf9c861f17f4ccb308cbd5e138d9c32d84
     </div>
+</div>
 
-
-    <div class="cross">
-        <img class="img-cross" src="img/cross.png" alt="кросовки лютие">
+<div class="cross">
+    {% for rand_item in random_cats %}
+        <img class="img-cross" src="{{ rand_item.image.url }}" alt="кросовки лютие">
         <div class="cross-text">
-            <h4>
-                Кроссовки и кеды
-            </h4>
-            <h5>
-                из новых коллекций
-            </h5>
+            <h4>{{ rand_item.name }}</h4>
+            <h5>из новых коллекций</h5>
         </div>
-    </div>
-    <div class="shtani">
-        <img src="{{ item.image.url }}" alt="штаны дед инсайда" class="img-shtani">
+    {% endfor %}
+</div>
+
+<div class="shtani">
+    {% for disk in random_disk %}
+        <img src="{{ disk.image.url }}" alt="{{ disk.name }}" class="img-shtani">
         <div class="shtani-text">
-            <h4>Скидки на штаны и свитшоты</h4>
-            <h5>15%</h5>
+            <h4>{{ disk.name }}</h4>
+            {% if disk.is_sale %}
+                <h5>Скидка: {{ disk.discount }}%</h5>
+            {% endif %}
         </div>
-    </div>
+    {% endfor %}
 </div>
 
 <div class="swapper">
@@ -61,7 +77,9 @@
                     </a>
                         </svg>
                 </div>
+            <a href="{% url 'item' item.id %}">
             <img src="{{ item.image.url }}" alt="Джерси" class="Djersi-img">
+            </a>
 
             <div class="h2-text">
                 <h2>{{ item.price }}₸</h2>
