@@ -17,43 +17,7 @@
     </div>
 
     <hr>
-    <div class="Box-item">
-        <h1 class="Box-text1" style="font-size: 20px;">Сумма заказа</h1>
-        <div class="Box-Prices">
-            <div class="Prices">
-                <h1>1 товар на сумму </h1>
-                <h1>Скидка Cringe </h1>
-            </div>
-                <div class="Prices">
-                    <h1>11590 ₸</h1>
-                    <h1 class="prices1"> -0 ₸</h1>
-                </div>
-        </div>
-            <div class="Box-text3">
-                <h1 style="font-size: 20px;">Итого</h1>
-                <h1 class="Prices-2"style="font-size:20px;">11590₸</h1>
-            </div>
-                <div class="transition">
-                    <h1>Перейти к оформлению</h1>
-                </div>
-                <div class="promo">
-                    <h1>Оверсайз фит, крой OVERSIZE. Вышиты грудь/спина</h1>
-                </div>
-                <div class="promo">
-                    <h1>Промокоды и сертификаты</h1>
-                    <h1>Промокод</h1>
-                </div>
-    </div>
-    <div class="swapper">
-        {% for cat in cats %}
-        <div class="swapper-text">
-            <a href="{% url 'cat' cat.id %}"><img src="{{ cat.image.url }}" alt="Худи " class="swapper-img"></a>
-            <h6><a href="{% url 'cat' cat.id %}" class="text-swapper"> {{ cat.name }} </a></h6>
-        </div>
-        {% endfor %}
-    </div>
     
-
     {% for comment in comments %}
         <p style="color:mediumvioletred">{{ comment.name }} </p>
         <p>{{ comment.text }}</p>
