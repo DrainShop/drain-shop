@@ -36,6 +36,7 @@ class Order(models.Model):
 class OrderItem(models.Model):
     order = models.ForeignKey(to=Order, on_delete=models.CASCADE)
     item = models.ForeignKey(to=Item, on_delete=models.CASCADE)
+    size = models.ForeignKey(to=ItemSize, on_delete=models.CASCADE, default=1)
 
 
 

@@ -98,7 +98,8 @@ def order_item(request, item_id, size_id):
         user_order = Order(user=request.user)
         user_order.save()
 
-    user_item = Item.objects.get(id=item_id)
+    user_item = Item.objects.get(id=size_id)
+
 
     new_order_item = OrderItem(order=user_order, item=user_item)
     new_order_item.save()
