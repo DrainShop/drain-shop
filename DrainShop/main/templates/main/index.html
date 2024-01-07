@@ -19,21 +19,22 @@
             </div>
         </a>
     </div>
-</div>
 
-<div class="cross">
-    <img class="img-cross" src="{{ rand_item.image.url }}" alt="кросовки лютие">
-    <div class="cross-text">
-        <h4>{{ rand_item.name }}</h4>
-        <h5>из новых коллекций</h5>
+
+    <div class="cross">
+        <img class="img-cross" src="{{ rand_item.image.url }}" alt="кросовки лютие" width="300">
+        <div class="cross-text">
+            <h4>{{ rand_item.name }}</h4>
+            <h5>из новых коллекций</h5>
+        </div>
     </div>
-</div>
 
-<div class="shtani">
-    <img src="{{ disk.image.url }}" alt="{{ disk.name }}" class="img-shtani">
-    <div class="shtani-text">
-        <h4>{{ disk.name }}</h4>
-        <h5>Скидка: {{ disk.discount }}%</h5>
+    <div class="shtani">
+        <img src="{{ disk.image.url }}" alt="{{ disk.name }}" class="img-cross" width="300">
+        <div class="shtani-text">
+            <h4>{{ disk.name }}</h4>
+            <h5>Скидка: {{ disk.discount }}%</h5>
+        </div>
     </div>
 </div>
 

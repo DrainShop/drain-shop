@@ -136,6 +136,11 @@ header{
   background-color: black;
   transition: 300ms ease-in-out;
 }
+.wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
 .wapper{
   display: flex;
@@ -148,17 +153,11 @@ header{
 }
 
 .img-cross{
-  width: 500px;
-  height: 300px;
+  width: 400px;
+  height: 390px;
   object-fit: cover;
 }
-.img-shtani{
-  min-width: 500px;
-  min-height: 300px;
-  max-width: 500px;
-  max-height: 300px;
-  object-fit: cover;
-}
+
 h4{
   margin-left:25px ;
 }
@@ -714,7 +713,7 @@ margin-bottom: -6px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 300px;
+ 
 }
 .item-container{
   width: 300px;
