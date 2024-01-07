@@ -12,6 +12,10 @@
 <body>
 <div class="item-main">
     <div class="item-container">
+    <p class="item-name">{{ item.name }}</p>
+    <p class="item-price">{{ item.price }} ₸</p>
+    <img src="{{ item.image.url }}" alt="" width="300">
+    </div>
         <img src="{{ item.image.url }}" alt="" width="300">
         <p class="item-price">{{ item.price }}</p>
         <h2>Cringe</h2>
@@ -63,7 +67,7 @@
                     <img src="{{ rand_item.image.url }}" alt="{{ rand_item.name }}" class="Djersi-img" >
 
                 <div class="h2-text">
-                    <h2>{{ rand_item.price }}</h2>
+                    <h2>{{ rand_item.price}} ₸</h2>
                     <h2>Cringe</h2>
                     <a class="item-link"    href="{% url 'item' item.id %}"> {{ rand_item.name }} </a>
                 </div>

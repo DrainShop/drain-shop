@@ -1,17 +1,28 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import CategoryForm, CommentForm
-from .models import Category, Item, Comment, Order, OrderItem
+from .models import Category, Item, Comment, Order, OrderItem, ItemSize
 import random
 
 
 def index(request):
+
+    all_cat = Category.objects.all()
+    random_cats = random.sample(list(all_cat), 1)
+
+    all_disks = Item.objects.filter(is_sale=True)
+    random_disk = random.sample(list(all_disks), 1)
+
     cats = Category.objects.all()
     items = Item.objects.all()
+
     context = {
         'cats': cats,
-        'items': items
+        'items': items,
+        "disk": random_disk[0],
+        "rand_item": random_cats[0],
     }
+
     return render(request, 'main/index.html', context=context)
 
 
@@ -26,6 +37,7 @@ def show_item(request, item_id):
 
     item = Item.objects.get(id=item_id)
     comments = Comment.objects.filter(item=item)
+    sizes = ItemSize.objects.filter(item=item)
 
     all_items = Item.objects.filter(category=item.category)
     num_items_to_sample = max(1, min(3, len(all_items)))
@@ -36,6 +48,7 @@ def show_item(request, item_id):
         "comments": comments,
         "random_items": random_items,
         "form": CommentForm,
+        "sizes": sizes
     }
     return render(request, 'main/item.html', context=context)
 
@@ -78,7 +91,7 @@ def discount_items(request):
     return render(request, 'main/discount.html', context=context)
 
 
-def order_item(request, item_id):
+def order_item(request, item_id, size_id):
     try:
         user_order = Order.objects.get(user=request.user)
     except Order.DoesNotExist:
@@ -103,14 +116,7 @@ def order(requests):
 
     return render(requests, 'main/order.html', context=context)
 
-def new_item_visual(request):
 
-
-    context = {
-
-    }
-
-    return render(request, 'main/index.html', context=context)
 
 def new_item(request):
 
@@ -122,29 +128,35 @@ def new_item(request):
 
     return render(request, 'main/new_item.html', context=context)
 
+def accessories(request):
 
-def random_cat(request):
-
-    all_cat = Category.objects.all()
-    random_cats = random.sample(list(all_cat), 1)
+    all_accessories = Category.objects.get(id=7)
 
     context = {
-        "random_cats": random_cats
+        "all_accessories": all_accessories
     }
 
-    return render(request, 'main/index.html', context=context)
+    return render(request, 'main/accessories.html', context=context)
 
-def random_disk(request):
+def clothes(request):
 
-    all_disks = Item.objects.get(is_sale=False)
-    random_disk = random.sample(list(all_disks), 1)
+    all_clothes = Item.objects.filter(category__id__in=[6, 5, 2, 1])
 
     context = {
-        "random_disk": random_disk
+        "all_clothes": all_clothes
     }
 
-    return render(request, 'main/index.html', context=context)
+    return render(request, 'main/clothes.html', context=context)
 
+def shoes(request):
+
+    all_shoes = Item.objects.filter(category__id__in=[3, 4])
+
+    context = {
+        "all_shoes": all_shoes
+    }
+
+    return render(request, 'main/shoes.html', context=context)
 
 def payment(request):
     return render(request, 'main/payment.html')

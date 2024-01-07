@@ -13,6 +13,13 @@ class Item(models.Model):
      discount = models.IntegerField(default=0)
      category = models.ForeignKey(to=Category, on_delete=models.CASCADE, default=1)
 
+     def __str__(self):
+         return self.name
+
+class ItemSize(models.Model):
+    item = models.ForeignKey(to=Item, on_delete=models.CASCADE)
+    name = models.CharField(max_length=50)
+    description = models.TextField()
 
 class Comment(models.Model):
      name = models.CharField(max_length=120)
@@ -25,7 +32,6 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Заказ пользователя {self.user.username}"
-
 
 class OrderItem(models.Model):
     order = models.ForeignKey(to=Order, on_delete=models.CASCADE)

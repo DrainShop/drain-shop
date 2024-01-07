@@ -4,13 +4,11 @@
 {% block title %}<title>Новинки | DrainShop Cringe</title>{% endblock %}
 {% block content %}
 <body>
-    <h1>New Items</h1>
-
         <ul>
             {% for item in new_items %}
                 <li>
-                    <strong>Name:</strong> {{ item.name }}<br>
-                    <strong>Price:</strong> ${{ item.price }}<br>
+                    <strong>Название:</strong> {{ item.name }}<br>
+                    <strong>Цена:</strong> ${{ item.price }}<br>
                     <img src="{{ item.image.url }}" alt="{{ item.name }} image" width="100"><br>
                 </li>
             {% endfor %}

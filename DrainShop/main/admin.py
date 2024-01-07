@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Item, Category, Comment
+from .models import Item, Category, Comment, ItemSize
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -12,3 +12,7 @@ class ItemAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class ItemAdmin(admin.ModelAdmin):
     list_display = ('name', 'text')
+
+@admin.register(ItemSize)
+class ItemAdmin(admin.ModelAdmin):
+    list_display = ('description', )

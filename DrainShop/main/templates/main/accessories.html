@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessories</title>
+</head>
+<body>
+  <div>
+    {% for accessory in all_accessories.item_set.all %}
+      <div>
+        <h3>{{ accessory.name }}</h3>
+        <p>Цена: {{ accessory.price }} ₸</p>
+        <img src="{{ accessory.image.url }}" alt="{{ accessory.name }}" width="300">
+      </div>
+    {% endfor %}
+  </div>
+
+</body>
+</html>
+
+{% endblock %}
