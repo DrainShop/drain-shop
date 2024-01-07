@@ -10,21 +10,37 @@
 </head>
 {% block content %}
 <body>
+<div class="item-main">
     <div class="item-container">
-    <p class="item-name">{{ item.name }}</p>
-    <p class="item-price">{{ item.price }}</p>
-    <img src="{{ item.image.url }}" alt="" width="300">
+        <img src="{{ item.image.url }}" alt="" width="300">
+        <p class="item-price">{{ item.price }}</p>
+        <h2>Cringe</h2>
+        <p class="item-name">{{ item.name }}</p>
+        
     </div>
+    <div class="item-description">
+        <h2 style="font-size: 25px;">Описание Товара</h2>
+        
+        <p class="item-text">Оверсайз фит, крой OVERSIZE. Запечатаны два рукава и грудь/спина.</p>
+        <p class="item-text">Размеры: S, M, Л, ХЛ</p>
+        <li class="item-text">Первый размер (S): рост 150 - 160</li>
+        <li class="item-text" >Второй размер (M): рост 161-170</li>
+        <li class="item-text" >Третий размер (L): рост 171-180</li>
+        <li class="item-text" >Четвертый размер (ХЛ): рост 181-195</li>
+        <p class="item-text" >Материал: Акрил</p>
+        
+    </div>
+</div>
 
     <hr>
-    
+
     {% for comment in comments %}
         <p style="color:mediumvioletred">{{ comment.name }} </p>
         <p>{{ comment.text }}</p>
         <hr>
     {% endfor %}
 
-    <p>Оставь коммент включи коллокольчик подпишись</p>
+    <p>Отзывы</p>
     <form method="post" action="{% url 'item' item.id %}">
         {% csrf_token %}
         {{ form.as_p }}

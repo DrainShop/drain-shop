@@ -15,26 +15,18 @@
     </h1>
     <h1 сlass="longsleave3" style="font-size:8px;">в избранное</h1>
     <h1 сlass="longsleave3" style="font-size:8px;">удалить</h1>
+    {% for item in items %}
     <div class="longsleave">
-        <img src="img/Longsleave1.jpg" alt="Лонгслив">
+        <img src="{{ item.item.image.url }}" alt="" class="long-img" width="300">
         <div class="Description">
-            <h1>longsleave smile v2</h1>
+            <h1>{{ item.item.name }}</h1>
             <h1>Размеры:М</h1>
             <h1>Черный</h1>
-        </div>
-        <h1 class="tg">11590 ₸</h1>
-
+            <h1 class="tg">{{ item.item.price }} ₸</h1>
+        </div>                           
     </div>
+    {% endfor %}
 </div>
-<div class="longsleave">
-    <img src="img/Longsleave2.jpg" alt="Лонгслив">
-    <div class="Description">
-        <h1>longsleave smile v2</h1>
-        <h1>Размеры: М</h1>
-        <h1>Черный </h1>
-    </div>
-    <h1 class="tg">11590 ₸</h1>
-
 </div>
 <div class="Box">
     <h1 class="Box-text1">Сумма заказа</h1>
@@ -56,6 +48,5 @@
     <h1><a href="{% url 'payment' %}" class="payment">Перейти к оформлению</a></h1>
     <h1 class="promo">Промокоды и сертификаты</h1>
     <h1 class="promo-1">Промокод</h1>
-</div>
-</div>
+</div>                              
 {% endblock %}

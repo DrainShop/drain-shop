@@ -282,9 +282,10 @@ h5{
   width: 300px;
   height: 300px;
   display:flex;
-  margin-left:1000px;
-  margin-top:-250px;
   padding: 5px;
+  position: fixed;
+  top: 90px;
+  right: 190px;
 }
 .Box-item{
   flex-direction: column;
@@ -709,6 +710,11 @@ margin-bottom: -6px;
   margin: 15px;
   text-align: center;
 }
+.item-main{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .item-container{
   width: 300px;
 
@@ -718,4 +724,26 @@ margin-bottom: -6px;
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+.item-discount{
+  border: 1px solid black;
+  padding: 2px;
+  margin: 12px;
+  position: relative;
+}
+.item-container{
+  text-align: center;
+}
+.item-price{
+  color: red;
+}
+.item-text{
+  margin-top: 10px;
+}
+.tem-text1{
+  margin-top: 5px;
+}
+.Description{
+  text-align: center;
+  width: 300px;
 }
