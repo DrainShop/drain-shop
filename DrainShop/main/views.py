@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import CategoryForm, CommentForm
-from .models import Category, Item, Comment, Order, OrderItem
+from .models import Category, Item, Comment, Order, OrderItem, ItemSize
 import random
 
 
@@ -37,6 +37,7 @@ def show_item(request, item_id):
 
     item = Item.objects.get(id=item_id)
     comments = Comment.objects.filter(item=item)
+    sizes = ItemSize.objects.filter(item=item)
 
     all_items = Item.objects.filter(category=item.category)
     num_items_to_sample = max(1, min(3, len(all_items)))
@@ -47,6 +48,7 @@ def show_item(request, item_id):
         "comments": comments,
         "random_items": random_items,
         "form": CommentForm,
+        "sizes": sizes
     }
     return render(request, 'main/item.html', context=context)
 
@@ -89,7 +91,7 @@ def discount_items(request):
     return render(request, 'main/discount.html', context=context)
 
 
-def order_item(request, item_id):
+def order_item(request, item_id, size_id):
     try:
         user_order = Order.objects.get(user=request.user)
     except Order.DoesNotExist:
@@ -126,10 +128,35 @@ def new_item(request):
 
     return render(request, 'main/new_item.html', context=context)
 
+def accessories(request):
 
+    all_accessories = Category.objects.get(id=7)
 
+    context = {
+        "all_accessories": all_accessories
+    }
 
+    return render(request, 'main/accessories.html', context=context)
 
+def clothes(request):
+
+    all_clothes = Item.objects.filter(category__id__in=[6, 5, 2, 1])
+
+    context = {
+        "all_clothes": all_clothes
+    }
+
+    return render(request, 'main/clothes.html', context=context)
+
+def shoes(request):
+
+    all_shoes = Item.objects.filter(category__id__in=[3, 4])
+
+    context = {
+        "all_shoes": all_shoes
+    }
+
+    return render(request, 'main/shoes.html', context=context)
 
 def payment(request):
     return render(request, 'main/payment.html')

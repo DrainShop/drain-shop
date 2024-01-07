@@ -10,6 +10,9 @@ urlpatterns = [
     path('category/<int:category_id>/', show_category, name="cat"),
     path('discount/', discount_items, name="discount"),
     path('order_item/<int:item_id>/', order_item, name="order_item"),
-    path('new_item', new_item, name="new_item"),
+    path('new_item/', new_item, name="new_item"),
+    path('accessories/', accessories, name="accessories"),
+    path('clothes/', clothes, name="clothes"),
+    path('shoes/', shoes, name="shoes")
 ]
 
