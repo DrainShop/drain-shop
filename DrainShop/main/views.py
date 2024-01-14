@@ -110,9 +110,24 @@ def order_item(request, item_id, size_id):
 def order(requests):
 
     order = Order.objects.get(user__id=requests.user.id)
-    items = OrderItem.objects.filter(order=order)
+    order_items = OrderItem.objects.filter(order=order)
+    items = []
+
+    for order_item in order_items:
+        key_item = (order_item.item, order_item.size)
+        if key_item in items:
+            items[key_item]["amount"] += 1
+        else:
+            items[key_item] = {
+                "item": order_item.item,
+                "size": order_item.size,
+                "amount": 1
+            }
+
+    print(items)
     context = {
-        'items': items
+
+        "items": items
     }
 
     return render(requests, 'main/order.html', context=context)

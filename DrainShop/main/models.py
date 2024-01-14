@@ -38,6 +38,8 @@ class OrderItem(models.Model):
     item = models.ForeignKey(to=Item, on_delete=models.CASCADE)
     size = models.ForeignKey(to=ItemSize, on_delete=models.CASCADE, default=1)
 
+    def __str__(self):
+        return f"товар: {self.item.name}, размер: {self.size.name}"
 
 
 
