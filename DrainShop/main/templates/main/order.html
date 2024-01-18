@@ -29,24 +29,28 @@
 </div>
 </div>
 <div class="Box">
-    <h1 class="Box-text1">Сумма заказа</h1>
-<div class="Box-Prices">
-    <div class="Box-text2">
-        <h1>1 товар на сумму </h1>
-        <h1>Скидка Cringe</h1>
+    <h1 class="Box-text1" style="font-size: 20px;">Сумма заказа</h1>
+    <div class="Box-Prices">
+        <div class="Prices">
+            <h1>1 товар на сумму </h1>
+            <h1>Скидка Cringe </h1>
+        </div>
+            <div class="Prices">
+                <h1>11590 ₸</h1>
+                <h1 class="prices1"> -0 ₸</h1>
+            </div>
     </div>
-<div class="Prices">
-    <h1>11590₸</h1>
-    <h1 class="prices1">0 ₸</h1>
+        <div class="Box-text3">
+            <h1 style="font-size: 20px;">Итого</h1>
+            <h1 class="Prices-2"style="font-size:20px;">11590₸</h1>
+        </div>
+            <button class="transition">
+                Перейти к оформлению
+            </button>
+            <div class="promo">
+                <h1>Промокоды и сертификаты</h1>
+                <h1>Промокод</h1>
+            </div>
 </div>
-</div>
-<div class="Box-text3">
-    <h1>Итого</h1>
-</div>
-    <h1 class="Prices-2"style="font-size:18px;">11590₸</h1>
-    <h1 class="comission" style="font-size:9px;">без учета возможной стоимости доставки </h1>
-    <h1><a href="{% url 'payment' %}" class="payment">Перейти к оформлению</a></h1>
-    <h1 class="promo">Промокоды и сертификаты</h1>
-    <h1 class="promo-1">Промокод</h1>
-</div>                              
+                              
 {% endblock %}
