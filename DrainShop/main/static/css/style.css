@@ -260,7 +260,6 @@ h5{
   display: flex;
   justify-content:space-between;
   align-items: start;
-  display: flex;
   flex: 0 0 auto;
 
 }
@@ -330,6 +329,9 @@ h5{
   align-items: center;
   height: 30px;
   margin-top: 40px;
+
+  
+  
 }
 
 
@@ -706,7 +708,8 @@ margin-bottom: -6px;
   justify-content: center;
 }
 .promo{
-  margin: 15px;
+  margin-top: 15px;
+  margin: 30px;
   text-align: center;
 }
 .item-main{
@@ -746,4 +749,15 @@ margin-bottom: -6px;
 .Description{
   text-align: center;
   width: 300px;
+}
+.section-header{
+  font-size: 30px ;
+  font-weight: 500;
+}
+.border-items{
+  
+  border: 3 px solid black;
+  border-radius: 5px;
+  width: 350px;
+  height: 180px;
 }

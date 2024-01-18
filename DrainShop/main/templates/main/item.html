@@ -17,35 +17,38 @@
         <p class="item-price">{{ item.price }} ₸</p>
     </div>
     <div class="item-description">
-        <h2 style="font-size: 25px;">Описание Товара</h2>
+        <p class="section-header">Описание Товара</p>
         <p class="item-text">Оверсайз фит, крой OVERSIZE. Запечатаны два рукава и грудь/спина.</p>
-        <p class="item-text">Размеры: S, M, Л, ХЛ</p>
         {% for size in sizes %}
           <a href="{% url  'order_item' item.id size.id %}"><li class="item-text" > {{ size.name }}: {{ size.description }}</li></a>
         {% endfor %}
+        <p class="item-text">Вещь Унисекс, подходит мальчикам и девочкам.</p>
         <p class="item-text" >Материал: Акрил</p>
         
     </div>
 </div>
 
     <hr>
-
+    <p class="section-header">Отзывы</p>
     {% for comment in comments %}
         <p style="color:mediumvioletred">{{ comment.name }} </p>
         <p>{{ comment.text }}</p>
         <hr>
+    {% empty %}
+    <p>Нет отзывов</p>
     {% endfor %}
+    <div class="border-items">
+        <form method="post" action="{% url 'item' item.id %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="send">
+        </form>
+    </div>
 
-    <p>Отзывы</p>
-    <form method="post" action="{% url 'item' item.id %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="send">
-    </form>
-
+    <hr>
 
     <div class="desktop">
-        <h3>Популярное</h3>
+        <p class="section-header">Популярное</p>
         <div class="desktop-items1">
             {% for rand_item in random_items %}
             <div class="Pants-girl">
