@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import CategoryForm, CommentForm
-from .models import Category, Item, Comment, Order, OrderItem, ItemSize
+from .models import Category, Item, Comment, Order, OrderItem, ItemSize, Tag, ItemTag
 import random
 
 
@@ -120,6 +120,12 @@ def order(requests):
         else:
             items[key_item] += 1
 
+    total_price = 0
+    for order_price in order_items:
+        key_price = (order_price.item.price)
+        total_price += key_price
+
+
     items_list = []
     for key, value in items.items():
         items_list.append(
@@ -130,7 +136,7 @@ def order(requests):
             }
         )
 
-
+    print(total_price)
     context = {
         "itens_llist": items_list
     }
@@ -169,15 +175,16 @@ def clothes(request):
 
     return render(request, 'main/clothes.html', context=context)
 
-def shoes(request):
+def tag(request, tag_id):
 
-    all_shoes = Item.objects.filter(category__id__in=[3, 4])
+    tag = Tag.objects.get(id=tag_id)
+    items = ItemTag.objects.filter(tag=tag)
 
     context = {
-        "all_shoes": all_shoes
+        "items": items
     }
 
-    return render(request, 'main/shoes.html', context=context)
+    return render(request, 'main/tag.html', context=context)
 
 def payment(request):
     return render(request, 'main/payment.html')

@@ -11,11 +11,11 @@
 </head>
 <body>
   <div>
-    {% for shoe in all_shoes %}
+    {% for item in items %}
       <div>
-        <h3>{{ shoe.name }}</h3>
-        <p>Цена: {{ shoe.price }}</p>
-        <img src="{{ shoe.image.url }}" alt="{{ shoe.name }}" width="300">
+        <h3>{{ item.item.name }}</h3>
+        <p>Цена: {{ item.item.price }}</p>
+        <img src="{{ item.item.image.url }}" alt="{{ item.item.name }}" width="300">
       </div>
     {% endfor %}
   </div>

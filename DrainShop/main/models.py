@@ -42,9 +42,12 @@ class OrderItem(models.Model):
         return f"товар: {self.item.name}, размер: {self.size.name}"
 
 
+class Tag(models.Model):
+    name = models.CharField(max_length=120)
 
-
-
+class ItemTag(models.Model):
+    item = models.ForeignKey(to='Item', on_delete=models.CASCADE)
+    tag = models.ForeignKey(to='Tag', on_delete=models.CASCADE)
 
 
 

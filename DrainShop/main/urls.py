@@ -13,6 +13,6 @@ urlpatterns = [
     path('new_item/', new_item, name="new_item"),
     path('accessories/', accessories, name="accessories"),
     path('clothes/', clothes, name="clothes"),
-    path('shoes/', shoes, name="shoes")
+    path('tag/<int:tag_id>/', tag, name="tag")
 ]
 
