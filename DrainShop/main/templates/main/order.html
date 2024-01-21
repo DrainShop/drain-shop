@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="Basket">
-    <h1>Корзина</h1>
+    <span>Корзина</span>
     <div class="Basket-color">
         <h1>товары</h1>
     </div>
@@ -15,15 +15,20 @@
     </h1>
     <h1 сlass="longsleave3" style="font-size:8px;">в избранное</h1>
     <h1 сlass="longsleave3" style="font-size:8px;">удалить</h1>
-    {% for item in items %}
+    {% for item in itens_llist %}
     <div class="longsleave">
         <img src="{{ item.item.image.url }}" alt="" class="long-img" width="300">
         <div class="Description">
-            <h1>{{ item.item.name }}</h1>
-            <h1>Размер:{{ item.size.name }}</h1>
-            <h1>Черный</h1>
-            <h1 class="tg">{{ item.item.price }} ₸</h1>
-        </div>                           
+            <p > Women's Drainskirt</p>
+            <p style="font-size: 50px;">{{ item.item.name }}</p>
+            <hr>
+            <p class="tg" style="font-size:25px;">Цена:{{ item.item.price }} ₸</p>
+            <p style="font-size:25px;" >Размер:{{ item.size.name }}</p>
+            <p style="font-size:25px;">Цвет:Черный</p>
+            <p style="font-size:25px;" >Кол-во {{item.amount}}</p>
+            <button class="Description-button">Перейти к оформлению </button>
+        </div>  
+        <div class="background-circle"></div>                         
     </div>
     {% endfor %}
 </div>
