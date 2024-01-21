@@ -761,3 +761,81 @@ margin-bottom: -6px;
   width: 350px;
   height: 180px;
 }
+.longsleave{
+  position: relative;
+  width:700px;
+  height: 400px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: black;
+  color: white;
+  box-shadow: inset 0px 0px 6px 0px rgba(255, 255, 255, 0.566);
+  text-shadow:
+  0 0 1px #fff,
+  0 0 2px #fff,
+  0 0 5px #fff,
+  0 0 11px #f0a,
+  0 0 20px #f0a,
+  0 0 30px #f0a,
+  0 0 55px #f0a,
+  0 0 80px #f0a ;
+ border-radius: 5%;
+  
+  
+}
+.Description > p  {
+  font-family: 'Ubuntu Mono', monospace !important;
+  font-size: 400;
+}
+.long-img{
+  left: 5px;
+  border-radius: 70%;
+  z-index: 2;
+ 
+}
+.Description-button{
+  background-color: white;
+  color: black;
+  width: 200px;
+  height: 40px;
+  border-bottom: black;
+  border:40px;
+  font-family: 'Ubuntu Mono', monospace !important;
+  z-index:2;
+}
+.Description-button:hover , .Description-button:focus {
+  background-color: black;
+  color: white;
+}
+.background-circle{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px; 
+  height: 100px;
+  background-color:aqua;
+  border-radius: 50%;
+  z-index:1;
+  overflow: hidden;
+}
+.background-circle::before,
+.background-circle::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  background-color: black; /* Цвет фона для сегмента круга */
+}
+
+.background-circle::before {
+  transform-origin: bottom left;
+  transform: skewX(-25deg);
+}
+
+.background-circle::after {
+  transform-origin: top left;
+  transform: skewX(25deg);
+}
