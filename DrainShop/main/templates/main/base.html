@@ -71,12 +71,10 @@
     <div class="lower-header cont">
         <div class="lower-header-ul-left">
             <a href="{% url 'new_item' %}" class="lower-header-link">Новинки</a>
-            <a href="{% url 'clothes' %}" class="lower-header-link">Одежда</a>
-            <a href="#" class="lower-header-link">Сумки</a>
             <a href="{% url 'discount' %}" class="lower-header-link">Скидки</a>
-            <a href="{% url 'tag' 1 %}" class="lower-header-link">Обувь</a>
-            <a href="{% url 'accessories' %}" class="lower-header-link">Аксессуары</a>
-            <a href="#" class="lower-header-link">Бренды</a>
+            {% for tag in tags %}
+            <a href="{% url 'tag' tag.id %}" class="lower-header-link">{{ tag.name }}</a>
+            {% endfor %}
         </div>
         <div class="lower-header-ul-right">
             <a href="#" class="lower-header-link">Поиск</a>

@@ -11,8 +11,6 @@ urlpatterns = [
     path('discount/', discount_items, name="discount"),
     path('order_item/<int:item_id>/<int:size_id>/', order_item, name="order_item"),
     path('new_item/', new_item, name="new_item"),
-    path('accessories/', accessories, name="accessories"),
-    path('clothes/', clothes, name="clothes"),
     path('tag/<int:tag_id>/', tag, name="tag")
 ]
 
