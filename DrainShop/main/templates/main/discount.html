@@ -9,17 +9,17 @@
 </head>
 {% block content %}
 <body>
-    <div class="container-discount">
+<div class="container-discount">
     {% for item in discount %}
     <div class="item-discount">
         <img src="{{ item.image.url }}" alt="{{ item.name }}" width="300">
-        <h2>Название:   {{ item.name }}</h2>
-        <p>Цена:   {{ item.price}}₸</p>
-        <p>Скидка:   {{ item.discount }}%</p>
-        <p style="color:red">Итоговая цена:   {{ item.discounted_price }}₸</p>
+        <h2>Название: {{ item.name }}</h2>
+        <p>Цена: {{ item.price}}₸</p>
+        <p>Скидка: {{ item.discount }}%</p>
+        <p style="color:red">Итоговая цена: {{ item.discounted_price }}₸</p>
     </div>
     {% endfor %}
-    </div>
+</div>
 </body>
 </html>
 {% endblock %}

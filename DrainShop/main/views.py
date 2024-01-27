@@ -16,7 +16,11 @@ def index(request):
     random_disk = random.sample(list(all_disks), 1)
 
     cats = Category.objects.all()
+
     items = Item.objects.all()
+
+    for item in items:
+        item.calculated_price = item.price - (item.price * item.discount / 100)
 
     context = {
         'cats': cats,
@@ -139,7 +143,9 @@ def order(requests):
             {
                 "item": key[0],
                 "size": key[1],
-                "amount": value
+                "amount": value,
+                "total": value * key[0].price
+
             }
         )
 
