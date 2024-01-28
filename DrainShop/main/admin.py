@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import Item, Category, Comment, ItemSize, Tag, ItemTag
+from.forms import ItemForm
+
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -7,7 +9,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'image')
+    list_display = ('name', 'price', 'image', 'category')
+    form = ItemForm
 
 @admin.register(Comment)
 class ItemAdmin(admin.ModelAdmin):
