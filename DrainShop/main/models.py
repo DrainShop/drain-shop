@@ -2,28 +2,28 @@ from django.db import models
 from users.models import CustomUser
 
 class Category(models.Model):
-     name = models.CharField(max_length=120)
      image = models.ImageField(upload_to='images/categories/')
+     name = models.CharField(max_length=120)
 
 class Item(models.Model):
-     name = models.CharField(max_length=120)
-     price = models.FloatField()
-     image = models.ImageField(upload_to='images/categories/')
-     is_sale = models.BooleanField(default=False)
-     discount = models.IntegerField(default=0)
-     category = models.ForeignKey(to=Category, on_delete=models.CASCADE, default=1)
-     discount_price = models.FloatField(null=True, blank=True)
-     slug = models.CharField(max_length=120, null=True)
+    name = models.CharField(max_length=120)
+    price = models.FloatField()
+    image = models.ImageField(upload_to='images/categories/')
+    is_sale = models.BooleanField(default=False)
+    discount = models.IntegerField(default=0)
+    category = models.ForeignKey(to=Category, on_delete=models.CASCADE, default=1)
+    discount_price = models.FloatField(null=True, blank=True)
+    slug = models.CharField(max_length=120, null=True)
 
-     def __str__(self):
-         return self.name
+    def __str__(self):
+        return self.name
 
-     def save(self, force_insert=False, force_update=False, *args, **kwargs):
-         if self.is_sale:
-             self.discount_price = self.price - (self.price * self.discount / 100)
-             super(Item, self).save(force_insert, force_update, *args, **kwargs)
+    def save(self, force_insert=False, force_update=False, *args, **kwargs):
+        if self.is_sale:
+            self.discount_price = self.price - (self.price * self.discount / 100)
+        super(Item, self).save(force_insert, force_update, *args, **kwargs)
 
-    def slugfy(self, item_id, item_name):
+    def slugify(self, item_id, item_name):
         self.slug = f"{item_id}-{item_name}"
         return self.slug
 

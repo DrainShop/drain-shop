@@ -137,6 +137,10 @@ def order(requests):
         key_price = (order_price.item.price)
         total_price += key_price
 
+    for itempricik in order_items:
+        itempricik.item.calculated_price = itempricik.item.price - (itempricik.item.price * itempricik.item.discount / 100)
+
+
     items_list = []
     for key, value in items.items():
         items_list.append(

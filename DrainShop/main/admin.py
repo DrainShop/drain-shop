@@ -9,7 +9,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'image')
+    list_display = ('name', 'price', 'image', 'category')
     form = ItemForm
 
 @admin.register(Comment)
