@@ -771,16 +771,7 @@ margin-bottom: -6px;
   background-color: black;
   color: white;
   box-shadow: inset 0px 0px 6px 0px rgba(255, 255, 255, 0.566);
-  text-shadow:
-  0 0 1px #fff,
-  0 0 2px #fff,
-  0 0 5px #fff,
-  0 0 11px #f0a,
-  0 0 20px #f0a,
-  0 0 30px #f0a,
-  0 0 55px #f0a,
-  0 0 80px #f0a ;
- border-radius: 5%;
+  border-radius: 5%;
   
   
 }
@@ -808,34 +799,16 @@ margin-bottom: -6px;
   background-color: black;
   color: white;
 }
-.background-circle{
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100px; 
-  height: 100px;
-  background-color:aqua;
-  border-radius: 50%;
-  z-index:1;
-  overflow: hidden;
+.item-new{
+  width: 350px;
+  height: 250px;
+  border: 1px solid black;
+  padding: 2px;
+  margin: 12px;
+  position: relative;
+  text-align: center;
 }
-.background-circle::before,
-.background-circle::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100%;
-  background-color: black; /* Цвет фона для сегмента круга */
-}
-
-.background-circle::before {
-  transform-origin: bottom left;
-  transform: skewX(-25deg);
-}
-
-.background-circle::after {
-  transform-origin: top left;
-  transform: skewX(25deg);
+.new-items{
+  display: flex;
+  justify-content: space-between;    
 }
