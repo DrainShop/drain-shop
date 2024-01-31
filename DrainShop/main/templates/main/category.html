@@ -8,9 +8,10 @@
 </head>
 {% block content %}
 <body>
-    <h1>Быллляяяя как тяжело  быть програмистом, зато интересно</h1>
+    
     <h1>{{ category.name }}</h1>
     <ul>
+        <img src="{{ item.image.url }}" alt="{{ item.name }}" width="300">
         {% for item in items %}
             <li>
                 <img src="{{ item.image.url }}" alt="{{ item.name }}" width="300">

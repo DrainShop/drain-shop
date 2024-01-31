@@ -7,23 +7,22 @@
     <main class="new-item">
         
 
-           
+        <div class="in-card">
             {% for item in new_items %}
             <div class="item-new">
-                <img src="{{ item.image.url }}" alt="{{ item.name }} image" width="200"><br>
-                <strong>Название:</strong> {{ item.name }}<br>
-                <strong>Цена:</strong> ${{ item.price }}<br>
+                <img src="{{ item.image.url }}" alt="{{ item.name }} image" width="150"><br>
+               <span style="font-weight: 600;font-size: 20px;">{{ item.name }}</span><br> 
+                <strong>{{ item.price }} ₸</strong><br>
+               <span>Скидка:</span> {{ item.discount }}% <br>
+               <p style="color:red">Итоговая цена: {{ item.discounted_price }}₸</p>
+               <form action="{% url 'order' %}" target="order">
+                    <button class="in-button">Добавить в корзину</button>
+               </form>
+
             </div>         
             {% endfor %}
-            <div class="item-description">
-                <p class="section-header">Описание Товара</p>
-                <p class="item-text">Оверсайз фит, крой OVERSIZE. Запечатаны два рукава и грудь/спина.</p>
-                {% for size in sizes %}
-                  <a href="{% url  'order_item' item.id size.id %}"><li class="item-text" > {{ size.name }}: {{ size.description }}</li></a>
-                {% endfor %}
-                <p class="item-text">Вещь Унисекс, подходит мальчикам и девочкам.</p>
-                <p class="item-text" >Материал: Акрил</p>
-            </div>
+        </div>
+           
         
     </main>
 </body>

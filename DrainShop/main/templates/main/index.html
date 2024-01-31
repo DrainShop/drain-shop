@@ -69,10 +69,10 @@
                 <div class="h2-text">
                     {% if item.is_sale %}
                         <p style="color: red;">Скидка: {{ item.discount }}%</p>
-                        <h2>{{ item.calculated_price }}</h2>
+                        <h2>{{ item.calculated_price }}₸</h2>
                     {% else %}
                         <h2>Скидка: 0%</h2>
-                        <h2>{{ item.price }}</h2>
+                        <h2>{{ item.price }}₸</h2>
                     {% endif %}
                     <a class="item-link" href="{% url 'item' item.id %}"> {{ item.name }} </a>
                 </div>
