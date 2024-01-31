@@ -1,10 +1,10 @@
 from django.db import models
 from users.models import CustomUser
+from random import randint
 
 class Category(models.Model):
      image = models.ImageField(upload_to='images/categories/')
      name = models.CharField(max_length=120)
-
 class Item(models.Model):
     name = models.CharField(max_length=120)
     price = models.FloatField()
@@ -21,11 +21,12 @@ class Item(models.Model):
     def save(self, force_insert=False, force_update=False, *args, **kwargs):
         if self.is_sale:
             self.discount_price = self.price - (self.price * self.discount / 100)
+        self.slug = f"{str(randint(1, 999))}-{self.name.replace(' ', '-')}"
         super(Item, self).save(force_insert, force_update, *args, **kwargs)
 
-    def slugify(self, item_id, item_name):
-        self.slug = f"{item_id}-{item_name}"
-        return self.slug
+
+
+
 
 
 

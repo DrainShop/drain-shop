@@ -62,7 +62,7 @@
                         </svg>
                     </a>
                 </div>
-                <a href="{% url 'item' item.id %}">
+                <a href="{% url 'item' item.slug %}">
                     <img src="{{ item.image.url }}" alt="Джерси" class="Djersi-img">
                 </a>
 
@@ -74,7 +74,7 @@
                         <h2>Скидка: 0%</h2>
                         <h2>{{ item.price }}</h2>
                     {% endif %}
-                    <a class="item-link" href="{% url 'item' item.id %}"> {{ item.name }} </a>
+                    <a class="item-link" href="{% url 'item' item.slug %}"> {{ item.name }} </a>
                 </div>
             </div>
             {% endfor %}
