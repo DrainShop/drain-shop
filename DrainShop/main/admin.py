@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Item, Category, Comment, ItemSize, Tag, ItemTag
+from .models import Item, Category, Comment, ItemSize, Tag, ItemTag, ItemImg
 from.forms import ItemForm
 
 
@@ -11,6 +11,10 @@ class CategoryAdmin(admin.ModelAdmin):
 class ItemAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'image', 'category')
     form = ItemForm
+
+@admin.register(ItemImg)
+class ItemAdmin(admin.ModelAdmin):
+    list_display = ('name', 'item', 'imgfield')
 
 @admin.register(Comment)
 class ItemAdmin(admin.ModelAdmin):

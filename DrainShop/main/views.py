@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import CategoryForm, CommentForm
-from .models import Category, Item, Comment, Order, OrderItem, ItemSize, Tag, ItemTag
+from .models import Category, Item, Comment, Order, OrderItem, ItemSize, Tag, ItemTag, ItemImg
 import random
 from random import randint
 
@@ -43,9 +43,11 @@ def show_item(request, slug):
         else:
             print("no POST")
 
+
     item = Item.objects.get(slug=slug)
     comments = Comment.objects.filter(item=item)
     sizes = ItemSize.objects.filter(item=item)
+    imgs = ItemImg.objects.filter(item=item)
 
     all_items = Item.objects.filter(category=item.category)
     num_items_to_sample = max(1, min(3, len(all_items)))
@@ -57,8 +59,11 @@ def show_item(request, slug):
         "random_items": random_items,
         "form": CommentForm,
         "sizes": sizes,
-        "tags": tags
+        "imgs": imgs,
+        "tags": tags,
+
     }
+    print(imgs)
     return render(request, 'main/item.html', context=context)
 
 
@@ -197,7 +202,6 @@ def delivery(request):
 
 def add_slug(request):
     items = Item.objects.filter(slug=None)
-    print(items)
     for item in items:
         item.slug = f"{str(randint(1, 999))}-{item.name.replace(' ', '-')}"
         item.save()

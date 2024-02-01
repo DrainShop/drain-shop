@@ -5,6 +5,7 @@ from random import randint
 class Category(models.Model):
      image = models.ImageField(upload_to='images/categories/')
      name = models.CharField(max_length=120)
+
 class Item(models.Model):
     name = models.CharField(max_length=120)
     price = models.FloatField()
@@ -27,7 +28,10 @@ class Item(models.Model):
 
 
 
-
+class ItemImg(models.Model):
+    item = models.ForeignKey(to=Item, on_delete=models.CASCADE, default=1)
+    name = models.CharField(max_length=120)
+    imgfield = models.ImageField(upload_to='images/categories/')
 
 
 class ItemSize(models.Model):

@@ -718,6 +718,11 @@ margin-bottom: -6px;
   align-items: center;
  
 }
+.item-main2{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
 .item-container{
   width: 300px;
 
@@ -733,6 +738,10 @@ margin-bottom: -6px;
   padding: 2px;
   margin: 12px;
   position: relative;
+  width: 250px;
+  height: 300px;
+  text-align: center;
+
 }
 .item-container{
   text-align: center;
@@ -755,7 +764,7 @@ margin-bottom: -6px;
   font-weight: 500;
 }
 .border-items{
-  
+
   border: 3 px solid black;
   border-radius: 5px;
   width: 350px;
@@ -763,17 +772,17 @@ margin-bottom: -6px;
 }
 .longsleave{
   position: relative;
-  width:700px;
-  height: 400px;
+  width:600px;
+  height: 350px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: black;
   color: white;
   box-shadow: inset 0px 0px 6px 0px rgba(255, 255, 255, 0.566);
-  border-radius: 5%;
-  
-  
+  border-radius: 25px;
+
+
 }
 .Description > p  {
   font-family: 'Ubuntu Mono', monospace !important;
@@ -783,32 +792,56 @@ margin-bottom: -6px;
   left: 5px;
   border-radius: 70%;
   z-index: 2;
- 
+  margin-left:10px  ;
+
 }
 .Description-button{
   background-color: white;
   color: black;
   width: 200px;
   height: 40px;
-  border-bottom: black;
-  border:40px;
+  border-radius: 30px;
   font-family: 'Ubuntu Mono', monospace !important;
-  z-index:2;
+  transition:5ms;
+  text-align: center;
+  margin-top: 30px;
+  font-family: 'Ubuntu Mono', monospace !important;
+
+
+
 }
 .Description-button:hover , .Description-button:focus {
   background-color: black;
   color: white;
 }
+.order-svg{
+  width: 30px;
+  height: 30px;
+
+}
 .item-new{
-  width: 350px;
-  height: 250px;
+  width: 250px;
+  height: 300px;
   border: 1px solid black;
   padding: 2px;
   margin: 12px;
   position: relative;
   text-align: center;
 }
-.new-items{
+.in-card{
   display: flex;
-  justify-content: space-between;    
+  flex-wrap: wrap;
+  text-align: center;
+}
+.in-button{
+  background-color: black;
+  color: white;
+  margin-top:25px;
+  height: 30px;
+
+}
+.in-button:hover{
+  height: 35px;
+  width: 160px;
+  transition: 5ms ;
 }
