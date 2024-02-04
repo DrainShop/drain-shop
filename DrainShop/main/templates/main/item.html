@@ -11,11 +11,22 @@
 {% block content %}
 <body>
 <div class="item-main">
-    <div class="item-container">
-        <img src="{{ item.image.url }}" alt="" width="300">
+<div class="item-container">
+    <div class="slider">
+    <div class="upper-item">
+        <div class="button-item" onclick="changeImage(false)">назад</div>
+        {% for image in images %}
+             <img class=""  src={{image.image.url}}/>
+        {% endfor %}
+        <div class="button-item" onclick="changeImage(true)">вперед</div>
+    </div>
+        <div class="lower">
+
+        </div>
+    </div>
         <p class="item-name">{{ item.name }}</p>
         <p class="item-price">{{ item.price }} ₸</p>
-    </div>
+</div>
     <div class="item-description">
         <p class="section-header">Описание Товара</p>
         <p class="item-text">Оверсайз фит, крой OVERSIZE. Запечатаны два рукава и грудь/спина.</p>

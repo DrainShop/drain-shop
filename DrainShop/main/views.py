@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import CategoryForm, CommentForm
-from .models import Category, Item, Comment, Order, OrderItem, ItemSize, Tag, ItemTag
+from .models import Category, Item, Comment, Order, OrderItem, ItemSize, Tag, ItemTag, ItemImg
 import random
+from random import randint
 
 tags = Tag.objects.all()
 
@@ -33,18 +34,20 @@ def index(request):
     return render(request, 'main/index.html', context=context)
 
 
-def show_item(request, item_id):
+def show_item(request, slug):
     if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
-            comment = Comment(name=request.POST["name"], text=request.POST["text"], item_id=item_id)
+            comment = Comment(name=request.POST["name"], text=request.POST["text"], slug=slug)
             comment.save()
         else:
             print("no POST")
 
-    item = Item.objects.get(id=item_id)
+
+    item = Item.objects.get(slug=slug)
     comments = Comment.objects.filter(item=item)
     sizes = ItemSize.objects.filter(item=item)
+    imgs = ItemImg.objects.filter(item=item)
 
     all_items = Item.objects.filter(category=item.category)
     num_items_to_sample = max(1, min(3, len(all_items)))
@@ -56,8 +59,11 @@ def show_item(request, item_id):
         "random_items": random_items,
         "form": CommentForm,
         "sizes": sizes,
-        "tags": tags
+        "imgs": imgs,
+        "tags": tags,
+
     }
+    print(imgs)
     return render(request, 'main/item.html', context=context)
 
 
@@ -192,4 +198,12 @@ def payment(request):
     return render(request, 'main/payment.html')
 
 def delivery(request):
+    return render(request, "main/delivery.html")
+
+def add_slug(request):
+    items = Item.objects.filter(slug=None)
+    for item in items:
+        item.slug = f"{str(randint(1, 999))}-{item.name.replace(' ', '-')}"
+        item.save()
+
     return render(request, "main/delivery.html")
