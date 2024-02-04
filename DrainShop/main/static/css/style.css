@@ -738,10 +738,6 @@ margin-bottom: -6px;
   padding: 2px;
   margin: 12px;
   position: relative;
-  width: 250px;
-  height: 300px;
-  text-align: center;
-  
 }
 .item-container{
   text-align: center;
@@ -764,7 +760,7 @@ margin-bottom: -6px;
   font-weight: 500;
 }
 .border-items{
-  
+
   border: 3 px solid black;
   border-radius: 5px;
   width: 350px;
@@ -780,7 +776,7 @@ margin-bottom: -6px;
   background-color: black;
   color: white;
   box-shadow: inset 0px 0px 6px 0px rgba(255, 255, 255, 0.566);
-  border-radius: 25px;
+  border-radius: 5%;
   
   
 }
@@ -792,7 +788,6 @@ margin-bottom: -6px;
   left: 5px;
   border-radius: 70%;
   z-index: 2;
-  margin-left:10px  ;
  
 }
 .Description-button{
@@ -800,24 +795,14 @@ margin-bottom: -6px;
   color: black;
   width: 200px;
   height: 40px;
-  border-radius: 30px;
+  border-bottom: black;
+  border:40px;
   font-family: 'Ubuntu Mono', monospace !important;
-  transition:5ms;
-  text-align: center;
-  margin-top: 30px;
-  font-family: 'Ubuntu Mono', monospace !important;
-  
-  
-  
+  z-index:2;
 }
 .Description-button:hover , .Description-button:focus {
   background-color: black;
   color: white;
-}
-.order-svg{
-  width: 30px;
-  height: 30px;
- 
 }
 .item-new{
   width: 250px;
@@ -828,59 +813,7 @@ margin-bottom: -6px;
   position: relative;
   text-align: center;
 }
-.in-card{
+.new-items{
   display: flex;
-  flex-wrap: wrap;
-  text-align: center;
-}
-.in-button{
-  background-color: black;
-  color: white;
-  margin-top:25px;
-  height: 30px;
-
-}
-.in-button:hover{
-  height: 35px;
-  width: 160px;
-  transition: 5ms ;
-}
-.slider{
-  width: 780px;
-  height: 720px;
-  border: 1px solid rgb(156, 156, 156);
-  box-shadow: 1px 1px 8px 0px rgba(34, 60, 80, 0.2);
-}
-
-.upper-item{
-  height: 500px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  
-}
-
-
-.button-item{
-  border: 1px solid rgb(114, 114, 114);
-  width: 150px;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  user-select: none;
-}
-
-.button-item:hover{
-  background-color: rgb(128, 128, 128);
-  color: white;
-  transition: all 0.1s;
-}
-
-.button-item:active{
-  background-color: rgb(65, 65, 65);
-  color: white;
-  transition: all 0.1s;
+  justify-content: space-between;    
 }

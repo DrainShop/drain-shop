@@ -12,11 +12,11 @@
     <div class="longsleave">
         <img src="{{ item.item.image.url }}" alt="" class="long-img" width="300">
         <div class="Description">
-            <p > Women's Drainskirt</p>
+            <p> Women's Drainskirt</p>
             <p style="font-size: 50px;">{{ item.item.name }}</p>
             <hr>
             <p class="tg" style="font-size:25px;">Цена:{{ item.item.price }} ₸</p>
-            <p style="font-size:25px;" >Размер:{{ item.size.name }}</p>
+            <p style="font-size:25px;">Размер:{{ item.size.name }}</p>
             <p style="font-size:25px;">Цвет:Черный</p>
             <p style="font-size:25px;" >Кол-во: {{ item.amount }}</p>
             <p style="font-size:25px;" >Общая сумма: {{ item.total }}₸</p>
@@ -45,13 +45,18 @@
             <h1 style="font-size: 20px;">Итого</h1>
             <h1 class="Prices-2"style="font-size:20px;">{{ total_price }} ₸</h1>
         </div>
-            <button class="transition">
-                Перейти к оформлению
-            </button>
-            <div class="promo">
-                <h1>Промокоды и сертификаты</h1>
-                <h1>Промокод</h1>
-            </div>
+    </div>
+    <div class="Box-text3">
+        <h1 style="font-size: 20px;">Итого</h1>
+        <h1 class="Prices-2" style="font-size:20px;">{{ total_price }} ₸</h1>
+    </div>
+    <button class="transition">
+        Перейти к оформлению
+    </button>
+    <div class="promo">
+        <h1>Промокоды и сертификаты</h1>
+        <h1>Промокод</h1>
+    </div>
 </div>
 
 {% endblock %}
