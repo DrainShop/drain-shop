@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .forms import CategoryForm, CommentForm
-from .models import Category, Item, Comment, Order, OrderItem, ItemSize, Tag, ItemTag, ItemImg
+from .models import Category, Item, Comment, Order, OrderItem, ItemSize, Tag, ItemTag, ItemImg, ItemGender
 import random
 from random import randint
+from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
 
 tags = Tag.objects.all()
 
@@ -124,48 +126,49 @@ def order_item(request, item_id, size_id):
 
     return redirect('order')
 
+@login_required(login_url='login')
+def order(request):
+    try:
+        order = Order.objects.get(user=request.user)
+        order_items = OrderItem.objects.filter(order=order)
+        items = {}
 
-def order(requests):
+        for order_item in order_items:
+            key_item = (order_item.item, order_item.size)
+            if key_item not in items:
+                items[key_item] = 1
+            else:
+                items[key_item] += 1
 
-    order = Order.objects.get(user__id=requests.user.id)
-    order_items = OrderItem.objects.filter(order=order)
-    items = {}
+        total_price = sum(order_item.item.price for order_item in order_items)
 
-    for order_item in order_items:
-        key_item = (order_item.item, order_item.size)
-        if key_item not in items:
-            items[key_item] = 1
-        else:
-            items[key_item] += 1
+        items_list = []
+        for key, value in items.items():
+            items_list.append(
+                {
+                    "item": key[0],
+                    "size": key[1],
+                    "amount": value,
+                    "total": value * key[0].price
 
-    total_price = 0
-    for order_price in order_items:
-        key_price = (order_price.item.price)
-        total_price += key_price
+                }
+            )
 
-    for itempricik in order_items:
-        itempricik.item.calculated_price = itempricik.item.price - (itempricik.item.price * itempricik.item.discount / 100)
+        context = {
+            "items_list": items_list,
+            "tags": tags,
+            "total_price": total_price
+        }
 
+    except Order.DoesNotExist:
+        order = None
+        context = {
+            "items_list": [],
+            "tags": tags,
+            "total_price": 0
+        }
 
-    items_list = []
-    for key, value in items.items():
-        items_list.append(
-            {
-                "item": key[0],
-                "size": key[1],
-                "amount": value,
-                "total": value * key[0].price
-
-            }
-        )
-
-    context = {
-        "items_list": items_list,
-        "tags": tags,
-        "total_price": total_price
-    }
-
-    return render(requests, 'main/order.html', context=context)
+    return render(request, 'main/order.html', context=context)
 
 
 
@@ -207,3 +210,9 @@ def add_slug(request):
         item.save()
 
     return render(request, "main/delivery.html")
+
+
+
+
+
+

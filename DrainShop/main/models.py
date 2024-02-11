@@ -6,6 +6,15 @@ class Category(models.Model):
      image = models.ImageField(upload_to='images/categories/')
      name = models.CharField(max_length=120)
 
+     def __str__(self):
+         return self.name
+
+class ItemGender(models.Model):
+    name = models.CharField(max_length=120)
+
+    def __str__(self):
+        return self.name
+
 class Item(models.Model):
     name = models.CharField(max_length=120)
     price = models.FloatField()
@@ -13,6 +22,7 @@ class Item(models.Model):
     is_sale = models.BooleanField(default=False)
     discount = models.IntegerField(default=0)
     category = models.ForeignKey(to=Category, on_delete=models.CASCADE, default=1)
+    gender = models.ForeignKey(to=ItemGender, on_delete=models.CASCADE, default=1)
     discount_price = models.FloatField(null=True, blank=True)
     slug = models.CharField(max_length=120, null=True)
 
@@ -24,8 +34,6 @@ class Item(models.Model):
             self.discount_price = self.price - (self.price * self.discount / 100)
         self.slug = f"{str(randint(1, 999))}-{self.name.replace(' ', '-')}"
         super(Item, self).save(force_insert, force_update, *args, **kwargs)
-
-
 
 
 class ItemImg(models.Model):
@@ -63,9 +71,16 @@ class OrderItem(models.Model):
 class Tag(models.Model):
     name = models.CharField(max_length=120)
 
+    def __str__(self):
+        return self.name
+
 class ItemTag(models.Model):
     item = models.ForeignKey(to='Item', on_delete=models.CASCADE)
     tag = models.ForeignKey(to='Tag', on_delete=models.CASCADE)
+
+
+
+
 
 
 
