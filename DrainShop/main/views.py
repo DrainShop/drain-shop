@@ -13,10 +13,9 @@ tags = Tag.objects.all()
 def index(request):
 
     all_cat = Category.objects.all()
-    random_cats = random.sample(list(all_cat), 1)
+
 
     all_disks = Item.objects.filter(is_sale=True)
-    random_disk = random.sample(list(all_disks), 1)
 
     cats = Category.objects.all()
 
@@ -28,10 +27,16 @@ def index(request):
     context = {
         'cats': cats,
         'items': items,
-        "disk": random_disk[0],
-        "rand_item": random_cats[0],
         "tags": tags
     }
+
+    if len(all_disks) > 0:
+        random_disk = random.sample(list(all_disks), 1)
+        context['disk'] = random_disk[0]
+
+    if len(all_cat) > 0:
+        random_cats = random.sample(list(all_cat), 1)
+        context['rand_item'] = random_cats[0]
 
     return render(request, 'main/index.html', context=context)
 
