@@ -60,6 +60,8 @@ def show_item(request, slug):
     num_items_to_sample = max(1, min(3, len(all_items)))
     random_items = random.sample(list(all_items), num_items_to_sample)
 
+
+
     context = {
         "item": item,
         "comments": comments,
