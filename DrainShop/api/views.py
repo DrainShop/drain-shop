@@ -24,6 +24,7 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
 
 class CommentsAPIView(APIView):
     @extend_schema(
+        tags =  ["comments"],
         responses={200: CommentSerializer(many=True)},
         summary="все комменты для айтема",
         description="фысфы"
@@ -58,4 +59,19 @@ class OrderViewSet(viewsets.ModelViewSet):
 class OrderItemViewSet(viewsets.ModelViewSet):
     queryset = OrderItem.objects.all()
     serializer_class = OrderItemSerializer
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""------------------------------------------------reg---------------------------------------------------------------"""
+
 
