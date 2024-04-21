@@ -39,3 +39,10 @@ CSRF_COOKIE_SECURE = True
 ROOT_URLCONF = 'DrainShop.urls'
 
 WSGI_APPLICATION = 'DrainShop.wsgi.application'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+
+}

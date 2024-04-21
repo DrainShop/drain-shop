@@ -1,9 +1,11 @@
+from django.utils.crypto import get_random_string
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import *
+from rest_framework import status
 from .serializers import *
 from rest_framework import viewsets
 from drf_spectacular.utils import extend_schema
+from django.contrib.auth import authenticate
 
 """
 class ItemsAPIView(APIView):
@@ -61,17 +63,52 @@ class OrderItemViewSet(viewsets.ModelViewSet):
     serializer_class = OrderItemSerializer
 
 
-
-
-
-
-
-
-
-
-
-
-
 """------------------------------------------------reg---------------------------------------------------------------"""
+
+class UserRegisterAPIView(APIView):
+    def post(self, request):
+        serializer = CustomUserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            token = get_random_string(length=64)
+            user.token = token
+            user.save()
+            return Response(
+                {
+                    'token': token,
+                },
+                status=status.HTTP_201_CREATED,
+            )
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserLoginAPIView(APIView):
+    def post(self, request):
+        username = request.data.get('username')
+        password = request.data.get('password')
+        print(username, password)
+
+        if username and password:
+            user = authenticate(username=username, password=password)
+            if user:
+                token = get_random_string(length=64)
+                user.token = token
+                user.save()
+                return Response(
+                    {
+                        'token': token,
+                    },
+                    status=status.HTTP_200_OK,
+                )
+            else:
+                return Response(
+                    {'error': 'Invalid credentials'},
+                    status=status.HTTP_401_UNAUTHORIZED,
+                )
+        else:
+            return Response(
+                {'error': 'Username and password are required'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
 

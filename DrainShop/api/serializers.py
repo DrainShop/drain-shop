@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from main.models import *
-
+from users.models import CustomUser
 
 
 class ItemSerializer(serializers.ModelSerializer):
@@ -40,6 +40,12 @@ class OrderItemSerializer(serializers.ModelSerializer):
         model = OrderItem
         fields = '__all__'
 
+class CustomUserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True)
+
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'password']
 
 
 
