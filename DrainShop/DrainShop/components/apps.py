@@ -11,7 +11,8 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'drf_spectacular',
     'corsheaders',
-    'drf_yasg'
+    'drf_yasg',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
