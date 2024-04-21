@@ -11,14 +11,12 @@ print(environ.get("DEBUG"))
 
 include('components/*.py')
 
-
 SECRET_KEY = 'django-insecure-#7mqy7eh@)gukw#@zinib!xk^n1682@_qo(9pg0xr^6c@au@d8'
 
 if environ.get("DEBUG") == "False":
     DEBUG = False
 else:
     DEBUG = True
-
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Your Project API',
@@ -44,5 +42,4 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
-
 }

@@ -6,6 +6,11 @@ from .serializers import *
 from rest_framework import viewsets
 from drf_spectacular.utils import extend_schema
 from django.contrib.auth import authenticate
+from rest_framework.authtoken.models import Token
+
+from users.models import CustomUser
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 
 """
 class ItemsAPIView(APIView):
@@ -14,19 +19,24 @@ class ItemsAPIView(APIView):
         return Response({"items": ItemSerializer(items, many=True).data})
 """
 
+
 class ItemsViewSet(viewsets.ReadOnlyModelViewSet):
+    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
+
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 
-
 class CommentsAPIView(APIView):
+
     @extend_schema(
-        tags =  ["comments"],
+        tags=["comments"],
         responses={200: CommentSerializer(many=True)},
         summary="все комменты для айтема",
         description="фысфы"
@@ -34,29 +44,38 @@ class CommentsAPIView(APIView):
     def post(self, request):
         item = Item.objects.get(pk=request.data["item"])
         new_comment = Comment.objects.create(
-        name=request.data["name"],
-        text=request.data["text"],
-        item=item
+            name=request.data["name"],
+            text=request.data["text"],
+            item=item
         )
         return Response({"new_comment": CommentSerializer(new_comment).data})
 
+
 class AllCommentsAPIView(APIView):
+    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
     def get(self, request, pk):
+        print(request.user)
         item = Item.objects.get(pk=pk)
         all_comments = Comment.objects.filter(item=item)
         return Response({"all_comments": CommentSerializer(all_comments, many=True).data})
+
 
 class ItemGenderViewSet(viewsets.ModelViewSet):
     queryset = ItemGender.objects.all()
     serializer_class = ItemGenderSerializer
 
+
 class ItemSizeViewSet(viewsets.ModelViewSet):
     queryset = ItemSize.objects.all()
     serializer_class = ItemSizeSerializer
 
+
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+
 
 class OrderItemViewSet(viewsets.ModelViewSet):
     queryset = OrderItem.objects.all()
@@ -65,21 +84,18 @@ class OrderItemViewSet(viewsets.ModelViewSet):
 
 """------------------------------------------------reg---------------------------------------------------------------"""
 
+
 class UserRegisterAPIView(APIView):
     def post(self, request):
-        serializer = CustomUserSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            token = get_random_string(length=64)
-            user.token = token
-            user.save()
-            return Response(
-                {
-                    'token': token,
-                },
-                status=status.HTTP_201_CREATED,
-            )
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        username = request.data.get('username')
+        password = request.data.get('password')
+        new_user = CustomUser.objects.create_user(username=username, password=password)
+        return Response(
+            {
+                'token': 'qwerty',
+            },
+            status=status.HTTP_201_CREATED,
+        )
 
 
 class UserLoginAPIView(APIView):
@@ -91,12 +107,10 @@ class UserLoginAPIView(APIView):
         if username and password:
             user = authenticate(username=username, password=password)
             if user:
-                token = get_random_string(length=64)
-                user.token = token
-                user.save()
+                token = Token.objects.create(user=user)
                 return Response(
                     {
-                        'token': token,
+                        'token': token.key,
                     },
                     status=status.HTTP_200_OK,
                 )
@@ -110,5 +124,3 @@ class UserLoginAPIView(APIView):
                 {'error': 'Username and password are required'},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-
-

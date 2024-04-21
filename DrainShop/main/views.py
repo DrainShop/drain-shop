@@ -11,9 +11,7 @@ tags = Tag.objects.all()
 
 
 def index(request):
-
     all_cat = Category.objects.all()
-
 
     all_disks = Item.objects.filter(is_sale=True)
 
@@ -50,7 +48,6 @@ def show_item(request, slug):
         else:
             print("no POST")
 
-
     item = Item.objects.get(slug=slug)
     comments = Comment.objects.filter(item=item)
     sizes = ItemSize.objects.filter(item=item)
@@ -59,8 +56,6 @@ def show_item(request, slug):
     all_items = Item.objects.filter(category=item.category)
     num_items_to_sample = max(1, min(3, len(all_items)))
     random_items = random.sample(list(all_items), num_items_to_sample)
-
-
 
     context = {
         "item": item,
@@ -127,11 +122,12 @@ def order_item(request, item_id, size_id):
 
     user_item = Item.objects.get(id=item_id)
     item_size = ItemSize.objects.get(id=size_id)
-    new_order_item = OrderItem(order=user_order, item=user_item,size=item_size)
+    new_order_item = OrderItem(order=user_order, item=user_item, size=item_size)
 
     new_order_item.save()
 
     return redirect('order')
+
 
 @login_required(login_url='login')
 def order(request):
@@ -178,9 +174,7 @@ def order(request):
     return render(request, 'main/order.html', context=context)
 
 
-
 def new_item(request):
-
     new_items = Item.objects.all().order_by('-id')[:10]
 
     context = {
@@ -191,9 +185,7 @@ def new_item(request):
     return render(request, 'main/new_item.html', context=context)
 
 
-
 def tag(request, tag_id):
-
     tag = Tag.objects.get(id=tag_id)
     items = ItemTag.objects.filter(tag=tag)
 
@@ -204,11 +196,14 @@ def tag(request, tag_id):
 
     return render(request, 'main/tag.html', context=context)
 
+
 def payment(request):
     return render(request, 'main/payment.html')
 
+
 def delivery(request):
     return render(request, "main/delivery.html")
+
 
 def add_slug(request):
     items = Item.objects.filter(slug=None)
@@ -217,9 +212,3 @@ def add_slug(request):
         item.save()
 
     return render(request, "main/delivery.html")
-
-
-
-
-
-
