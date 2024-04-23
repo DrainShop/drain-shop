@@ -25,6 +25,7 @@ class Item(models.Model):
     gender = models.ForeignKey(to=ItemGender, on_delete=models.CASCADE, default=1)
     discount_price = models.FloatField(null=True, blank=True)
     slug = models.CharField(max_length=120, null=True)
+    description = models.TextField(default='')
 
     def __str__(self):
         return self.name
@@ -66,6 +67,8 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"товар: {self.item.name}, размер: {self.size.name}"
+
+
 
 
 class Tag(models.Model):

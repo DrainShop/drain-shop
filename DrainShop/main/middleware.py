@@ -1,6 +1,5 @@
 import time
 from django.http import HttpResponse
-import requests
 
 
 class ColorMiddleware:
