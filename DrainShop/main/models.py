@@ -25,6 +25,7 @@ class Item(models.Model):
     gender = models.ForeignKey(to=ItemGender, on_delete=models.CASCADE, default=1)
     discount_price = models.FloatField(null=True, blank=True)
     slug = models.CharField(max_length=120, null=True)
+    description = models.TextField(default='')
 
     def __str__(self):
         return self.name
@@ -68,7 +69,12 @@ class OrderItem(models.Model):
         return f"товар: {self.item.name}, размер: {self.size.name}"
 
 
+
+
 class Tag(models.Model):
+    name = models.CharField(max_length=120)
+
+class GenderBasicTag(models.Model):
     name = models.CharField(max_length=120)
 
     def __str__(self):
@@ -77,6 +83,11 @@ class Tag(models.Model):
 class ItemTag(models.Model):
     item = models.ForeignKey(to='Item', on_delete=models.CASCADE)
     tag = models.ForeignKey(to='Tag', on_delete=models.CASCADE)
+
+class GenderTag(models.Model):
+    item = models.ForeignKey(to='Item', on_delete=models.CASCADE)
+    tag = models.ForeignKey(to='GenderBasicTag', on_delete=models.CASCADE)
+
 
 
 

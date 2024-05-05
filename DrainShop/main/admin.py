@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Item, Category, Comment, ItemSize, Tag, ItemTag, ItemImg, ItemGender
+from .models import Item, Category, Comment, ItemSize, Tag, ItemTag, ItemImg, ItemGender, Order, OrderItem, GenderTag, \
+    GenderBasicTag
 from.forms import ItemForm
 
 
@@ -9,30 +10,47 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('name', 'image')
 
 @admin.register(ItemGender)
-class ItemGender(admin.ModelAdmin):
+class ItemGenderAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'image', 'category', 'gender')
+    list_display = ('name', 'price', 'image', 'category', 'gender', 'description', )
     form = ItemForm
 
 @admin.register(ItemImg)
-class ItemAdmin(admin.ModelAdmin):
+class ItemImgAdmin(admin.ModelAdmin):
     list_display = ('name', 'item', 'imgfield')
 
 @admin.register(Comment)
-class ItemAdmin(admin.ModelAdmin):
+class CommentAdmin(admin.ModelAdmin):
     list_display = ('name', 'text')
 
 @admin.register(ItemSize)
-class ItemAdmin(admin.ModelAdmin):
+class ItemSizeAdmin(admin.ModelAdmin):
     list_display = ('description', )
 
 @admin.register(Tag)
-class ItemAdmin(admin.ModelAdmin):
+class TagAdmin(admin.ModelAdmin):
     list_display = ('name',)
 
 @admin.register(ItemTag)
-class ItemAdmin(admin.ModelAdmin):
+class ItemTagAdmin(admin.ModelAdmin):
     list_display = ('tag', 'item')
+
+@admin.register(GenderBasicTag)
+class GenderTagAdmin(admin.ModelAdmin):
+    list_display = ('name', )
+
+@admin.register(GenderTag)
+class GenderTagAdmin(admin.ModelAdmin):
+    list_display = ('item', 'tag')
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ('user', 'created_at')
+
+
+@admin.register(OrderItem)
+class OrderItemAdmin(admin.ModelAdmin):
+    list_display = ('order', 'item', 'size')

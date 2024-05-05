@@ -1,11 +1,13 @@
+from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from .forms import CategoryForm, CommentForm
-from .models import Category, Item, Comment, Order, OrderItem, ItemSize, Tag, ItemTag, ItemImg, ItemGender
+from .forms import CommentForm
+from .models import Category, Item, Comment, Order, OrderItem, ItemSize, Tag, ItemTag, ItemImg, GenderBasicTag, \
+    GenderTag
 import random
+from django.shortcuts import get_object_or_404
 from random import randint
-from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
+
 
 tags = Tag.objects.all()
 
@@ -129,6 +131,21 @@ def order_item(request, item_id, size_id):
     return redirect('order')
 
 
+# def delete_order_item(request, order_item_id):
+#     try:
+#         order_item = OrderItem.objects.get(id=order_item_id)
+#     except OrderItem.DoesNotExist:
+#         return redirect('order')
+#
+#     if order_item.order.user != request.user:
+#         return redirect('order')
+#
+#     order_item.delete()
+#
+#     return redirect('order')
+
+
+
 @login_required(login_url='login')
 def order(request):
     try:
@@ -136,12 +153,20 @@ def order(request):
         order_items = OrderItem.objects.filter(order=order)
         items = {}
 
+        total_price_discount = 0
+        total_discount = 0
+
         for order_item in order_items:
             key_item = (order_item.item, order_item.size)
             if key_item not in items:
                 items[key_item] = 1
             else:
                 items[key_item] += 1
+
+            if order_item.item.discount:
+                total_price_discount += order_item.item.price - (order_item.item.price * order_item.item.discount / 100)
+                total_discount += order_item.item.discount
+
 
         total_price = sum(order_item.item.price for order_item in order_items)
 
@@ -153,14 +178,18 @@ def order(request):
                     "size": key[1],
                     "amount": value,
                     "total": value * key[0].price
-
                 }
             )
+
+        total_item_count = sum(items.values())
 
         context = {
             "items_list": items_list,
             "tags": tags,
-            "total_price": total_price
+            "total_price": total_price,
+            "total_item_count": total_item_count,
+            "total_price_discount": total_price_discount,
+            "total_discount": total_discount
         }
 
     except Order.DoesNotExist:
@@ -168,10 +197,14 @@ def order(request):
         context = {
             "items_list": [],
             "tags": tags,
-            "total_price": 0
+            "total_price": 0,
+            "total_item_count": 0,
+            "total_price_discount": 0,
+            "total_discount": 0
         }
 
     return render(request, 'main/order.html', context=context)
+
 
 
 def new_item(request):
@@ -186,7 +219,7 @@ def new_item(request):
 
 
 def tag(request, tag_id):
-    tag = Tag.objects.get(id=tag_id)
+    tags = Tag.objects.get(id=tag_id)
     items = ItemTag.objects.filter(tag=tag)
 
     context = {
@@ -196,6 +229,16 @@ def tag(request, tag_id):
 
     return render(request, 'main/tag.html', context=context)
 
+def gender_tag(request, tag_id):
+    gender_tags = GenderBasicTag.objects.get(id=tag_id)
+    items = GenderTag.objects.filter(tag=tag)
+
+    context = {
+        "items": items,
+        "gender_tags": gender_tags
+    }
+
+    return render(request, 'main/gender_tag.html', context=context)
 
 def payment(request):
     return render(request, 'main/payment.html')
@@ -208,7 +251,7 @@ def delivery(request):
 def add_slug(request):
     items = Item.objects.filter(slug=None)
     for item in items:
-        item.slug = f"{str(randint(1, 999))}-{item.name.replace(' ', '-')}"
+        item.slug = f"{str(randint(1, 9999))}-{item.name.replace(' ', '-')}"
         item.save()
 
     return render(request, "main/delivery.html")

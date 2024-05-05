@@ -18,13 +18,10 @@
     </div>
     <div class="item-description">
         <p class="section-header">Описание Товара</p>
-        <p class="item-text">Оверсайз фит, крой OVERSIZE. Запечатаны два рукава и грудь/спина.</p>
+        <p class="item-text">{{ item.description }}</p>
         {% for size in sizes %}
           <a href="{% url  'order_item' item.id size.id %}"><li class="item-text" > {{ size.name }}: {{ size.description }}</li></a>
         {% endfor %}
-        <p class="item-text">Вещь Унисекс, подходит мальчикам и девочкам.</p>
-        <p class="item-text" >Материал: Акрил</p>
-
     </div>
 </div>
 
@@ -38,7 +35,7 @@
     <p>Нет отзывов</p>
     {% endfor %}
     <div class="border-items">
-        <form method="post" action="{% url 'item' item.id %}">
+        <form method="post" action="{% url 'item' item.slug %}">
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" value="send">

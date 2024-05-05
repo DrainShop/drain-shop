@@ -7,7 +7,6 @@ from rest_framework import viewsets
 from drf_spectacular.utils import extend_schema
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
-
 from users.models import CustomUser
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -68,8 +67,10 @@ class ItemGenderViewSet(viewsets.ModelViewSet):
 
 
 class ItemSizeViewSet(viewsets.ModelViewSet):
-    queryset = ItemSize.objects.all()
     serializer_class = ItemSizeSerializer
+
+    def get_queryset(self):
+        return ItemSize.objects.filter(item__id=self.kwargs['item_id'])
 
 
 class OrderViewSet(viewsets.ModelViewSet):
@@ -92,7 +93,7 @@ class UserRegisterAPIView(APIView):
         new_user = CustomUser.objects.create_user(username=username, password=password)
         return Response(
             {
-                'token': 'qwerty',
+                'token': 'token created',
             },
             status=status.HTTP_201_CREATED,
         )

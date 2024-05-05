@@ -28,7 +28,9 @@
             <p style="font-size:25px;">Кол-во: {{ item.amount }}</p>
             <p style="font-size:25px;">Общая сумма: {{ item.total }}₸</p>
             <button class="Description-button">Убрать товар</button>
+
         </div>
+
 
 
     </div>
@@ -40,24 +42,22 @@
     <h1 class="Box-text1" style="font-size: 20px;">Сумма заказа</h1>
     <div class="Box-Prices">
         <div class="Prices">
-            <h1>1 товар на сумму </h1>
+            <h1>{{ total_item_count }} товар на сумму </h1>
             <h1>Скидка Cringe </h1>
         </div>
         <div class="Prices">
             <h1>{{ total_price }} ₸</h1>
-            <h1 class="prices1"> -0 ₸</h1>
+            <h1 class="prices1"> {{ total_discount }}%</h1>
         </div>
     </div>
     <div class="Box-text3">
         <h1 style="font-size: 20px;">Итого</h1>
-        <h1 class="Prices-2" style="font-size:20px;">{{ total_price }} ₸</h1>
+        <h1 class="Prices-2" style="font-size:20px;">{{ total_price_discount }} ₸</h1>
     </div>
     <button class="transition">
         Перейти к оформлению
     </button>
     <div class="promo">
-        <h1>Промокоды и сертификаты</h1>
-        <h1>Промокод</h1>
     </div>
 </div>
 
