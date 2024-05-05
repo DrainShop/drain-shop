@@ -1,4 +1,3 @@
-from django.utils.crypto import get_random_string
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -10,6 +9,8 @@ from rest_framework.authtoken.models import Token
 from users.models import CustomUser
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+import random
+from main.models import Category, Item
 
 """
 class ItemsAPIView(APIView):
@@ -33,7 +34,6 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class CommentsAPIView(APIView):
-
     @extend_schema(
         tags=["comments"],
         responses={200: CommentSerializer(many=True)},
@@ -48,6 +48,39 @@ class CommentsAPIView(APIView):
             item=item
         )
         return Response({"new_comment": CommentSerializer(new_comment).data})
+
+class RandomCategoryAPIView(APIView):
+    def get(self, request):
+        all_cats = Category.objects.all()
+
+        if all_cats.exists():
+            random_cats = random.choice(all_cats)
+            serializer = CategorySerializer(random_cats)
+
+            return Response(serializer.data)
+        else:
+            return Response({"message": "Категорий нет"})
+
+
+class RandomDiscountAPIView(APIView):
+    def get(self, request):
+        all_disks = Item.objects.all()
+
+        if all_disks.exists():
+            random_cats = random.choice(all_disks)
+            serializer = ItemSerializer(random_cats)
+
+            return Response(serializer.data)
+        else:
+            return Response({"message": "Категорий нет"})
+
+
+
+
+
+
+
+
 
 
 class AllCommentsAPIView(APIView):

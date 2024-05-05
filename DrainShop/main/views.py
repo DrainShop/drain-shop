@@ -1,10 +1,8 @@
-from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
 from .forms import CommentForm
 from .models import Category, Item, Comment, Order, OrderItem, ItemSize, Tag, ItemTag, ItemImg, GenderBasicTag, \
     GenderTag
 import random
-from django.shortcuts import get_object_or_404
 from random import randint
 from django.contrib.auth.decorators import login_required
 

@@ -17,5 +17,7 @@ urlpatterns = [
     path('comments/<int:pk>/', AllCommentsAPIView.as_view()),
     path('registration/', UserRegisterAPIView.as_view(), name='register'),
     path('login/', UserLoginAPIView.as_view(), name='user_login'),
-    path('item-sizes/<int:item_id>/', ItemSizeViewSet.as_view({'get': 'list'}))
+    path('item-sizes/<int:item_id>/', ItemSizeViewSet.as_view({'get': 'list'})),
+    path('rand_category/', RandomCategoryAPIView.as_view(), name="rand_item"),
+    path('rand_disk/', RandomDiscountAPIView.as_view(), name="rand_disk")
 ]
