@@ -11,6 +11,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from rest_framework.permissions import IsAuthenticated
 import random
 from main.models import Category, Item
+from django_filters.rest_framework import DjangoFilterBackend
 
 """
 class ItemsAPIView(APIView):
@@ -21,11 +22,13 @@ class ItemsAPIView(APIView):
 
 
 class ItemsViewSet(viewsets.ReadOnlyModelViewSet):
-    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    #authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
+    #permission_classes = [IsAuthenticated]
 
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['category__id']
 
 
 class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
@@ -50,6 +53,12 @@ class CommentsAPIView(APIView):
         return Response({"new_comment": CommentSerializer(new_comment).data})
 
 class RandomCategoryAPIView(APIView):
+    @extend_schema(
+        tags=["rand_category"],
+        responses={200: CategorySerializer(many=True)},
+        summary="рандомная категория",
+        description="http://127.0.0.1:8000/api/v1/rand_disk/"
+    )
     def get(self, request):
         all_cats = Category.objects.all()
 
@@ -63,6 +72,12 @@ class RandomCategoryAPIView(APIView):
 
 
 class RandomDiscountAPIView(APIView):
+    @extend_schema(
+        tags=["rand_discount"],
+        responses={200: ItemSerializer(many=True)},
+        summary="рандомный айтем, из него достать скидку",
+        description="http://127.0.0.1:8000/api/v1/rand-disk/"
+    )
     def get(self, request):
         all_disks = Item.objects.all()
 
@@ -73,13 +88,6 @@ class RandomDiscountAPIView(APIView):
             return Response(serializer.data)
         else:
             return Response({"message": "Категорий нет"})
-
-
-
-
-
-
-
 
 
 
