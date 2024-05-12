@@ -14,6 +14,7 @@ router.register(r'order-items', OrderItemViewSet)
 urlpatterns = [
     # path('items/', ItemsAPIView.as_view()),
     path('check/', CiCheck.as_view()),
+    path('ccheck/', CicCheck.as_view()),
     path('', include(router.urls)),
     path('comments/<int:pk>/', AllCommentsAPIView.as_view()),
     path('registration/', UserRegisterAPIView.as_view(), name='register'),

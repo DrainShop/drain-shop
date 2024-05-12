@@ -25,6 +25,10 @@ class CiCheck(APIView):
     def get(self, request):
         return Response({'message': 'success'})
 
+class CicCheck(APIView):
+    def get(self, request):
+        return Response({'message': 'success'})
+
 class ItemsViewSet(viewsets.ReadOnlyModelViewSet):
     #authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
     #permission_classes = [IsAuthenticated]
