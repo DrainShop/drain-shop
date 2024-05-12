@@ -12,9 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: executing remote ssh commands using password
-      uses: appleboy/ssh-action@v1.0.0
+      uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         password: ${{ secrets.SSH_PASSWORD }}
-        script: whoami
+        script: |
+          docker stop stop drain-shop-app-1
+          cd ${{ secrets.PROJECT_FOLDER }}
+          git pull
+          docker compose build && docker compose up -d
