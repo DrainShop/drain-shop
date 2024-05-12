@@ -53,23 +53,30 @@ class Comment(models.Model):
      text = models.TextField()
      item = models.ForeignKey(to=Item, on_delete=models.CASCADE)
 
-class Order(models.Model):
+class Basket(models.Model):
     user = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    total = models.IntegerField()
 
     def __str__(self):
         return f"Заказ пользователя {self.user.username}"
 
-class OrderItem(models.Model):
-    order = models.ForeignKey(to=Order, on_delete=models.CASCADE)
+class BasketItem(models.Model):
+    basket = models.ForeignKey(to=Basket, on_delete=models.CASCADE)
     item = models.ForeignKey(to=Item, on_delete=models.CASCADE)
     size = models.ForeignKey(to=ItemSize, on_delete=models.CASCADE, default=1)
+    quantity = models.IntegerField()
 
-    def __str__(self):
-        return f"товар: {self.item.name}, размер: {self.size.name}"
+class OrderUser(models.Model):
+    user = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)
+    order_datetime = models.DateTimeField(auto_now_add=True)
+    total_amount = models.IntegerField()
 
 
-
+class OrderItem(models.Model):
+    user = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)
+    item = models.ForeignKey(to=Item, on_delete=models.CASCADE)
+    size = models.ForeignKey(to=ItemSize, on_delete=models.CASCADE, default=1)
 
 class Tag(models.Model):
     name = models.CharField(max_length=120)

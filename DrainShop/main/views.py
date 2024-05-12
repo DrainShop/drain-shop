@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import CommentForm
-from .models import Category, Item, Comment, Order, OrderItem, ItemSize, Tag, ItemTag, ItemImg, GenderBasicTag, \
-    GenderTag
+from .models import *
 import random
 from random import randint
 from django.contrib.auth.decorators import login_required

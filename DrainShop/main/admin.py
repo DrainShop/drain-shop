@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Item, Category, Comment, ItemSize, Tag, ItemTag, ItemImg, ItemGender, Order, OrderItem, GenderTag, \
-    GenderBasicTag
+from .models import *
 from.forms import ItemForm
 
 
@@ -46,11 +45,3 @@ class GenderTagAdmin(admin.ModelAdmin):
 class GenderTagAdmin(admin.ModelAdmin):
     list_display = ('item', 'tag')
 
-@admin.register(Order)
-class OrderAdmin(admin.ModelAdmin):
-    list_display = ('user', 'created_at')
-
-
-@admin.register(OrderItem)
-class OrderItemAdmin(admin.ModelAdmin):
-    list_display = ('order', 'item', 'size')

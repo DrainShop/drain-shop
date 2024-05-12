@@ -1,3 +1,4 @@
+from django.db import transaction
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -10,7 +11,7 @@ from users.models import CustomUser
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 import random
-from main.models import Category, Item
+from main.models import *
 from django_filters.rest_framework import DjangoFilterBackend
 
 """
@@ -115,12 +116,12 @@ class ItemSizeViewSet(viewsets.ModelViewSet):
 
 
 class OrderViewSet(viewsets.ModelViewSet):
-    queryset = Order.objects.all()
+    queryset = Basket.objects.all()
     serializer_class = OrderSerializer
 
 
 class OrderItemViewSet(viewsets.ModelViewSet):
-    queryset = OrderItem.objects.all()
+    queryset = BasketItem.objects.all()
     serializer_class = OrderItemSerializer
 
 
@@ -132,6 +133,9 @@ class UserRegisterAPIView(APIView):
         username = request.data.get('username')
         password = request.data.get('password')
         new_user = CustomUser.objects.create_user(username=username, password=password)
+
+        basket = Basket.objects.create(user=new_user, total=0)
+
         return Response(
             {
                 'token': 'token created',
@@ -166,3 +170,41 @@ class UserLoginAPIView(APIView):
                 {'error': 'Username and password are required'},
                 status=status.HTTP_400_BAD_REQUEST,
             )
+
+
+"""------------------------------------------------basket------------------------------------------------------------"""
+
+class AddToBasketItemAPIView(APIView):
+    def post(self, request):
+        item_id = request.data.get('item_id')
+        size_id = request.data.get('size_id')
+
+        try:
+            basket = request.user.basket_set.first()
+        except Basket.DoesNotExist:
+            basket = Basket.objects.create(user=request.user, total=0)
+
+
+        try:
+            item = Item.objects.get(pk=item_id)
+        except Item.DoesNotExist:
+            return Response({"error": "Продукт не существует"}, status=status.HTTP_404_NOT_FOUND)
+
+        try:
+            basket_item, created = BasketItem.objects.update_or_create(
+                basket=basket,
+                item=item,
+                size_id=size_id,
+                defaults={'total': item.price, 'quantity': 1}
+            )
+
+        if not created:
+            basket_item.quantity += 1
+            basket_item.total = basket_item.quantity * item.price
+            basket_item.save()
+
+        basket.total =
+
+
+        return Response({"message": "Товар добавлен"}, status=status.HTTP_201_CREATED)
+
