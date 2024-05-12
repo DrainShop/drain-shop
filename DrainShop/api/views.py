@@ -21,6 +21,9 @@ class ItemsAPIView(APIView):
         return Response({"items": ItemSerializer(items, many=True).data})
 """
 
+class CiCheck(APIView):
+    def get(self, request):
+        return Response({'message': 'success'})
 
 class ItemsViewSet(viewsets.ReadOnlyModelViewSet):
     #authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]

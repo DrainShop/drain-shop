@@ -18,7 +18,7 @@ jobs:
         username: ${{ secrets.SSH_USER }}
         password: ${{ secrets.SSH_PASSWORD }}
         script: |
-          docker stop stop drain-shop-app-1
+          docker stop drain-shop-app-1
           cd ${{ secrets.PROJECT_FOLDER }}
           git pull
           docker compose build && docker compose up -d
