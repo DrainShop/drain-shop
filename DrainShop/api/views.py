@@ -21,8 +21,7 @@ class ItemsAPIView(APIView):
 
 
 class ItemsViewSet(viewsets.ReadOnlyModelViewSet):
-    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+  
 
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
