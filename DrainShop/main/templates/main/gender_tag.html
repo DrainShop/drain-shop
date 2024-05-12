@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoes</title>
+</head>
+<body>
+  <div>
+    цикл
+      <div>
+        <h3>имя</h3>
+        <p>Цена: 0</p>
+        <img src="{% static 'img/hardcode.png' %}" alt="имя" width="300">
+      </div>
+    {% endfor %}
+  </div>
+
+</body>
+</html>
+
+{% endblock %}

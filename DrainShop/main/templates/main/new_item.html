@@ -1,0 +1,31 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}<title>Новинки | DrainShop Cringe</title>{% endblock %}
+{% block content %}
+<body>
+    <main class="new-item">
+        
+
+           
+            {% for item in new_items %}
+            <div class="item-new">
+                <img src="{{ item.image.url }}" alt="{{ item.name }} image" width="200"><br>
+                <strong>Название:</strong> {{ item.name }}<br>
+                <strong>Цена:</strong> ${{ item.price }}<br>
+            </div>         
+            {% endfor %}
+            <div class="item-description">
+                <p class="section-header">Описание Товара</p>
+                <p class="item-text">Оверсайз фит, крой OVERSIZE. Запечатаны два рукава и грудь/спина.</p>
+                {% for size in sizes %}
+                  <a href="{% url  'order_item' item.id size.id %}"><li class="item-text" > {{ size.name }}: {{ size.description }}</li></a>
+                {% endfor %}
+                <p class="item-text">Вещь Унисекс, подходит мальчикам и девочкам.</p>
+                <p class="item-text" >Материал: Акрил</p>
+            </div>
+        
+    </main>
+</body>
+</html>
+{% endblock %}

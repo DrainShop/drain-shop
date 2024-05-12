@@ -180,31 +180,30 @@ class AddToBasketItemAPIView(APIView):
         size_id = request.data.get('size_id')
 
         try:
-            basket = request.user.basket_set.first()
+            basket = Basket.objects.get(user=request.user)
         except Basket.DoesNotExist:
             basket = Basket.objects.create(user=request.user, total=0)
-
 
         try:
             item = Item.objects.get(pk=item_id)
         except Item.DoesNotExist:
             return Response({"error": "Продукт не существует"}, status=status.HTTP_404_NOT_FOUND)
 
-        try:
-            basket_item, created = BasketItem.objects.update_or_create(
-                basket=basket,
-                item=item,
-                size_id=size_id,
-                defaults={'total': item.price, 'quantity': 1}
-            )
+        basket_item, created = BasketItem.objects.get_or_create(
+            basket=basket,
+            item=item,
+            size_id=size_id,
+            defaults={'total': item.price, 'quantity': 1}
+        )
 
         if not created:
             basket_item.quantity += 1
             basket_item.total = basket_item.quantity * item.price
             basket_item.save()
 
-        basket.total =
-
+        basket.total = sum(item.total for item in basket.basketitem_set.all())
+        basket.save()
 
         return Response({"message": "Товар добавлен"}, status=status.HTTP_201_CREATED)
+
 

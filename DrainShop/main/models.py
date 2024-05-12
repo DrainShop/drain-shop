@@ -56,7 +56,7 @@ class Comment(models.Model):
 class Basket(models.Model):
     user = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
-    total = models.IntegerField()
+    total = models.IntegerField(default=0)
 
     def __str__(self):
         return f"Заказ пользователя {self.user.username}"
@@ -65,7 +65,8 @@ class BasketItem(models.Model):
     basket = models.ForeignKey(to=Basket, on_delete=models.CASCADE)
     item = models.ForeignKey(to=Item, on_delete=models.CASCADE)
     size = models.ForeignKey(to=ItemSize, on_delete=models.CASCADE, default=1)
-    quantity = models.IntegerField()
+    quantity = models.IntegerField(default=0)
+    total = models.IntegerField(default=0)
 
 class OrderUser(models.Model):
     user = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)

@@ -1,0 +1,26 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoes</title>
+</head>
+<body>
+  <div>
+    {% for item in items %}
+      <div>
+        <h3>{{ item.item.name }}</h3>
+        <p>Цена: {{ item.item.price }}</p>
+        <img src="{{ item.item.image.url }}" alt="{{ item.item.name }}" width="300">
+      </div>
+    {% endfor %}
+  </div>
+
+</body>
+</html>
+
+{% endblock %}
