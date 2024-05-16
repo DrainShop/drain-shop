@@ -1,4 +1,3 @@
-from django.db import transaction
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -11,7 +10,9 @@ from users.models import CustomUser
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 import random
+from django.db import transaction
 from main.models import *
+from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
 
 """
@@ -124,12 +125,12 @@ class ItemSizeViewSet(viewsets.ModelViewSet):
 
 class OrderViewSet(viewsets.ModelViewSet):
     queryset = Basket.objects.all()
-    serializer_class = OrderSerializer
+    serializer_class = OrderUserSerializer
 
 
 class OrderItemViewSet(viewsets.ModelViewSet):
     queryset = BasketItem.objects.all()
-    serializer_class = OrderItemSerializer
+    serializer_class = BasketItemSerializer
 
 
 """------------------------------------------------reg---------------------------------------------------------------"""
@@ -182,6 +183,12 @@ class UserLoginAPIView(APIView):
 """------------------------------------------------basket------------------------------------------------------------"""
 
 class AddToBasketItemAPIView(APIView):
+    @extend_schema(
+        tags=["AddToBasketItem"],
+        responses={200: BasketItemSerializer(many=True)},
+        summary="все айтемы в корзине",
+        description="http://127.0.0.1:8000/api/v1/add-to-basket/"
+    )
     def post(self, request):
         item_id = request.data.get('item_id')
         size_id = request.data.get('size_id')
@@ -211,6 +218,55 @@ class AddToBasketItemAPIView(APIView):
         basket.total = sum(item.total for item in basket.basketitem_set.all())
         basket.save()
 
-        return Response({"message": "Товар добавлен"}, status=status.HTTP_201_CREATED)
+        serializer = BasketSerializer(basket)
+        basket_item_serializer = BasketItemSerializer(basket.basketitem_set.all(), many=True)
+
+        return Response({"message": "Товар добавлен",
+                         'basket': serializer.data,
+                         'basket_items': basket_item_serializer.data
+                         }, status=status.HTTP_201_CREATED)
+
+
+class CreateOrderAPIView(APIView):
+    @extend_schema(
+        tags=["CreateOrder"],
+        responses={200: OrderUserSerializer(many=True)},
+        summary="Создание заказа и очищение корзин",
+        description="http://127.0.0.1:8000/api/v1/create-order/"
+    )
+    def post(self, request):
+        user = request.user
+
+
+        basket = Basket.objects.filter(user=user).first()
+        if not basket:
+            return Response({'error': 'Корзина пользователя не найдена'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+        basket_items = BasketItem.objects.filter(basket=basket)
+        if not basket_items:
+            return Response({'error': 'Элементы корзины не найдены'}, status=status.HTTP_400_BAD_REQUEST)
+
+        total_amount = basket.total
+
+        order_datetime = timezone.now()
+
+        order = OrderUser.objects.create(
+            basket=basket,
+            total_amount=total_amount,
+            order_datetime=order_datetime
+        )
+
+        with transaction.atomic():
+            basket.total = 0
+            basket.save()
+
+            basket_items.delete()
+
+        serializer = OrderUserSerializer(order)
+
+        return Response({"message": "Заказ создан", "data": serializer.data}, status=status.HTTP_201_CREATED)
+
+
 
 

@@ -22,5 +22,6 @@ urlpatterns = [
     path('item-sizes/<int:item_id>/', ItemSizeViewSet.as_view({'get': 'list'})),
     path('rand-category/', RandomCategoryAPIView.as_view(), name="rand_item"),
     path('rand-disk/', RandomDiscountAPIView.as_view(), name="rand_disk"),
-    path('add-to-basket/', AddToBasketItemAPIView.as_view(), name='add-to-basket')
+    path('add-to-basket/', AddToBasketItemAPIView.as_view(), name='add-to-basket'),
+    path('create-order/', CreateOrderAPIView.as_view(), name='create-order')
 ]

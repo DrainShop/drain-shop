@@ -69,7 +69,7 @@ class BasketItem(models.Model):
     total = models.IntegerField(default=0)
 
 class OrderUser(models.Model):
-    user = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)
+    basket = models.ForeignKey(to=Basket, on_delete=models.CASCADE, default=0)
     order_datetime = models.DateTimeField(auto_now_add=True)
     total_amount = models.IntegerField()
 

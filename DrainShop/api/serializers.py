@@ -30,14 +30,19 @@ class ItemSizeSerializer(serializers.ModelSerializer):
         model = ItemSize
         fields = '__all__'
 
-class OrderSerializer(serializers.ModelSerializer):
+class BasketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Basket
         fields = '__all__'
 
-class OrderItemSerializer(serializers.ModelSerializer):
+class BasketItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = BasketItem
+        fields = '__all__'
+
+class OrderUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderUser
         fields = '__all__'
 
 class CustomUserSerializer(serializers.ModelSerializer):
