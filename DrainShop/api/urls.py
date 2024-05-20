@@ -23,4 +23,5 @@ urlpatterns = [
     path('item-sizes/<int:item_id>/', ItemSizeAPIView.as_view(), name='item-size-list'),
     path('items/', ItemsAPIView.as_view(), name='item-list'),
     path('categories/', CategoryAPIView.as_view(), name='category-list'),
+    path('list-basket-item/', ViewBasketItemAPIView.as_view(), name='list-basket-item'),
 ]

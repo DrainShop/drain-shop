@@ -280,7 +280,7 @@ class UserLoginAPIView(APIView):
         if username and password:
             user = authenticate(username=username, password=password)
             if user:
-                token = Token.objects.create(user=user)
+                token, created = Token.objects.get_or_create(user=user)
                 return Response(
                     {
                         'token': token.key,
@@ -345,6 +345,15 @@ class AddToBasketItemAPIView(APIView):
                          'basket': serializer.data,
                          'basket_items': basket_item_serializer.data
                          }, status=status.HTTP_201_CREATED)
+
+class ViewBasketItemAPIView(APIView):
+    def get(self, request):
+        user = request.user
+
+        basket_items = BasketItem.objects.filter(basket__user=user)
+        serializer = BasketItemSerializer(basket_items, many=True)
+        return Response(serializer.data)
+
 
 class CreateOrderAPIView(APIView):
     @extend_schema(

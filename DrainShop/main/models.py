@@ -54,7 +54,7 @@ class Comment(models.Model):
      item = models.ForeignKey(to=Item, on_delete=models.CASCADE)
 
 class Basket(models.Model):
-    user = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(to=CustomUser, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     total = models.IntegerField(default=0)
 
