@@ -1,55 +1,183 @@
-from django.db import transaction
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from .serializers import *
 from rest_framework import viewsets
-from drf_spectacular.utils import extend_schema
+from drf_spectacular.utils import extend_schema, OpenApiParameter, OpenApiTypes
 from django.contrib.auth import authenticate
 from rest_framework.authtoken.models import Token
 from users.models import CustomUser
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 import random
+from django.db import transaction
 from main.models import *
+from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
 
-"""
+
+class OrderAPIView(APIView):
+    @extend_schema(
+        tags=["orders"],
+        responses={200: OrderUserSerializer(many=True)},
+        summary="Получение списка всех заказов",
+        description="http://127.0.0.1:8000/api/v1/orders/"
+    )
+    def get(self, request):
+        orders = Basket.objects.all()
+        serializer = OrderUserSerializer(orders, many=True)
+        return Response(serializer.data)
+
+    @extend_schema(
+        tags=["orders"],
+        request=OrderUserSerializer,
+        responses={201: OrderUserSerializer},
+        summary="Создание нового заказа",
+        description="http://127.0.0.1:8000/api/v1/orders/"
+    )
+    def post(self, request):
+        serializer = OrderUserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class OrderItemAPIView(APIView):
+    @extend_schema(
+        tags=["order-items"],
+        responses={200: BasketItemSerializer(many=True)},
+        summary="Получение списка всех элементов заказа",
+        description="http://127.0.0.1:8000/api/v1/order-items/"
+    )
+    def get(self, request):
+        order_items = BasketItem.objects.all()
+        serializer = BasketItemSerializer(order_items, many=True)
+        return Response(serializer.data)
+
+    @extend_schema(
+        tags=["order-items"],
+        request=BasketItemSerializer,
+        responses={201: BasketItemSerializer},
+        summary="Создание нового элемента заказа",
+        description="http://127.0.0.1:8000/api/v1/order-items/"
+    )
+    def post(self, request):
+        serializer = BasketItemSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ItemGenderAPIView(APIView):
+
+    @extend_schema(
+        tags=["item-genders"],
+        responses={200: ItemGenderSerializer(many=True)},
+        summary="Получение списка всех категорий по гендерному признаку",
+        description="http://127.0.0.1:8000/api/v1/item-genders/"
+    )
+    def get(self, request):
+        item_genders = ItemGender.objects.all()
+        serializer = ItemGenderSerializer(item_genders, many=True)
+        return Response(serializer.data)
+
+    @extend_schema(
+        tags=["item-genders"],
+        request=ItemGenderSerializer,
+        responses={201: ItemGenderSerializer},
+        summary="Создание новой категории по гендерному признаку",
+        description="http://127.0.0.1:8000/api/v1/item-genders/"
+    )
+    def post(self, request):
+        serializer = ItemGenderSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ItemSizeAPIView(APIView):
+
+    @extend_schema(
+        tags=["item-sizes"],
+        parameters=[
+            OpenApiParameter('item_id', OpenApiTypes.INT, OpenApiParameter.PATH, description='ID товара')
+        ],
+        responses={200: ItemSizeSerializer(many=True)},
+        summary="Получение списка размеров для конкретного товара",
+        description="http://127.0.0.1:8000/api/v1/item-sizes/<int:item_id>/"
+    )
+    def get(self, request, item_id):
+        item_sizes = ItemSize.objects.filter(item__id=item_id)
+        serializer = ItemSizeSerializer(item_sizes, many=True)
+        return Response(serializer.data)
+
+    @extend_schema(
+        tags=["item-sizes"],
+        parameters=[
+            OpenApiParameter('item_id', OpenApiTypes.INT, OpenApiParameter.PATH, description='ID товара')
+        ],
+        request=ItemSizeSerializer,
+        responses={201: ItemSizeSerializer},
+        summary="Создание нового размера для конкретного товара",
+        description="http://127.0.0.1:8000/api/v1/item-sizes/<int:item_id>/"
+    )
+    def post(self, request, item_id):
+        data = request.data.copy()
+        data['item'] = item_id
+        serializer = ItemSizeSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ItemSizeViewSet(viewsets.ModelViewSet):
+    serializer_class = ItemSizeSerializer
+    def get_queryset(self):
+        return ItemSize.objects.filter(item__id=self.kwargs['item_id'])
+
 class ItemsAPIView(APIView):
+    @extend_schema(
+        tags=["items"],
+        parameters=[
+            OpenApiParameter('category__id', OpenApiTypes.INT, OpenApiParameter.QUERY, description='ID категории')
+        ],
+        responses={200: ItemSerializer(many=True)},
+        summary="Получение списка всех товаров, с возможностью фильтрации по категории",
+        description="http://127.0.0.1:8000/api/v1/items/"
+    )
     def get(self, request):
         items = Item.objects.all()
-        return Response({"items": ItemSerializer(items, many=True).data})
-"""
+        filter_backends = [DjangoFilterBackend]
 
-class CiCheck(APIView):
+        for backend in list(filter_backends):
+            items = backend().filter_queryset(request, items, view=self)
+
+        serializer = ItemSerializer(items, many=True)
+        return Response(serializer.data)
+
+
+class CategoryAPIView(APIView):
+    @extend_schema(
+        tags=["categories"],
+        responses={200: CategorySerializer(many=True)},
+        summary="Получение списка всех категорий",
+        description="http://127.0.0.1:8000/api/v1/categories/"
+    )
     def get(self, request):
-        return Response({'message': 'success'})
-
-class CicCheck(APIView):
-    def get(self, request):
-        return Response({'message': 'success'})
-
-class ItemsViewSet(viewsets.ReadOnlyModelViewSet):
-    #authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
-    #permission_classes = [IsAuthenticated]
-
-    queryset = Item.objects.all()
-    serializer_class = ItemSerializer
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['category__id']
-
-
-class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+        categories = Category.objects.all()
+        serializer = CategorySerializer(categories, many=True)
+        return Response(serializer.data)
 
 
 class CommentsAPIView(APIView):
     @extend_schema(
         tags=["comments"],
-        responses={200: CommentSerializer(many=True)},
-        summary="все комменты для айтема",
-        description="фысфы"
+        request=CommentSerializer,
+        responses={200: CommentSerializer},
+        summary="Создание нового комментария",
+        description="http://127.0.0.1:8000/api/v1/comments/"
     )
     def post(self, request):
         item = Item.objects.get(pk=request.data["item"])
@@ -62,10 +190,10 @@ class CommentsAPIView(APIView):
 
 class RandomCategoryAPIView(APIView):
     @extend_schema(
-        tags=["rand_category"],
-        responses={200: CategorySerializer(many=True)},
-        summary="рандомная категория",
-        description="http://127.0.0.1:8000/api/v1/rand_disk/"
+        tags=["categories"],
+        responses={200: CategorySerializer},
+        summary="Получение случайной категории",
+        description="http://127.0.0.1:8000/api/v1/random-category/"
     )
     def get(self, request):
         all_cats = Category.objects.all()
@@ -78,13 +206,12 @@ class RandomCategoryAPIView(APIView):
         else:
             return Response({"message": "Категорий нет"})
 
-
 class RandomDiscountAPIView(APIView):
     @extend_schema(
-        tags=["rand_discount"],
-        responses={200: ItemSerializer(many=True)},
-        summary="рандомный айтем, из него достать скидку",
-        description="http://127.0.0.1:8000/api/v1/rand-disk/"
+        tags=["items"],
+        responses={200: ItemSerializer},
+        summary="Получение случайной скидки",
+        description="http://127.0.0.1:8000/api/v1/random-discount/"
     )
     def get(self, request):
         all_disks = Item.objects.all()
@@ -95,47 +222,36 @@ class RandomDiscountAPIView(APIView):
 
             return Response(serializer.data)
         else:
-            return Response({"message": "Категорий нет"})
-
-
+            return Response({"message": "Товаров нет"})
 
 class AllCommentsAPIView(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication, TokenAuthentication]
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
 
+    @extend_schema(
+        tags=["comments"],
+        responses={200: CommentSerializer(many=True)},
+        summary="Получение всех комментариев по ID товара",
+        description="http://127.0.0.1:8000/api/v1/all-comments/<int:pk>/"
+    )
     def get(self, request, pk):
-        print(request.user)
         item = Item.objects.get(pk=pk)
         all_comments = Comment.objects.filter(item=item)
         return Response({"all_comments": CommentSerializer(all_comments, many=True).data})
 
 
-class ItemGenderViewSet(viewsets.ModelViewSet):
-    queryset = ItemGender.objects.all()
-    serializer_class = ItemGenderSerializer
-
-
-class ItemSizeViewSet(viewsets.ModelViewSet):
-    serializer_class = ItemSizeSerializer
-
-    def get_queryset(self):
-        return ItemSize.objects.filter(item__id=self.kwargs['item_id'])
-
-
-class OrderViewSet(viewsets.ModelViewSet):
-    queryset = Basket.objects.all()
-    serializer_class = OrderSerializer
-
-
-class OrderItemViewSet(viewsets.ModelViewSet):
-    queryset = BasketItem.objects.all()
-    serializer_class = OrderItemSerializer
 
 
 """------------------------------------------------reg---------------------------------------------------------------"""
 
 
 class UserRegisterAPIView(APIView):
+    @extend_schema(
+        tags=["users"],
+        responses={201: "Токен создан"},
+        summary="Регистрация нового пользователя",
+        description="http://127.0.0.1:8000/api/v1/register/"
+    )
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
@@ -150,12 +266,16 @@ class UserRegisterAPIView(APIView):
             status=status.HTTP_201_CREATED,
         )
 
-
 class UserLoginAPIView(APIView):
+    @extend_schema(
+        tags=["users"],
+        responses={200: "Токен"},
+        summary="Авторизация пользователя",
+        description="http://127.0.0.1:8000/api/v1/login/"
+    )
     def post(self, request):
         username = request.data.get('username')
         password = request.data.get('password')
-        print(username, password)
 
         if username and password:
             user = authenticate(username=username, password=password)
@@ -169,12 +289,12 @@ class UserLoginAPIView(APIView):
                 )
             else:
                 return Response(
-                    {'error': 'Invalid credentials'},
+                    {'error': 'Неверные учетные данные'},
                     status=status.HTTP_401_UNAUTHORIZED,
                 )
         else:
             return Response(
-                {'error': 'Username and password are required'},
+                {'error': 'Имя пользователя и пароль обязательны'},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -182,6 +302,13 @@ class UserLoginAPIView(APIView):
 """------------------------------------------------basket------------------------------------------------------------"""
 
 class AddToBasketItemAPIView(APIView):
+    @extend_schema(
+        tags=["basket"],
+        request={"item_id": "integer", "size_id": "integer"},
+        responses={201: BasketSerializer},
+        summary="Добавление товара в корзину",
+        description="http://127.0.0.1:8000/api/v1/add-to-basket/"
+    )
     def post(self, request):
         item_id = request.data.get('item_id')
         size_id = request.data.get('size_id')
@@ -211,6 +338,52 @@ class AddToBasketItemAPIView(APIView):
         basket.total = sum(item.total for item in basket.basketitem_set.all())
         basket.save()
 
-        return Response({"message": "Товар добавлен"}, status=status.HTTP_201_CREATED)
+        serializer = BasketSerializer(basket)
+        basket_item_serializer = BasketItemSerializer(basket.basketitem_set.all(), many=True)
+
+        return Response({"message": "Товар добавлен",
+                         'basket': serializer.data,
+                         'basket_items': basket_item_serializer.data
+                         }, status=status.HTTP_201_CREATED)
+
+class CreateOrderAPIView(APIView):
+    @extend_schema(
+        tags=["orders"],
+        responses={201: OrderUserSerializer},
+        summary="Создание заказа",
+        description="http://127.0.0.1:8000/api/v1/create-order/"
+    )
+    def post(self, request):
+        user = request.user
+
+        basket = Basket.objects.filter(user=user).first()
+        if not basket:
+            return Response({'error': 'Корзина пользователя не найдена'}, status=status.HTTP_400_BAD_REQUEST)
+
+        basket_items = BasketItem.objects.filter(basket=basket)
+        if not basket_items:
+            return Response({'error': 'Элементы корзины не найдены'}, status=status.HTTP_400_BAD_REQUEST)
+
+        total_amount = basket.total
+
+        order_datetime = timezone.now()
+
+        order = OrderUser.objects.create(
+            basket=basket,
+            total_amount=total_amount,
+            order_datetime=order_datetime
+        )
+
+        with transaction.atomic():
+            basket.total = 0
+            basket.save()
+
+            basket_items.delete()
+
+        serializer = OrderUserSerializer(order)
+
+        return Response({"message": "Заказ создан", "data": serializer.data}, status=status.HTTP_201_CREATED)
+
+
 
 
