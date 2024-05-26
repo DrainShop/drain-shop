@@ -5,7 +5,6 @@ from django.urls import path, include
 
 router = routers.SimpleRouter()
 
-
 urlpatterns = [
     path('', include(router.urls)),
     path('comments/<int:pk>/', AllCommentsAPIView.as_view()),
@@ -23,5 +22,8 @@ urlpatterns = [
     path('item-sizes/<int:item_id>/', ItemSizeAPIView.as_view(), name='item-size-list'),
     path('items/', ItemsAPIView.as_view(), name='item-list'),
     path('categories/', CategoryAPIView.as_view(), name='category-list'),
-    path('list-basket-item/', ViewBasketItemAPIView.as_view(), name='list-basket-item'),
+    path('basket-item/', ViewBasketItemAPIView.as_view(), name='list-basket-item'),
+    path('basket/', ViewBasketAPIView.as_view(), name='basket/'),
+    path('list-order/', ListOrderAPIView.as_view(), name="list-order"),
 ]
+

@@ -43,7 +43,7 @@ class BasketItemSerializer(serializers.ModelSerializer):
 class OrderUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderUser
-        fields = '__all__'
+        fields = "__all__"
 
 class CustomUserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)

@@ -14,6 +14,7 @@ from django.db import transaction
 from main.models import *
 from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
+from .utils import StatusOrder
 
 
 class OrderAPIView(APIView):
@@ -347,11 +348,33 @@ class AddToBasketItemAPIView(APIView):
                          }, status=status.HTTP_201_CREATED)
 
 class ViewBasketItemAPIView(APIView):
+    @extend_schema(
+        tags=["basket"],
+        # request={"item_id": "integer", "size_id": "integer"},
+        responses={201: BasketItemSerializer},
+        summary="Товары коризны",
+        description="http://127.0.0.1:8000/api/v1/basket-item/"
+    )
     def get(self, request):
         user = request.user
 
         basket_items = BasketItem.objects.filter(basket__user=user)
         serializer = BasketItemSerializer(basket_items, many=True)
+        return Response(serializer.data)
+
+class ViewBasketAPIView(APIView):
+    @extend_schema(
+        tags=["basket"],
+        # request={"item_id": "integer", "size_id": "integer"},
+        responses={201: BasketItemSerializer},
+        summary="Инфо коризны",
+        description="http://127.0.0.1:8000/api/v1/basket/"
+    )
+    def get(self, request):
+        user = request.user
+
+        basket = Basket.objects.filter(user=user)
+        serializer = BasketItemSerializer(basket, many=True)
         return Response(serializer.data)
 
 
@@ -392,6 +415,46 @@ class CreateOrderAPIView(APIView):
         serializer = OrderUserSerializer(order)
 
         return Response({"message": "Заказ создан", "data": serializer.data}, status=status.HTTP_201_CREATED)
+
+"""-------------------------------------------------order------------------------------------------------------------"""
+class ListOrderAPIView(APIView):
+    @extend_schema(
+        tags=["orders"],
+        responses={200: OrderUserSerializer(many=True)},
+        summary="Возвращает список заказов для текущего пользователя. Можно фильтровать по статусу заказа",
+        description="http://127.0.0.1:8000/api/v1/list-order/?status=2"
+    )
+    def get(self, request):
+        user = request.user
+
+        # Получаем значение параметра 'status' из строки запроса (если он есть)
+        status_param = request.query_params.get('status', None)
+
+        orders = OrderUser.objects.filter(basket__user=user)
+
+        # Если параметр 'status' был передан в запросе, то выполняем дополнительную фильтрацию
+        if status_param is not None:
+            try:
+                # Пробуем преобразовать параметр 'status' в целое число
+                status_param = int(status_param)
+
+                # Проверяем, что статус является допустимым значением
+                if status_param in StatusOrder.values:
+                    # Дополнительно фильтруем заказы по статусу
+                    orders = orders.filter(status=status_param)
+                else:
+                    # Если статус не является допустимым значением, возвращаем ошибку 400
+                    return Response({'error': 'Invalid status'}, status=status.HTTP_400_BAD_REQUEST)
+            except ValueError:
+                # Если параметр 'status' не является целым числом, возвращаем ошибку 400
+                return Response({'error': 'Status must be an integer'}, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = OrderUserSerializer(orders, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+
+
 
 
 
