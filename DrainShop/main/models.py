@@ -1,6 +1,8 @@
 from django.db import models
 from users.models import CustomUser
 from random import randint
+from api.utils import *
+
 
 class Category(models.Model):
      image = models.ImageField(upload_to='images/categories/')
@@ -53,23 +55,38 @@ class Comment(models.Model):
      text = models.TextField()
      item = models.ForeignKey(to=Item, on_delete=models.CASCADE)
 
-class Order(models.Model):
-    user = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)
+class Basket(models.Model):
+    user = models.OneToOneField(to=CustomUser, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    total = models.IntegerField(default=0)
+    status = models.SmallIntegerField(choices=StatusBasket.choices, default=StatusBasket.BASKET_CREATED)
 
     def __str__(self):
         return f"Заказ пользователя {self.user.username}"
 
+class BasketItem(models.Model):
+    basket = models.ForeignKey(to=Basket, on_delete=models.CASCADE)
+    item = models.ForeignKey(to=Item, on_delete=models.CASCADE)
+    size = models.ForeignKey(to=ItemSize, on_delete=models.CASCADE, default=1)
+    quantity = models.IntegerField(default=0)
+    total = models.IntegerField(default=0)
+
+class OrderUser(models.Model):
+    basket = models.ForeignKey(to=Basket, on_delete=models.CASCADE, default=0)
+    order_datetime = models.DateTimeField(auto_now_add=True)
+    total_amount = models.IntegerField()
+    status = models.SmallIntegerField(choices=StatusOrder.choices, default=StatusOrder.CREATED_ORDER)
+
+
 class OrderItem(models.Model):
-    order = models.ForeignKey(to=Order, on_delete=models.CASCADE)
+    user = models.ForeignKey(to=CustomUser, on_delete=models.CASCADE)
     item = models.ForeignKey(to=Item, on_delete=models.CASCADE)
     size = models.ForeignKey(to=ItemSize, on_delete=models.CASCADE, default=1)
 
-    def __str__(self):
-        return f"товар: {self.item.name}, размер: {self.size.name}"
-
-
-
+class Delivery(models.Model):
+    order = models.ForeignKey(to=OrderUser, on_delete=models.CASCADE)
+    delivery_datetime = models.DateTimeField(null=True, blank=True)
+    status = models.SmallIntegerField(choices=StatusDelivery.choices, default=StatusDelivery.ORDER_PROCESSED)
 
 class Tag(models.Model):
     name = models.CharField(max_length=120)
