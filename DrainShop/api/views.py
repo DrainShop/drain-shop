@@ -15,64 +15,66 @@ from main.models import *
 from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
 from .utils import StatusOrder
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 
 
-class OrderAPIView(APIView):
-    @extend_schema(
-        tags=["orders"],
-        responses={200: OrderUserSerializer(many=True)},
-        summary="Получение списка всех заказов",
-        description="http://127.0.0.1:8000/api/v1/orders/"
-    )
-    def get(self, request):
-        orders = Basket.objects.all()
-        serializer = OrderUserSerializer(orders, many=True)
-        return Response(serializer.data)
-
-    @extend_schema(
-        tags=["orders"],
-        request=OrderUserSerializer,
-        responses={201: OrderUserSerializer},
-        summary="Создание нового заказа",
-        description="http://127.0.0.1:8000/api/v1/orders/"
-    )
-    def post(self, request):
-        serializer = OrderUserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class OrderItemAPIView(APIView):
-    @extend_schema(
-        tags=["order-items"],
-        responses={200: BasketItemSerializer(many=True)},
-        summary="Получение списка всех элементов заказа",
-        description="http://127.0.0.1:8000/api/v1/order-items/"
-    )
-    def get(self, request):
-        order_items = BasketItem.objects.all()
-        serializer = BasketItemSerializer(order_items, many=True)
-        return Response(serializer.data)
-
-    @extend_schema(
-        tags=["order-items"],
-        request=BasketItemSerializer,
-        responses={201: BasketItemSerializer},
-        summary="Создание нового элемента заказа",
-        description="http://127.0.0.1:8000/api/v1/order-items/"
-    )
-    def post(self, request):
-        serializer = BasketItemSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+# class OrderAPIView(APIView):
+#     @swagger_auto_schema(
+#         tags=["orders"],
+#         responses={200: OrderUserSerializer(many=True)},
+#         summary="Получение списка всех заказов",
+#         description="http://127.0.0.1:8000/api/v1/orders/"
+#     )
+#     def get(self, request):
+#         orders = Basket.objects.all()
+#         serializer = OrderUserSerializer(orders, many=True)
+#         return Response(serializer.data)
+#
+#     @swagger_auto_schema(
+#         tags=["orders"],
+#         request=OrderUserSerializer,
+#         responses={201: OrderUserSerializer},
+#         summary="Создание нового заказа",
+#         description="http://127.0.0.1:8000/api/v1/orders/"
+#     )
+#     def post(self, request):
+#         serializer = OrderUserSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+#
+# class OrderItemAPIView(APIView):
+#     @swagger_auto_schema(
+#         tags=["order-items"],
+#         responses={200: BasketItemSerializer(many=True)},
+#         summary="Получение списка всех элементов заказа",
+#         description="http://127.0.0.1:8000/api/v1/order-items/"
+#     )
+#     def get(self, request):
+#         order_items = BasketItem.objects.all()
+#         serializer = BasketItemSerializer(order_items, many=True)
+#         return Response(serializer.data)
+#
+#     @swagger_auto_schema(
+#         tags=["order-items"],
+#         request=BasketItemSerializer,
+#         responses={201: BasketItemSerializer},
+#         summary="Создание нового элемента заказа",
+#         description="http://127.0.0.1:8000/api/v1/order-items/"
+#     )
+#     def post(self, request):
+#         serializer = BasketItemSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class ItemGenderAPIView(APIView):
 
-    @extend_schema(
+    @swagger_auto_schema(
         tags=["item-genders"],
         responses={200: ItemGenderSerializer(many=True)},
         summary="Получение списка всех категорий по гендерному признаку",
@@ -83,7 +85,7 @@ class ItemGenderAPIView(APIView):
         serializer = ItemGenderSerializer(item_genders, many=True)
         return Response(serializer.data)
 
-    @extend_schema(
+    @swagger_auto_schema(
         tags=["item-genders"],
         request=ItemGenderSerializer,
         responses={201: ItemGenderSerializer},
@@ -100,7 +102,7 @@ class ItemGenderAPIView(APIView):
 
 class ItemSizeAPIView(APIView):
 
-    @extend_schema(
+    @swagger_auto_schema(
         tags=["item-sizes"],
         parameters=[
             OpenApiParameter('item_id', OpenApiTypes.INT, OpenApiParameter.PATH, description='ID товара')
@@ -114,7 +116,7 @@ class ItemSizeAPIView(APIView):
         serializer = ItemSizeSerializer(item_sizes, many=True)
         return Response(serializer.data)
 
-    @extend_schema(
+    @swagger_auto_schema(
         tags=["item-sizes"],
         parameters=[
             OpenApiParameter('item_id', OpenApiTypes.INT, OpenApiParameter.PATH, description='ID товара')
@@ -139,7 +141,7 @@ class ItemSizeViewSet(viewsets.ModelViewSet):
         return ItemSize.objects.filter(item__id=self.kwargs['item_id'])
 
 class ItemsAPIView(APIView):
-    @extend_schema(
+    @swagger_auto_schema(
         tags=["items"],
         parameters=[
             OpenApiParameter('category__id', OpenApiTypes.INT, OpenApiParameter.QUERY, description='ID категории')
@@ -160,7 +162,7 @@ class ItemsAPIView(APIView):
 
 
 class CategoryAPIView(APIView):
-    @extend_schema(
+    @swagger_auto_schema(
         tags=["categories"],
         responses={200: CategorySerializer(many=True)},
         summary="Получение списка всех категорий",
@@ -173,7 +175,7 @@ class CategoryAPIView(APIView):
 
 
 class CommentsAPIView(APIView):
-    @extend_schema(
+    @swagger_auto_schema(
         tags=["comments"],
         request=CommentSerializer,
         responses={200: CommentSerializer},
@@ -190,7 +192,7 @@ class CommentsAPIView(APIView):
         return Response({"new_comment": CommentSerializer(new_comment).data})
 
 class RandomCategoryAPIView(APIView):
-    @extend_schema(
+    @swagger_auto_schema(
         tags=["categories"],
         responses={200: CategorySerializer},
         summary="Получение случайной категории",
@@ -208,7 +210,7 @@ class RandomCategoryAPIView(APIView):
             return Response({"message": "Категорий нет"})
 
 class RandomDiscountAPIView(APIView):
-    @extend_schema(
+    @swagger_auto_schema(
         tags=["items"],
         responses={200: ItemSerializer},
         summary="Получение случайной скидки",
@@ -229,7 +231,7 @@ class AllCommentsAPIView(APIView):
     authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
 
-    @extend_schema(
+    @swagger_auto_schema(
         tags=["comments"],
         responses={200: CommentSerializer(many=True)},
         summary="Получение всех комментариев по ID товара",
@@ -247,7 +249,7 @@ class AllCommentsAPIView(APIView):
 
 
 class UserRegisterAPIView(APIView):
-    @extend_schema(
+    @swagger_auto_schema(
         tags=["users"],
         responses={201: "Токен создан"},
         summary="Регистрация нового пользователя",
@@ -268,7 +270,7 @@ class UserRegisterAPIView(APIView):
         )
 
 class UserLoginAPIView(APIView):
-    @extend_schema(
+    @swagger_auto_schema(
         tags=["users"],
         responses={200: "Токен"},
         summary="Авторизация пользователя",
@@ -303,16 +305,17 @@ class UserLoginAPIView(APIView):
 """------------------------------------------------basket------------------------------------------------------------"""
 
 class AddToBasketItemAPIView(APIView):
-    @extend_schema(
+    @swagger_auto_schema(
         tags=["basket"],
-        request={"item_id": "integer", "size_id": "integer"},
-        responses={201: BasketSerializer},
-        summary="Добавление товара в корзину",
-        description="http://127.0.0.1:8000/api/v1/add-to-basket/"
+        request_body=AddToBasketSerializer,
+        responses={201: "Товар добавлен в корзину"},
+        # summary="Добавление товара в корзину",
+        # description="http://127.0.0.1:8000/api/v1/add-to-basket/"
     )
     def post(self, request):
         item_id = request.data.get('item_id')
         size_id = request.data.get('size_id')
+        quantity = request.data.get('quantity', 1)
 
         try:
             basket = Basket.objects.get(user=request.user)
@@ -328,11 +331,11 @@ class AddToBasketItemAPIView(APIView):
             basket=basket,
             item=item,
             size_id=size_id,
-            defaults={'total': item.price, 'quantity': 1}
+            defaults={'total': item.price * quantity, 'quantity': quantity}
         )
 
         if not created:
-            basket_item.quantity += 1
+            basket_item.quantity += quantity
             basket_item.total = basket_item.quantity * item.price
             basket_item.save()
 
@@ -348,11 +351,10 @@ class AddToBasketItemAPIView(APIView):
                          }, status=status.HTTP_201_CREATED)
 
 class ViewBasketItemAPIView(APIView):
-    @extend_schema(
+    @swagger_auto_schema(
         tags=["basket"],
-        # request={"item_id": "integer", "size_id": "integer"},
-        responses={201: BasketItemSerializer},
-        summary="Товары коризны",
+        responses={200: BasketItemSerializer(many=True)},
+        summary="Товары корзины",
         description="http://127.0.0.1:8000/api/v1/basket-item/"
     )
     def get(self, request):
@@ -363,9 +365,8 @@ class ViewBasketItemAPIView(APIView):
         return Response(serializer.data)
 
 class ViewBasketAPIView(APIView):
-    @extend_schema(
+    @swagger_auto_schema(
         tags=["basket"],
-        # request={"item_id": "integer", "size_id": "integer"},
         responses={201: BasketItemSerializer},
         summary="Инфо коризны",
         description="http://127.0.0.1:8000/api/v1/basket/"
@@ -378,8 +379,46 @@ class ViewBasketAPIView(APIView):
         return Response(serializer.data)
 
 
+
+
+"""-------------------------------------------------order------------------------------------------------------------"""
+class ListOrderAPIView(APIView):
+    @swagger_auto_schema(
+        tags=["orders"],
+        responses={200: OrderUserSerializer(many=True)},
+        summary="Возвращает список заказов для текущего пользователя. Можно фильтровать по статусу заказа",
+        description="http://127.0.0.1:8000/api/v1/list-order/?status=2"
+    )
+    def get(self, request):
+        user = request.user
+
+        # Получаем значение параметра 'status' из строки запроса (если он есть)
+        status_param = request.query_params.get('status', None)
+
+        orders = OrderUser.objects.filter(basket__user=user)
+
+        # Если параметр 'status' был передан в запросе, то выполняем дополнительную фильтрацию
+        if status_param is not None:
+            try:
+                # Пробуем преобразовать параметр 'status' в целое число
+                status_param = int(status_param)
+
+                # Проверяем, что статус является допустимым значением
+                if status_param in StatusOrder.values:
+                    # Дополнительно фильтруем заказы по статусу
+                    orders = orders.filter(status=status_param)
+                else:
+                    # Если статус не является допустимым значением, возвращаем ошибку 400
+                    return Response({'error': 'Invalid status'}, status=status.HTTP_400_BAD_REQUEST)
+            except ValueError:
+                # Если параметр 'status' не является целым числом, возвращаем ошибку 400
+                return Response({'error': 'Status must be an integer'}, status=status.HTTP_400_BAD_REQUEST)
+
+        serializer = OrderUserSerializer(orders, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 class CreateOrderAPIView(APIView):
-    @extend_schema(
+    @swagger_auto_schema(
         tags=["orders"],
         responses={201: OrderUserSerializer},
         summary="Создание заказа",
@@ -415,44 +454,6 @@ class CreateOrderAPIView(APIView):
         serializer = OrderUserSerializer(order)
 
         return Response({"message": "Заказ создан", "data": serializer.data}, status=status.HTTP_201_CREATED)
-
-"""-------------------------------------------------order------------------------------------------------------------"""
-class ListOrderAPIView(APIView):
-    @extend_schema(
-        tags=["orders"],
-        responses={200: OrderUserSerializer(many=True)},
-        summary="Возвращает список заказов для текущего пользователя. Можно фильтровать по статусу заказа",
-        description="http://127.0.0.1:8000/api/v1/list-order/?status=2"
-    )
-    def get(self, request):
-        user = request.user
-
-        # Получаем значение параметра 'status' из строки запроса (если он есть)
-        status_param = request.query_params.get('status', None)
-
-        orders = OrderUser.objects.filter(basket__user=user)
-
-        # Если параметр 'status' был передан в запросе, то выполняем дополнительную фильтрацию
-        if status_param is not None:
-            try:
-                # Пробуем преобразовать параметр 'status' в целое число
-                status_param = int(status_param)
-
-                # Проверяем, что статус является допустимым значением
-                if status_param in StatusOrder.values:
-                    # Дополнительно фильтруем заказы по статусу
-                    orders = orders.filter(status=status_param)
-                else:
-                    # Если статус не является допустимым значением, возвращаем ошибку 400
-                    return Response({'error': 'Invalid status'}, status=status.HTTP_400_BAD_REQUEST)
-            except ValueError:
-                # Если параметр 'status' не является целым числом, возвращаем ошибку 400
-                return Response({'error': 'Status must be an integer'}, status=status.HTTP_400_BAD_REQUEST)
-
-        serializer = OrderUserSerializer(orders, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
 
 
 

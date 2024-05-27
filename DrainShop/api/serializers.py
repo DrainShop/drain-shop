@@ -52,5 +52,10 @@ class CustomUserSerializer(serializers.ModelSerializer):
         model = CustomUser
         fields = ['username', 'password']
 
+class AddToBasketSerializer(serializers.Serializer):
+    item_id = serializers.IntegerField()
+    size_id = serializers.IntegerField()
+    quantity = serializers.IntegerField(default=1)
+
 
 
