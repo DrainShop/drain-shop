@@ -33,6 +33,7 @@ class Item(models.Model):
         return self.name
 
     def save(self, force_insert=False, force_update=False, *args, **kwargs):
+        print('zaloopa---------------------------------------------------------------------')
         if self.is_sale:
             self.discount_price = self.price - (self.price * self.discount / 100)
         self.slug = f"{str(randint(1, 999))}-{self.name.replace(' ', '-')}"
