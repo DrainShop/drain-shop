@@ -455,7 +455,23 @@ class CreateOrderAPIView(APIView):
 
         return Response({"message": "Заказ создан", "data": serializer.data}, status=status.HTTP_201_CREATED)
 
+class DeliveryCreateView(APIView):
+    def post(self, request, order_id):
+        user = request.user
 
+        delivery_datetime = timezone.now()
+
+        try:
+            order = OrderUser.objects.get(id=order_id)
+        except OrderUser.DoesNotExist:
+            return Response({'error': 'Заказ не найден'}, status=status.HTTP_404_NOT_FOUND)
+
+        delivery = Delivery.objects.create(
+            order=order,
+            delivery_datetime=delivery_datetime,
+        )
+
+        return Response({'success': 'Доставка создана'}, status=status.HTTP_201_CREATED)
 
 
 

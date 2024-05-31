@@ -33,10 +33,12 @@ class Item(models.Model):
         return self.name
 
     def save(self, force_insert=False, force_update=False, *args, **kwargs):
-        print('zaloopa---------------------------------------------------------------------')
-        if self.is_sale:
+        print(f"Saving item: {self.name}")
+        if self.is_sale and self.price and self.discount:
             self.discount_price = self.price - (self.price * self.discount / 100)
+            print(f"Calculated discount price: {self.discount_price}")
         self.slug = f"{str(randint(1, 999))}-{self.name.replace(' ', '-')}"
+        print(f"Generated slug: {self.slug}")
         super(Item, self).save(force_insert, force_update, *args, **kwargs)
 
 
@@ -49,7 +51,7 @@ class ItemImg(models.Model):
 class ItemSize(models.Model):
     item = models.ForeignKey(to=Item, on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
-    description = models.TextField()
+    description = models.TextField(null=True, blank=True)
 
 class Comment(models.Model):
      name = models.CharField(max_length=120)

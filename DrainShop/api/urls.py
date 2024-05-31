@@ -22,6 +22,7 @@ urlpatterns = [
     path('basket-item/', ViewBasketItemAPIView.as_view(), name='list-basket-item'),
     path('basket/', ViewBasketAPIView.as_view(), name='basket/'),
     path('list-order/', ListOrderAPIView.as_view(), name="list-order"),
+    path('delivery/<int:order_id>/', DeliveryCreateView.as_view(), name='delivery-create'),
 
     # path('orders/', OrderAPIView.as_view(), name='order-list'),
     # path('orders/<int:pk>/', OrderAPIView.as_view(), name='order-detail'),

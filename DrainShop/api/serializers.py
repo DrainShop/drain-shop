@@ -57,5 +57,10 @@ class AddToBasketSerializer(serializers.Serializer):
     size_id = serializers.IntegerField()
     quantity = serializers.IntegerField(default=1)
 
+class DeliverySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Delivery
+        fields = ['order', 'delivery_datetime', 'status']
+
 
 
