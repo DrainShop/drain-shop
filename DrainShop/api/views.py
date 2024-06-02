@@ -14,7 +14,6 @@ from django.db import transaction
 from main.models import *
 from django.utils import timezone
 from django_filters.rest_framework import DjangoFilterBackend
-from .utils import StatusOrder
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
@@ -387,7 +386,7 @@ class ListOrderAPIView(APIView):
         tags=["orders"],
         responses={200: OrderUserSerializer(many=True)},
         summary="Возвращает список заказов для текущего пользователя. Можно фильтровать по статусу заказа",
-        description="http://127.0.0.1:8000/api/v1/list-order/?status=2"
+        description="http://127.0.0.1:8000/api/v1/list-order/?status=CREATED_ORDER"
     )
     def get(self, request):
         user = request.user
@@ -399,20 +398,12 @@ class ListOrderAPIView(APIView):
 
         # Если параметр 'status' был передан в запросе, то выполняем дополнительную фильтрацию
         if status_param is not None:
-            try:
-                # Пробуем преобразовать параметр 'status' в целое число
-                status_param = int(status_param)
-
-                # Проверяем, что статус является допустимым значением
-                if status_param in StatusOrder.values:
-                    # Дополнительно фильтруем заказы по статусу
-                    orders = orders.filter(status=status_param)
-                else:
-                    # Если статус не является допустимым значением, возвращаем ошибку 400
-                    return Response({'error': 'Invalid status'}, status=status.HTTP_400_BAD_REQUEST)
-            except ValueError:
-                # Если параметр 'status' не является целым числом, возвращаем ошибку 400
-                return Response({'error': 'Status must be an integer'}, status=status.HTTP_400_BAD_REQUEST)
+            if status_param in dict(OrderUser.STATUS_ORDER).keys():
+                # Дополнительно фильтруем заказы по статусу
+                orders = orders.filter(status=status_param)
+            else:
+                # Если статус не является допустимым значением, возвращаем ошибку 400
+                return Response({'error': 'Invalid status'}, status=status.HTTP_400_BAD_REQUEST)
 
         serializer = OrderUserSerializer(orders, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

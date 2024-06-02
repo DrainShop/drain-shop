@@ -18,12 +18,13 @@ class StatusDelivery(models.IntegerChoices):
     ORDER_RETURNED_WAREHOUSE = (7, 'Заказ возвращен на склад')
     ORDER_DELIVERED_CONFIRMATION_RECEIVED = (8, 'Заказ доставлен, подтверждение получено')
 
-class StatusOrder(models.IntegerChoices):
-    CREATED_ORDER = (1, 'Заказ создан')
-    ACCEPTED_ORDER = (2, 'Заказ принят')
-    DELIVERED_ORDER = (3, 'Заказ доставлен')
-    COMPLETED_ORDER = (4, 'Заказ завершен')
-    CANCELLED_ORDER = (5, 'Заказ отменен')
+# class StatusOrder(models.IntegerChoices):
+#     status = models.CharField
+#     CREATED_ORDER = (1, 'Заказ создан')
+#     ACCEPTED_ORDER = (2, 'Заказ принят')
+#     DELIVERED_ORDER = (3, 'Заказ доставлен')
+#     COMPLETED_ORDER = (4, 'Заказ завершен')
+#     CANCELLED_ORDER = (5, 'Заказ отменен')
 
 
 

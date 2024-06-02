@@ -4,18 +4,21 @@ from random import randint
 from api.utils import *
 
 
-class Category(models.Model):
-     image = models.ImageField(upload_to='images/categories/')
-     name = models.CharField(max_length=120)
 
-     def __str__(self):
-         return self.name
+class Category(models.Model):
+    image = models.ImageField(upload_to='images/categories/')
+    name = models.CharField(max_length=120)
+
+    def __str__(self):
+        return self.name
+
 
 class ItemGender(models.Model):
     name = models.CharField(max_length=120)
 
     def __str__(self):
         return self.name
+
 
 class Item(models.Model):
     name = models.CharField(max_length=120)
@@ -53,10 +56,12 @@ class ItemSize(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
 
+
 class Comment(models.Model):
-     name = models.CharField(max_length=120)
-     text = models.TextField()
-     item = models.ForeignKey(to=Item, on_delete=models.CASCADE)
+    name = models.CharField(max_length=120)
+    text = models.TextField()
+    item = models.ForeignKey(to=Item, on_delete=models.CASCADE)
+
 
 class Basket(models.Model):
     user = models.OneToOneField(to=CustomUser, on_delete=models.CASCADE)
@@ -64,8 +69,10 @@ class Basket(models.Model):
     total = models.IntegerField(default=0)
     status = models.SmallIntegerField(choices=StatusBasket.choices, default=StatusBasket.BASKET_CREATED)
 
+
     def __str__(self):
         return f"Заказ пользователя {self.user.username}"
+
 
 class BasketItem(models.Model):
     basket = models.ForeignKey(to=Basket, on_delete=models.CASCADE)
@@ -74,11 +81,21 @@ class BasketItem(models.Model):
     quantity = models.IntegerField(default=0)
     total = models.IntegerField(default=0)
 
+
 class OrderUser(models.Model):
-    basket = models.ForeignKey(to=Basket, on_delete=models.CASCADE, default=0)
+    basket = models.ForeignKey(to='Basket', on_delete=models.CASCADE, default=0)
     order_datetime = models.DateTimeField(auto_now_add=True)
     total_amount = models.IntegerField()
-    status = models.SmallIntegerField(choices=StatusOrder.choices, default=StatusOrder.CREATED_ORDER)
+    STATUS_ORDER = [
+        ("CREATED_ORDER", "Заказ создан"),
+        ("ACCEPTED_ORDER", "Заказ принят"),
+        ("DELIVERED_ORDER", "Заказ доставлен"),
+        ("COMPLETED_ORDER", "Заказ завершен"),
+        ("CANCELLED_ORDER", "Заказ отменен"),
+    ]
+    status = models.CharField(max_length=120,choices=STATUS_ORDER, default="Заказ создан")
+
+
 
 
 class OrderItem(models.Model):
@@ -86,13 +103,16 @@ class OrderItem(models.Model):
     item = models.ForeignKey(to=Item, on_delete=models.CASCADE)
     size = models.ForeignKey(to=ItemSize, on_delete=models.CASCADE, default=1)
 
+
 class Delivery(models.Model):
     order = models.ForeignKey(to=OrderUser, on_delete=models.CASCADE)
     delivery_datetime = models.DateTimeField(null=True, blank=True)
     status = models.SmallIntegerField(choices=StatusDelivery.choices, default=StatusDelivery.ORDER_PROCESSED)
 
+
 class Tag(models.Model):
     name = models.CharField(max_length=120)
+
 
 class GenderBasicTag(models.Model):
     name = models.CharField(max_length=120)
@@ -100,27 +120,15 @@ class GenderBasicTag(models.Model):
     def __str__(self):
         return self.name
 
+
 class ItemTag(models.Model):
     item = models.ForeignKey(to='Item', on_delete=models.CASCADE)
     tag = models.ForeignKey(to='Tag', on_delete=models.CASCADE)
 
+
 class GenderTag(models.Model):
     item = models.ForeignKey(to='Item', on_delete=models.CASCADE)
     tag = models.ForeignKey(to='GenderBasicTag', on_delete=models.CASCADE)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
