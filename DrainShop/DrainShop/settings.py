@@ -38,4 +38,3 @@ ROOT_URLCONF = 'DrainShop.urls'
 
 WSGI_APPLICATION = 'DrainShop.wsgi.application'
 
-

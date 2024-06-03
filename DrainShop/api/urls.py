@@ -15,9 +15,6 @@ urlpatterns = [
     path('rand-disk/', RandomDiscountAPIView.as_view(), name="rand_disk"),
     path('add-to-basket/', AddToBasketItemAPIView.as_view(), name='add-to-basket'),
     path('create-order/', CreateOrderAPIView.as_view(), name='create-order'),
-    path('orders/', OrderAPIView.as_view(), name='order-list'),
-    path('orders/<int:pk>/', OrderAPIView.as_view(), name='order-detail'),
-    path('order-items/', OrderItemAPIView.as_view(), name='order-item-list'),
     path('item-genders/', ItemGenderAPIView.as_view(), name='item-gender-list'),
     path('item-sizes/<int:item_id>/', ItemSizeAPIView.as_view(), name='item-size-list'),
     path('items/', ItemsAPIView.as_view(), name='item-list'),
@@ -25,5 +22,11 @@ urlpatterns = [
     path('basket-item/', ViewBasketItemAPIView.as_view(), name='list-basket-item'),
     path('basket/', ViewBasketAPIView.as_view(), name='basket/'),
     path('list-order/', ListOrderAPIView.as_view(), name="list-order"),
+    path('delivery/<int:order_id>/', DeliveryCreateView.as_view(), name='delivery-create'),
+    # path('payment/',),
+
+    # path('orders/', OrderAPIView.as_view(), name='order-list'),
+    # path('orders/<int:pk>/', OrderAPIView.as_view(), name='order-detail'),
+    # path('order-items/', OrderItemAPIView.as_view(), name='order-item-list'),
 ]
 

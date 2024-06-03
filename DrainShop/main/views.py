@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import CommentForm
 from .models import *
 import random
@@ -216,12 +216,12 @@ def new_item(request):
 
 
 def tag(request, tag_id):
-    tags = Tag.objects.get(id=tag_id)
+    tag = get_object_or_404(Tag, id=tag_id)
     items = ItemTag.objects.filter(tag=tag)
 
     context = {
         "items": items,
-        "tags": tags
+        "tag": tag
     }
 
     return render(request, 'main/tag.html', context=context)
@@ -251,4 +251,4 @@ def add_slug(request):
         item.slug = f"{str(randint(1, 9999))}-{item.name.replace(' ', '-')}"
         item.save()
 
-    return render(request, "main/delivery.html")
+    return render(request, "main/index.html")
