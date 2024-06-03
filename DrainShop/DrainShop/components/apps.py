@@ -10,7 +10,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'api.apps.ApiConfig',
     'drf_spectacular',
-    'corsheaders',
     'drf_yasg',
     'rest_framework.authtoken',
     'corsheaders',
