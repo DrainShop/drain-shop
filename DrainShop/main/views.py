@@ -112,18 +112,26 @@ def discount_items(request):
     return render(request, 'main/discount.html', context=context)
 
 
+@login_required(login_url='login')
 def order_item(request, item_id, size_id):
     try:
-        user_order = Order.objects.get(user=request.user)
-    except Order.DoesNotExist:
-        user_order = Order(user=request.user)
-        user_order.save()
+        user_basket = Basket.objects.get(user=request.user)
+    except Basket.DoesNotExist:
+        user_basket = Basket.objects.create(user=request.user)
 
     user_item = Item.objects.get(id=item_id)
     item_size = ItemSize.objects.get(id=size_id)
-    new_order_item = OrderItem(order=user_order, item=user_item, size=item_size)
 
-    new_order_item.save()
+    # Проверяем, существует ли уже такой товар в корзине
+    existing_item = BasketItem.objects.filter(basket=user_basket, item=user_item, size=item_size).first()
+    if existing_item:
+        existing_item.quantity += 1
+        existing_item.total += user_item.price
+        existing_item.save()
+    else:
+        new_basket_item = BasketItem(basket=user_basket, item=user_item, size=item_size, quantity=1,
+                                     total=user_item.price)
+        new_basket_item.save()
 
     return redirect('order')
 
@@ -146,26 +154,25 @@ def order_item(request, item_id, size_id):
 @login_required(login_url='login')
 def order(request):
     try:
-        order = Order.objects.get(user=request.user)
-        order_items = OrderItem.objects.filter(order=order)
+        basket = Basket.objects.get(user=request.user)
+        basket_items = BasketItem.objects.filter(basket=basket)
         items = {}
 
         total_price_discount = 0
         total_discount = 0
 
-        for order_item in order_items:
-            key_item = (order_item.item, order_item.size)
+        for basket_item in basket_items:
+            key_item = (basket_item.item, basket_item.size)
             if key_item not in items:
-                items[key_item] = 1
+                items[key_item] = basket_item.quantity
             else:
-                items[key_item] += 1
+                items[key_item] += basket_item.quantity
 
-            if order_item.item.discount:
-                total_price_discount += order_item.item.price - (order_item.item.price * order_item.item.discount / 100)
-                total_discount += order_item.item.discount
+            if basket_item.item.discount:
+                total_price_discount += basket_item.item.price * basket_item.quantity * (1 - basket_item.item.discount / 100)
+                total_discount += basket_item.item.discount * basket_item.quantity
 
-
-        total_price = sum(order_item.item.price for order_item in order_items)
+        total_price = sum(basket_item.item.price * basket_item.quantity for basket_item in basket_items)
 
         items_list = []
         for key, value in items.items():
@@ -182,18 +189,17 @@ def order(request):
 
         context = {
             "items_list": items_list,
-            "tags": tags,
+            "tags": tags,  # Если переменная tags используется, она должна быть определена где-то в коде
             "total_price": total_price,
             "total_item_count": total_item_count,
             "total_price_discount": total_price_discount,
             "total_discount": total_discount
         }
 
-    except Order.DoesNotExist:
-        order = None
+    except Basket.DoesNotExist:
         context = {
             "items_list": [],
-            "tags": tags,
+            "tags": tags,  # Если переменная tags используется, она должна быть определена где-то в коде
             "total_price": 0,
             "total_item_count": 0,
             "total_price_discount": 0,
