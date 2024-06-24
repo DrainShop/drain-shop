@@ -1,0 +1,54 @@
+.w-full{
+    width: 100%;
+}
+
+/* flex */
+
+.flex{
+    display: flex;
+}
+
+.flex-center{
+    justify-content: center;
+}
+.flex-between{
+    justify-content: space-between;
+}
+
+.align-center{
+    align-items: center;
+}
+
+
+/* spacing */
+
+.mt-4{
+    margin-top: 4px;
+}
+
+.mt-8{
+    margin-top: 8px;
+}
+.mt-16{
+    margin-top: 16px;
+}
+.mr-4{
+    margin-right: 4px;
+}
+
+.mb-8{
+    margin-bottom: 8px;
+}
+
+/* sizing */
+
+.h-32{
+    height: 32px;
+}
+
+
+/* other */
+
+.hidden{
+    display: none;
+}

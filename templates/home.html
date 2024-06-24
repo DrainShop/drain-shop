@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}Fashion Style | Главная{% endblock %}
+
+{% block content %}
+    <div class="banners">
+        <div class="banners-main">
+            <img src="{{main_banner.preview.url}}" alt="">
+            <p class="main-banner-text">{{main_banner.text}}</p>
+        </div>
+        {% for secondary_banner in secondary_banners %}
+        <div class="banner-secondary">
+            <img src="{{secondary_banner.preview.url}}" alt="">
+            <h2>{{secondary_banner.text}}</h2>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="categories-banner">
+        {% for category in categories %}
+            <a href="{% url 'items' %}?model=categories&value={{ category.name | urlencode }}"">
+                <div class="category-banner-item">
+                    <img src="{{category.image.url}}" class="category-banner-item-image" alt="">
+                    <a href="#" class="category-banner-item-text">{{category.name}}</a>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+    <h2 class="section-title">В продаже</h2>
+    <div class="cards">
+        {% for item in items %}
+            <a href="{% url 'item' item.id %}">
+                <div class="card">
+                    <svg class="svg-button card-svg-button" width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <img src="{{ item.preview.url }}" alt="">
+                    <p>{{ item.name }}</p>
+                    <p class="text-secondary-sm">{{ item.category.name }}</p>
+                    <p class="mt-4">{{ item.default_price }} ₸</p>
+                </div>
+            </a>
+        {% endfor %}
+        
+    </div>
+<style>
+    .section-title{
+        margin-left: 20px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .banners{
+        margin-top: 40px;
+        display: flex;
+        justify-content: space-between;
+        gap: 40px;
+    }
+    .banners-main{
+        position: relative;
+        width: 33%;
+        height: 360px;
+    }
+    .banners-main>img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .main-banner-text{
+        font-size: 48px;
+        font-weight: 600;
+        color: #fff;
+        position: absolute;
+        top: 50%;  
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .banner-secondary{
+        width: 33%;
+        height: 360px;
+    }
+    .banner-secondary>img{
+        height: 300px;
+        width: 100%;
+        object-fit: cover;
+
+    }
+
+    /*Categories banner*/
+    .categories-banner{
+        width: 100%;
+        height: 190px;
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+    .category-banner-item{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        
+    }
+    .category-banner-item-image{
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+    }
+    .category-banner-item-text{
+        color: #fff;
+    }
+
+</style>
+
+{% endblock %}

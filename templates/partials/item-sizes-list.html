@@ -1,0 +1,37 @@
+<div class="item-sizes" id="item-sizes">
+    {% for item_size in item_sizes %}
+      <div class="item-size">
+        <p>{{item_size.description}} ({{item_size.name}})</p>
+        {% if item_size.id not in cart_items_sizes %}
+            <form>
+                {% csrf_token %}
+                <a
+                hx-post="{% url 'add-to-cart' item_size.item.id item_size.id %}"
+                hx-target="#item-sizes"
+                class="btn btn-black btn-md">
+                В корзину
+                </a>
+            </form>
+            
+        {% else %}
+        <form>
+            {% csrf_token %}
+            <a
+            hx-post="{% url 'delete-from-cart' item_size.item.id item_size.id %}"
+            hx-target="#item-sizes"
+            class="btn btn-red btn-md">
+            Удалить
+            </a>
+        </form>
+        {% endif %}
+      </div>
+    {% endfor %}
+</div>
+
+<style>
+    .item-size{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>

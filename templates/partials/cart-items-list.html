@@ -1,0 +1,84 @@
+<div class="cart-items" id="cart-items">
+    <div class="cart-items-wrapper w-full">
+        {% for cart_item in cart_items %}
+        <div class="cart-item">
+            <img class="cart-item-img" src="{{ cart_item.item_size.item.preview.url }}" alt="">
+            <div class="cart-item-info">
+                <h2>{{ cart_item.item_size.item.name }}</h2>
+                <p class="mt-4">{{ cart_item.item_size.name }}({{ cart_item.item_size.description }})</p>
+                <form class="amount-control mt-4">
+                    <input 
+                    type="hidden"
+                    class="cart-item-amount" 
+                    name="amount"
+                    id="cart-item-hidden-{{cart_item.id}}">
+                    </input>
+                    <div class="btn btn-black btn-square" onclick="changeAmount({{cart_item.id}}, false)">-</div>
+                    <p class="cart-item-amount" id="cart-item-{{cart_item.id}}">{{ cart_item.amount }}</p>
+                    <div class="btn btn-black btn-square" onclick="changeAmount({{cart_item.id}}, true)">+</div>
+                        {% csrf_token %}
+                        <a
+                        id="cart-item-confirm-{{cart_item.id}}"
+                        hx-post="{% url 'change-cart-item-amount' cart_item.item_size.item.id cart_item.item_size.id %}"
+                        hx-target="#cart-items"
+                        class="btn btn-black btn-square hidden">
+                        ✓
+                        </a>
+                </form>
+                <form>
+                    {% csrf_token %}
+                    <a
+                    hx-post="{% url 'delete-cart-item' cart_item.item_size.item.id cart_item.item_size.id %}"
+                    hx-target="#cart-items"
+                    class="btn btn-red btn-md">
+                        Удалить
+                        </a>
+                </form>
+            </div>
+        </div>
+        {% empty %}
+        <h2 class="mt-8">Корзина пуста</h2>
+        {% endfor %}
+    </div>
+    <form method="POST" class="total">
+        
+        {% csrf_token %}
+        <div>
+            <h2>Итог</h2>
+        </div>
+        <div class="flex align-center flex-between">
+            <p class="text-secondary-md">Сумма</p>
+            <p>{{ total_price }} ₸</p>
+        </div>
+        <div class="flex align-center h-32">
+            <!-- <input style="width: 100%; height: 24px; margin: 4px; padding-left: 4px;" type="text" placeholder="Промокод">
+            <div class="btn btn-black btn-md">Применить</div>
+        </div>-->
+        <div>
+            <input style="width: 100%; height: 24px; margin: 4px; padding-left: 4px;" type="text" name="address" placeholder="Адрес">
+        </div>
+        <input type="submit" value="Оформить заказ" class="btn btn-black btn-md">
+        </input>
+    </form>
+</div>
+
+
+
+<script>
+    function changeAmount(cartItemId, operation){
+        let elem = document.getElementById(`cart-item-${cartItemId}`);
+        let hidden_elem = document.getElementById(`cart-item-hidden-${cartItemId}`);
+        let amount = parseInt(elem.innerText);
+        if (operation){
+            amount += 1;
+        }
+        else if (operation==false && amount>1){
+            amount -= 1;
+        }
+        let confimButton = document.getElementById(`cart-item-confirm-${cartItemId}`);
+        confimButton.classList.remove('hidden');
+        
+        elem.innerText = amount;
+        hidden_elem.value= amount;
+    }
+</script>

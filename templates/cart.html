@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Fashion Style | Корзина{% endblock %}
+
+{% block content %}
+
+{% include "partials/cart-items-list.html" %}
+
+<style>
+    .cart-items{
+        display: flex;
+        justify-content: space-around;
+        width: 100%;
+    }
+    .cart-item{
+        width: 100%;
+        border: 1px solid black;
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .cart-item-img{
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+    }
+    .cart-item-info{
+        margin-top: 16px;
+        width: 100%;
+    }
+    .amount-control{
+        width: 200px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+    .cart-item-amount{
+        width: 16px;
+        text-align: center;
+    }
+    .total{
+        background-color: #eeeeee;
+        margin-top: 20px;
+        margin-left: 16px;
+        padding: 20px;
+        width: 40%;
+        height: 600px !important;
+    }
+    .total>div{
+        margin-bottom: 8px;
+    }
+</style>
+{% endblock %}

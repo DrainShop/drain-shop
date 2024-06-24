@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %}Fashion Style | Заказы{% endblock %}
+
+{% block content %}
+<h1 class="mt-8">Заказ создан</h1>
+<div class="orders-section mt-8">
+    {% for order in created_orders %}
+    <div class="order">
+        <div class="order-info">
+            <h2>Заказ №{{order.id}}</h2>
+            <p class="text-secondary-sm">{{ order.created_at }}</p>
+            <p>{{ order.total_price }} ₸</p>
+        </div>
+        <a href="{% url 'order' order.id %}" class="btn btn-black btn-md mb-8">Подробнее</a>
+    </div>
+    {% empty %}
+        <p class="text-secondary-md">
+            Пусто
+        </p>
+    {% endfor %}
+</div>
+
+<h1 class="mt-8">Заказ принят</h1>
+<div class="orders-section mt-8">
+    {% for order in accepted_orders %}
+    <div class="order">
+        <div class="order-info">
+            <h2>Заказ №{{order.id}}</h2>
+            <p class="text-secondary-sm">{{ order.created_at }}</p>
+            <p>{{ order.total_price }} ₸</p>
+        </div>
+        <a href="{% url 'order' order.id %}" class="btn btn-black btn-md mb-8">Подробнее</a>
+    </div>
+    {% empty %}
+        <p class="text-secondary-md">
+            Пусто
+        </p>
+    {% endfor %}
+</div>
+<h1 class="mt-8">Заказ доставлен</h1>
+<div class="orders-section mt-8">
+    {% for order in delivered_orders %}
+    <div class="order">
+        <div class="order-info">
+            <h2>Заказ №{{order.id}}</h2>
+            <p class="text-secondary-sm">{{ order.created_at }}</p>
+            <p>{{ order.total_price }} ₸</p>
+        </div>
+        <a href="{% url 'order' order.id %}" class="btn btn-black btn-md mb-8">Подробнее</a>
+    </div>
+    {% empty %}
+        <p class="text-secondary-md">
+            Пусто
+        </p>
+    {% endfor %}
+</div>
+<h1 class="mt-8">Заказ выполнен</h1>
+<div class="orders-section mt-8">
+    {% for order in completed_orders %}
+    <div class="order">
+        <div class="order-info">
+            <h2>Заказ №{{order.id}}</h2>
+            <p class="text-secondary-sm">{{ order.created_at }}</p>
+            <p>{{ order.total_price }} ₸</p>
+        </div>
+        <a href="{% url 'order' order.id %}" class="btn btn-black btn-md mb-8">Подробнее</a>
+    </div>
+    {% empty %}
+        <p class="text-secondary-md">
+            Пусто
+        </p>
+    {% endfor %}
+</div>
+<h1 class="mt-8">Заказ отменен</h1>
+<div class="orders-section mt-8">
+    {% for order in cancelled_orders %}
+    <div class="order">
+        <div class="order-info">
+            <h2>Заказ №{{order.id}}</h2>
+            <p class="text-secondary-sm">{{ order.created_at }}</p>
+            <p>{{ order.total_price }} ₸</p>
+        </div>
+        <a href="{% url 'order' order.id %}" class="btn btn-black btn-md mb-8">Подробнее</a>
+    </div>
+    {% empty %}
+        <p class="text-secondary-md">
+            Пусто
+        </p>
+    {% endfor %}
+</div>  
+
+<style>
+    .orders-section{
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+    .order{
+        border: 1px solid black;
+        padding-top: 4px;
+        padding-left: 8px;
+        width: 220px;
+        height: 130px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+</style>
+
+{% endblock %}

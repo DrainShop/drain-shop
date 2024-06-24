@@ -1,9 +1,17 @@
 services:
   app:
+    user: "1000:1000"
     build: .
     restart: always
     ports:
       - "8000:8000"
+    networks:
+      - drain-network
     volumes:
-      - ./database.sqlite3:/app/database.sqlite3
-      - ./src/media:/app/src/media
+      - ./db.sqlite3:/app/db.sqlite3
+      - ./:/app
+      - /var/www/html/nevduplenish:/app/staticgen
+
+networks:
+  drain-network:
+    name: drain-network

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}Fashion Style | Заказ №{{order.id}}{% endblock %}
+
+{% block content %}
+    <div class="cart-items">
+        <div class="cart-items-wrapper w-full">
+            {% for cart_item in order_items %}
+            <div class="cart-item">
+                <img class="cart-item-img" src="{{ cart_item.item_size.item.preview.url }}" alt="">
+                <div class="cart-item-info">
+                    <h2>{{ cart_item.item_size.item.name }}</h2>
+                    <p class="mt-4">размер: {{ cart_item.item_size.name }}({{ cart_item.item_size.description }})</p>
+                        <p>количество: {{ cart_item.amount }}</p>
+                        <p>цена: {{ cart_item.item_size.item.default_price }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="total">
+            <div>
+                <h2>Заказ №{{order.id}}</h2>
+                <p class="text-secondary-sm">{{ order.created_at }}</p>
+            </div>
+            <div class="flex align-center flex-between">
+                <p class="text-secondary-md">Сумма</p>
+                <p>{{ order.total_price }} ₸</p>
+            </div>
+            <a href="{% url 'cancel-order' order.id %}" class="btn btn-red btn-md">
+                Отменить заказ
+            </a>
+        </div>
+    </div>
+    <style>
+        .cart-items{
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+        .cart-item{
+            width: 100%;
+            border: 1px solid black;
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .cart-item-img{
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+        .cart-item-info{
+            margin-top: 16px;
+            width: 100%;
+        }
+        .amount-control{
+            width: 200px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .cart-item-amount{
+            width: 16px;
+            text-align: center;
+        }
+        .total{
+            background-color: #eeeeee;
+            margin-top: 20px;
+            margin-left: 16px;
+            padding: 20px;
+            width: 40%;
+            height: 600px !important;
+        }
+        .total>div{
+            margin-bottom: 8px;
+        }
+    </style>
+{% endblock %}

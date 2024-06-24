@@ -1,5 +1,6 @@
-.idea
-main.py
-venv
-__pycache__
+.idea/
+__pycache__/
+staticgen/
+venv/
 db.sqlite3
+media/

@@ -1,0 +1,113 @@
+/* Typography */
+
+*{
+    font-family: "Inter", sans-serif;
+}
+
+h1{
+    font-size: 48px;
+    font-weight: 600;
+}
+h1{
+    font-size: 32px;
+    font-weight: 500;
+}
+.text-secondary-sm{
+    color: #6e6e6e;
+    font-size: 12px;
+}
+.text-secondary-md{
+    color: #6e6e6e;
+    font-size: 14px;
+}
+/* Buttons */
+
+.btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 4px;
+    outline: none !important;
+    border: 0;
+    line-height: 0;
+
+}
+
+.btn-black{
+    background-color: #000;
+    color: white;
+}
+.btn-black:hover{
+    background-color: var(--accent-hover);
+}
+.btn-black:active{
+    background-color: var(--accent-active);
+}
+.btn-red{
+    background-color: #a71f1f;
+    color: #fff;
+}
+.btn-red:hover{
+    background-color: #af2b2b;
+}
+.btn-red:active{
+    background-color: #c32525;
+}
+.btn-md{
+    height: 28px;
+    width: fit-content;
+    padding: 0 12px;
+}
+
+.btn-square{
+    height: 24px;
+    width: 24px;
+}
+
+.svg-button{
+    border-radius: 3px;
+    user-select: none;
+    cursor: pointer;
+}
+.svg-button:hover{
+    background-color: #b6b6b6;
+    transition: all 0.3s ease-in-out;
+}
+
+.card-svg-button{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.svg-button:active{
+    background-color: #f1f1f1;
+    transition: all 0.3s ease-in-out;
+}
+
+
+
+/* Cards */
+.cards{
+    display: flex;
+    gap:16px;
+    flex-wrap: wrap;
+}
+.card{
+    position: relative;
+    width: 180px;
+    height: 280px;
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.card>img{
+    height: 200px;
+    width: fit-content;
+}
